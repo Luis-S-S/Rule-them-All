@@ -1,23 +1,25 @@
-import { useState, useEffect } from 'react';
-import { getAllDocs } from './services/firestore';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import About from './pages/About';
+import Profile from './pages/Profile';
+
+import Header from './sections/Header';
+import Footer from './sections/Footer';
+
 import './App.scss';
 
 function App() {
-  const [docs, setDocs] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    getAllDocs('users')
-      .then((res) => setDocs(res))
-      .catch((err) => setError(err));
-  }, []);
-
   return (
-    <div className="App">
-      <h1>Hola mundo!</h1>
-      {docs.map((doc) => <p key={doc.id}>{`${doc.username} ${doc.id}`}</p>)}
-      {error && (<p>{error.message}</p>)}
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile/:id" element={<Profile />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
