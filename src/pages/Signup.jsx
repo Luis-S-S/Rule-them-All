@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Context } from '../store';
+import { setIntercept } from '../store/actions';
 import { createAuthWithEmailAndPassword } from '../services/authentication';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 
 export default function SignUp() {
+  const { dispatch } = useContext(Context);
   const [form, setForm] = useState({});
-  const navigate = useNavigate();
 
   const handlerOnChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,11 +17,20 @@ export default function SignUp() {
     e.preventDefault();
     const res = await createAuthWithEmailAndPassword(form.email, form.password);
     if (!res.accessToken) {
-      // Show error
-      console.log(res);
+      const payload = {
+        title: 'Error',
+        message: 'Invalid email or password',
+        navigation: -1,
+      };
+      dispatch(setIntercept(payload));
     } else {
-      // Show success
-      navigate('/');
+      const payload = {
+        title: 'Success',
+        message: 'You have successfully signed up',
+        navigation: '/',
+      };
+      localStorage.setItem('user', res.accessToken);
+      dispatch(setIntercept(payload));
     }
   };
 

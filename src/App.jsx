@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useContext } from 'react';
+import { Context } from './store';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -8,11 +10,24 @@ import SignUp from './pages/Signup';
 import Header from './sections/Header';
 import Footer from './sections/Footer';
 
+import Intercept from './components/Intercept/Intercept';
+
 import './App.scss';
 
 function App() {
+  const { state } = useContext(Context);
+  const { intercept } = state;
+  console.log('state: ', state);
+
   return (
     <BrowserRouter>
+      {intercept && (
+        <Intercept
+          title={intercept.title}
+          message={intercept.message}
+          navigation={intercept.navigation}
+        />
+      )}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

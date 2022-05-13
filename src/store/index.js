@@ -4,7 +4,7 @@ import { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { reducer, initialState } from './reducer';
 
-const Context = createContext();
+export const Context = createContext();
 
 export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);

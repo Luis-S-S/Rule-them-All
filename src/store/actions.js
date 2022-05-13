@@ -1,9 +1,10 @@
-const setIntercept = (title, message, navigation) => ({
-  action: 'SET_INTERCEPT', title, message, navigation,
+const setIntercept = ({ title, message, navigation }) => ({
+  type: 'SET_INTERCEPT',
+  payload: { title, message, navigation },
 });
 
 const removeIntercept = () => ({
-  action: 'REMOVE_INTERCEPT',
+  type: 'REMOVE_INTERCEPT',
 });
 
 export { setIntercept, removeIntercept };

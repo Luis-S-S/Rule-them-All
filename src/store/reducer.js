@@ -4,14 +4,15 @@ const initialState = {
 };
 
 function reducer(state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case 'SET_INTERCEPT':
       return {
         ...state,
         intercept: {
-          title: action.title,
-          message: action.message,
-          navigation: action.navigation,
+          title: payload.title,
+          message: payload.message,
+          navigation: payload.navigation,
         },
       };
     case 'REMOVE_INTERCEPT':
