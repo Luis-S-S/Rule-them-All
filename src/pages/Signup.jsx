@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createAuthWithEmailAndPassword } from '../services/authentication';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 
 export default function SignUp() {
   const [form, setForm] = useState({});
+  const navigate = useNavigate();
 
   const handlerOnChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,7 +15,13 @@ export default function SignUp() {
   const handlerSubmit = async (e) => {
     e.preventDefault();
     const res = await createAuthWithEmailAndPassword(form.email, form.password);
-    localStorage.setItem('token', res.user.accessToken);
+    if (!res.accessToken) {
+      // Show error
+      console.log(res);
+    } else {
+      // Show success
+      navigate('/');
+    }
   };
 
   return (

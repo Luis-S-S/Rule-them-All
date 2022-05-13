@@ -1,9 +1,11 @@
 import {
   getFirestore,
+  collection,
   doc,
   getDoc,
   getDocs,
-  collection,
+  setDoc,
+  addDoc,
 } from 'firebase/firestore';
 import { app } from '../config/firebase';
 
@@ -53,8 +55,28 @@ async function getDocById(collectionName, id) {
   return 'No such document!';
 }
 
+/**
+ *
+ * @param {Object} data  Body of the document
+ * @param {String} collectionName Collection in whch the document will be added
+ * @param {String} newId [optional] If not provided, a new id will be generated
+ * @returns {VoidFunction}
+ */
+async function createDoc(data, collectionName, newId) {
+  let res;
+  if (newId) {
+    const docRef = doc(db, collectionName, newId);
+    res = await setDoc(docRef, data);
+  } else {
+    const collectionRef = collection(db, collectionName);
+    res = await addDoc(collectionRef, data);
+  }
+  return res;
+}
+
 export {
   getAllDocs,
   getAllDocsNoId,
   getDocById,
+  createDoc,
 };
