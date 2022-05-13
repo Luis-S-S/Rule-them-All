@@ -30,14 +30,14 @@ export default function Login() {
           navigation: '/login',
           buttonMsg: 'Continue',
         }));
-      } else if (!user.username) {
-        dispatch(setIntercept({
-          title: 'Success', message: 'Complete sign up process', navigation: '/signup_detail', buttonMsg: 'Finish sign up',
-        }));
       } else {
+        localStorage.setItem('userToken', userCredential.user.accessToken);
         dispatch(setUser(user));
         dispatch(setIntercept({
-          title: 'Success', message: 'Login successful', navigation: '/', buttonMsg: 'Continue',
+          title: 'Success',
+          message: user.username ? 'Login successful' : 'Complete sign up process',
+          navigation: user.username ? '/' : '/signup_detail',
+          buttonMsg: user.username ? 'Continue' : 'Finish sign up',
         }));
       }
     } catch (error) {

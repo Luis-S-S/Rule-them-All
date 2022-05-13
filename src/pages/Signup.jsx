@@ -26,7 +26,6 @@ export default function SignUp() {
     }
     const user = await createDocOnEmailSignup(form.email, form.password);
     if (user.accessToken) {
-      localStorage.setItem('userToken', user.accessToken);
       dispatch(setIntercept({
         title: 'Success',
         message: 'Sign up successful, please check your inbox or spam folder to verify your email',

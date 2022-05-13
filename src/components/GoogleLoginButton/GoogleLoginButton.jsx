@@ -25,10 +25,8 @@ export default function GoogleLoginButton({ children, isLogin }) {
             await createDocWithId({ email: userCredential?.user.email }, 'users', userCredential?.user.uid);
             userDoc = await getDocById('users', userCredential?.user.uid);
           }
-          if (userDoc.username) {
-            dispatch(setUser(userDoc));
-            localStorage.setItem('userToken', userCredential?.user.accessToken);
-          }
+          localStorage.setItem('userToken', userCredential?.user.accessToken);
+          dispatch(setUser(userDoc));
           dispatch(setIntercept({
             title: 'Success',
             message: `${messageType} with Google successful`,
