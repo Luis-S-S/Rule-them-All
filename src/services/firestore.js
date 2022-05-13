@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   doc,
   getDoc,
@@ -7,9 +6,7 @@ import {
   setDoc,
   addDoc,
 } from 'firebase/firestore';
-import { app } from '../config/firebase';
-
-const db = getFirestore(app);
+import { db } from '../config/firebase';
 
 /**
  * Get all documents from the database

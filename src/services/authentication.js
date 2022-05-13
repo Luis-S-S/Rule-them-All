@@ -1,14 +1,14 @@
 import {
-  getAuth,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithRedirect,
 } from 'firebase/auth';
 
+import { auth } from '../config/firebase';
 import { createDocWithId } from './firestore';
 
-import { app } from '../config/firebase';
-
-const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 /**
  * Function validates already used email or weak passwords
@@ -27,4 +27,6 @@ export async function createDocOnEmailSignup(email, password) {
   }
 }
 
-export { auth };
+export async function googleLoginWithRedirect() {
+  await signInWithRedirect(auth, googleProvider);
+}

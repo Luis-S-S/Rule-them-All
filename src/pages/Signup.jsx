@@ -1,12 +1,13 @@
-import { useState, useContext, useEffect } from 'react';
-import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { useState, useContext } from 'react';
+
 import { Context } from '../store';
 import { setIntercept } from '../store/actions';
+
+import { isSignupComplete } from '../services/firestore';
 import { createDocOnEmailSignup } from '../services/authentication';
-import { auth, googleProvider } from '../services/googleAuth';
-import { createDocWithId, isSignupComplete, getDocById } from '../services/firestore';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
+import GoogleLoginButton from '../components/GoogleLoginButton/GoogleLoginButton';
 
 export default function SignUp() {
   const { dispatch } = useContext(Context);
@@ -16,7 +17,7 @@ export default function SignUp() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handlerOnSubmit = async (e) => {
+  const handlerEmailSignup = async (e) => {
     e.preventDefault();
     const user = await createDocOnEmailSignup(form.email, form.password);
     if (user.accessToken) {
@@ -27,32 +28,6 @@ export default function SignUp() {
       dispatch(setIntercept({ title: 'Error', message: 'Signup failed', navigation: '/signup' }));
     }
   };
-
-  const handlerGoogleLogin = async () => {
-    await signInWithRedirect(auth, googleProvider);
-  };
-
-  useEffect(() => {
-    async function googleLoginResult() {
-      const result = await getRedirectResult(auth);
-      if (result) {
-        try {
-          const docExists = await getDocById('users', result?.user.uid);
-          if (!docExists) {
-            await createDocWithId({ email: result?.user.email }, 'users', result?.user.uid);
-          }
-          const isComplete = await isSignupComplete(result?.user.uid);
-          dispatch(setIntercept({ title: 'Success', message: 'Signup successful', navigation: isComplete ? '/' : '/signup_detail' }));
-        } catch (error) {
-          dispatch(setIntercept({ title: 'Error', message: 'Signup with Google failed', navigation: '/signup' }));
-        }
-      }
-
-      return result?.user;
-    }
-
-    googleLoginResult();
-  }, []);
 
   return (
     <div className="signup-container">
@@ -69,11 +44,9 @@ export default function SignUp() {
             <input type="password" name="password" id="password" onChange={handlerOnChange} />
           </label>
         </div>
-        <ButtonPrimary isSubmit={false} onClick={handlerGoogleLogin}>
-          Sign up with Google
-        </ButtonPrimary>
-        <ButtonPrimary isSubmit onClick={handlerOnSubmit}>Sign up</ButtonPrimary>
+        <ButtonPrimary isSubmit onClick={handlerEmailSignup}>Sign up</ButtonPrimary>
       </form>
+      <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
     </div>
   );
 }
