@@ -2,9 +2,9 @@ import { useState, useContext, useEffect } from 'react';
 import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { Context } from '../store';
 import { setIntercept } from '../store/actions';
-import { createAuthWithEmailAndPassword } from '../services/authentication';
+import { createDocOnEmailSignup } from '../services/authentication';
 import { auth, googleProvider } from '../services/googleAuth';
-import { createDoc } from '../services/firestore';
+import { createDocWithId, isSignupComplete, getDocById } from '../services/firestore';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 
@@ -16,38 +16,39 @@ export default function SignUp() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handlerOnSubmit = async (e) => {
+    e.preventDefault();
+    const user = await createDocOnEmailSignup(form.email, form.password);
+    if (user.accessToken) {
+      localStorage.setItem('userToken', user.accessToken);
+      const isComplete = await isSignupComplete(user.uid);
+      dispatch(setIntercept({ title: 'Success', message: 'Signup successful', navigation: isComplete ? '/' : '/signup_detail' }));
+    } else {
+      dispatch(setIntercept({ title: 'Error', message: 'Signup failed', navigation: '/signup' }));
+    }
+  };
+
   const handlerGoogleLogin = async () => {
     await signInWithRedirect(auth, googleProvider);
   };
 
-  const handlerSubmit = async (e) => {
-    e.preventDefault();
-    const res = await createAuthWithEmailAndPassword(form.email, form.password);
-    if (!res.accessToken) {
-      const payload = {
-        title: 'Error',
-        message: 'Invalid email or password',
-        navigation: '/signup',
-      };
-      dispatch(setIntercept(payload));
-    } else {
-      const payload = {
-        title: 'Success',
-        message: 'You have successfully signed up',
-        navigation: '/signup_detail',
-      };
-      localStorage.setItem('user', res.accessToken);
-      dispatch(setIntercept(payload));
-    }
-  };
-
   useEffect(() => {
     async function googleLoginResult() {
-      const response = await getRedirectResult(auth);
-      console.log(response?.user);
-      if (response?.user) {
-        await createDoc({ email: response.user.email }, 'users', response.user.uid);
+      const result = await getRedirectResult(auth);
+      if (result) {
+        try {
+          const docExists = await getDocById('users', result?.user.uid);
+          if (!docExists) {
+            await createDocWithId({ email: result?.user.email }, 'users', result?.user.uid);
+          }
+          const isComplete = await isSignupComplete(result?.user.uid);
+          dispatch(setIntercept({ title: 'Success', message: 'Signup successful', navigation: isComplete ? '/' : '/signup_detail' }));
+        } catch (error) {
+          dispatch(setIntercept({ title: 'Error', message: 'Signup with Google failed', navigation: '/signup' }));
+        }
       }
+
+      return result?.user;
     }
 
     googleLoginResult();
@@ -71,7 +72,7 @@ export default function SignUp() {
         <ButtonPrimary isSubmit={false} onClick={handlerGoogleLogin}>
           Sign up with Google
         </ButtonPrimary>
-        <ButtonPrimary isSubmit onClick={handlerSubmit}>Sign up</ButtonPrimary>
+        <ButtonPrimary isSubmit onClick={handlerOnSubmit}>Sign up</ButtonPrimary>
       </form>
     </div>
   );
