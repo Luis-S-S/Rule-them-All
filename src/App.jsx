@@ -1,6 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+
 import { Context } from './store';
+import { setUser } from './store/actions';
+
+import { auth } from './config/firebase';
+import { getDocById } from './services/firestore';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -17,8 +23,17 @@ import Intercept from './components/Intercept/Intercept';
 import './App.scss';
 
 function App() {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const { intercept } = state;
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = await getDocById('users', user.uid);
+        dispatch(setUser(userDoc));
+      }
+    });
+  }, []);
 
   return (
     <BrowserRouter>

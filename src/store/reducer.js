@@ -12,6 +12,11 @@ function reducer(state = initialState, action) {
         ...state,
         user: { ...payload },
       };
+    case 'CLEAR_USER':
+      return {
+        ...state,
+        user: null,
+      };
     case 'SET_INTERCEPT':
       return {
         ...state,
