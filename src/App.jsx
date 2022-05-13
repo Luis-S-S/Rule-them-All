@@ -7,6 +7,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import SignupDetail from './pages/SignupDetail';
+import Login from './pages/Login';
 
 import Header from './sections/Header';
 import Footer from './sections/Footer';
@@ -26,6 +27,7 @@ function App() {
           title={intercept.title}
           message={intercept.message}
           navigation={intercept.navigation}
+          buttonMsg={intercept.buttonMsg}
         />
       )}
       <Header />
@@ -35,6 +37,7 @@ function App() {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup_detail" element={<SignupDetail />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>

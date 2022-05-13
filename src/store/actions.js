@@ -1,10 +1,17 @@
-const setIntercept = ({ title, message, navigation }) => ({
+export const setIntercept = ({
+  title, message, navigation, buttonMsg,
+}) => ({
   type: 'SET_INTERCEPT',
-  payload: { title, message, navigation },
+  payload: {
+    title, message, navigation, buttonMsg,
+  },
 });
 
-const removeIntercept = () => ({
+export const removeIntercept = () => ({
   type: 'REMOVE_INTERCEPT',
 });
 
-export { setIntercept, removeIntercept };
+export const setUser = (user) => ({
+  type: 'SET_USER',
+  payload: { ...user },
+});

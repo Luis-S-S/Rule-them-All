@@ -39,7 +39,7 @@ async function getAllDocsNoId(collectionName) {
  * Get a document from the database
  * @param {String} collectionName
  * @param {String} id
- * @returns A document if it exists, otherwise returns false
+ * @returns {Object} A document if it exists, otherwise returns false
  */
 async function getDocById(collectionName, id) {
   const docRef = doc(db, collectionName, id);
@@ -57,7 +57,7 @@ async function getDocById(collectionName, id) {
  * @param {Object} data Object with the data to be updated in the database
  * @param {String} collectionName Collection name
  * @param {String} id Document id
- * @returns Creates a document with the id provided if it doesn't exist
+ * @returns {Void} Creates a document with the id provided if it doesn't exist
  */
 async function createDocWithId(data, collectionName, id) {
   const docRef = doc(db, collectionName, id);
@@ -77,25 +77,10 @@ async function createDoc(data, collectionName) {
   return res;
 }
 
-/**
- *
- * @param {String} id user id to be evaluated
- * @returns true if the user information is complete, false otherwise
- */
-async function isSignupComplete(id) {
-  const result = await getDocById('users', id);
-  if (result) {
-    return result?.username;
-  }
-
-  return false;
-}
-
 export {
   getAllDocs,
   getAllDocsNoId,
   getDocById,
   createDoc,
   createDocWithId,
-  isSignupComplete,
 };

@@ -3,35 +3,44 @@ import { getRedirectResult } from 'firebase/auth';
 import PropTypes from 'prop-types';
 
 import { Context } from '../../store';
-import { setIntercept } from '../../store/actions';
+import { setIntercept, setUser } from '../../store/actions';
 
 import { auth } from '../../config/firebase';
 import { googleLoginWithRedirect } from '../../services/authentication';
-import { createDocWithId, isSignupComplete, getDocById } from '../../services/firestore';
+import { createDocWithId, getDocById } from '../../services/firestore';
 
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 
-export default function GoogleLoginButton({ children }) {
+export default function GoogleLoginButton({ children, isLogin }) {
   const { dispatch } = useContext(Context);
+  const messageType = isLogin ? 'Login' : 'Sign up';
 
   useEffect(() => {
     async function googleLoginResult() {
-      const result = await getRedirectResult(auth);
-      if (result) {
+      const userCredential = await getRedirectResult(auth);
+      if (userCredential) {
         try {
-          const docExists = await getDocById('users', result?.user.uid);
-          if (!docExists) {
-            await createDocWithId({ email: result?.user.email }, 'users', result?.user.uid);
+          let userDoc = await getDocById('users', userCredential?.user.uid);
+          if (!userDoc) {
+            await createDocWithId({ email: userCredential?.user.email }, 'users', userCredential?.user.uid);
+            userDoc = await getDocById('users', userCredential?.user.uid);
           }
-          localStorage.setItem('userToken', result?.user.accessToken);
-          const isComplete = await isSignupComplete(result?.user.uid);
-          dispatch(setIntercept({ title: 'Success', message: 'Signup successful', navigation: isComplete ? '/' : '/signup_detail' }));
+          if (userDoc.username) {
+            dispatch(setUser(userDoc));
+            localStorage.setItem('userToken', userCredential?.user.accessToken);
+          }
+          dispatch(setIntercept({
+            title: 'Success',
+            message: `${messageType} with Google successful`,
+            navigation: userDoc.username ? '/' : '/signup_detail',
+            buttonMsg: userDoc.username ? 'Continue' : 'Finish sign up',
+          }));
         } catch (error) {
-          dispatch(setIntercept({ title: 'Error', message: 'Signup with Google failed', navigation: '/signup' }));
+          dispatch(setIntercept({
+            title: 'Error', message: `${messageType} with Google failed`, navigation: '/signup', buttonMsg: 'Try again',
+          }));
         }
       }
-
-      return result?.user;
     }
 
     googleLoginResult();
@@ -46,4 +55,5 @@ export default function GoogleLoginButton({ children }) {
 
 GoogleLoginButton.propTypes = {
   children: PropTypes.node.isRequired,
+  isLogin: PropTypes.bool.isRequired,
 };

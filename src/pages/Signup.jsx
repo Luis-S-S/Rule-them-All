@@ -3,7 +3,6 @@ import { useState, useContext } from 'react';
 import { Context } from '../store';
 import { setIntercept } from '../store/actions';
 
-import { isSignupComplete } from '../services/firestore';
 import { createDocOnEmailSignup } from '../services/authentication';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
@@ -22,10 +21,16 @@ export default function SignUp() {
     const user = await createDocOnEmailSignup(form.email, form.password);
     if (user.accessToken) {
       localStorage.setItem('userToken', user.accessToken);
-      const isComplete = await isSignupComplete(user.uid);
-      dispatch(setIntercept({ title: 'Success', message: 'Signup successful', navigation: isComplete ? '/' : '/signup_detail' }));
+      dispatch(setIntercept({
+        title: 'Success',
+        message: 'Sign up successful, please check your inbox or spam folder to verify your email',
+        navigation: '/login',
+        buttonMsg: 'Continue',
+      }));
     } else {
-      dispatch(setIntercept({ title: 'Error', message: 'Signup failed', navigation: '/signup' }));
+      dispatch(setIntercept({
+        title: 'Error', message: 'Sign up failed', navigation: '/signup', buttonMsg: 'Try again',
+      }));
     }
   };
 
@@ -46,7 +51,7 @@ export default function SignUp() {
         </div>
         <ButtonPrimary isSubmit onClick={handlerEmailSignup}>Sign up</ButtonPrimary>
       </form>
-      <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
+      <GoogleLoginButton isLogin={false}>Sign up with Google</GoogleLoginButton>
     </div>
   );
 }
