@@ -18,6 +18,12 @@ export default function SignUp() {
 
   const handlerEmailSignup = async (e) => {
     e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      dispatch(setIntercept({
+        title: 'Error', message: 'Password and confirm password are the same', navigation: '/signup', buttonMsg: 'Try again',
+      }));
+      return null;
+    }
     const user = await createDocOnEmailSignup(form.email, form.password);
     if (user.accessToken) {
       localStorage.setItem('userToken', user.accessToken);
@@ -32,6 +38,7 @@ export default function SignUp() {
         title: 'Error', message: 'Sign up failed', navigation: '/signup', buttonMsg: 'Try again',
       }));
     }
+    return null;
   };
 
   return (
@@ -47,6 +54,12 @@ export default function SignUp() {
           <label htmlFor="password">
             Password
             <input type="password" name="password" id="password" onChange={handlerOnChange} />
+          </label>
+        </div>
+        <div className="form__control">
+          <label htmlFor="confirmPassword">
+            Confirm Password
+            <input type="password" name="confirmPassword" id="confirmPassword" onChange={handlerOnChange} />
           </label>
         </div>
         <ButtonPrimary isSubmit onClick={handlerEmailSignup}>Sign up</ButtonPrimary>
