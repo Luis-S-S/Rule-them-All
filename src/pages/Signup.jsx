@@ -1,7 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { Context } from '../store';
 import { setIntercept } from '../store/actions';
 import { createAuthWithEmailAndPassword } from '../services/authentication';
+import { auth, googleProvider } from '../services/googleAuth';
+import { createDoc } from '../services/firestore';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 
@@ -11,6 +14,10 @@ export default function SignUp() {
 
   const handlerOnChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handlerGoogleLogin = async () => {
+    await signInWithRedirect(auth, googleProvider);
   };
 
   const handlerSubmit = async (e) => {
@@ -34,6 +41,18 @@ export default function SignUp() {
     }
   };
 
+  useEffect(() => {
+    async function googleLoginResult() {
+      const response = await getRedirectResult(auth);
+      console.log(response?.user);
+      if (response?.user) {
+        await createDoc({ email: response.user.email }, 'users', response.user.uid);
+      }
+    }
+
+    googleLoginResult();
+  }, []);
+
   return (
     <div className="signup-container">
       <form className="signup-form">
@@ -49,6 +68,9 @@ export default function SignUp() {
             <input type="password" name="password" id="password" onChange={handlerOnChange} />
           </label>
         </div>
+        <ButtonPrimary isSubmit={false} onClick={handlerGoogleLogin}>
+          Sign up with Google
+        </ButtonPrimary>
         <ButtonPrimary isSubmit onClick={handlerSubmit}>Sign up</ButtonPrimary>
       </form>
     </div>
