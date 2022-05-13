@@ -20,14 +20,14 @@ export default function SignUp() {
       const payload = {
         title: 'Error',
         message: 'Invalid email or password',
-        navigation: -1,
+        navigation: '/signup',
       };
       dispatch(setIntercept(payload));
     } else {
       const payload = {
         title: 'Success',
         message: 'You have successfully signed up',
-        navigation: '/',
+        navigation: '/signup_detail',
       };
       localStorage.setItem('user', res.accessToken);
       dispatch(setIntercept(payload));

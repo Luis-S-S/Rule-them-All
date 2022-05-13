@@ -5,7 +5,8 @@ import { Context } from './store';
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
-import SignUp from './pages/Signup';
+import Signup from './pages/Signup';
+import SignupDetail from './pages/SignupDetail';
 
 import Header from './sections/Header';
 import Footer from './sections/Footer';
@@ -17,7 +18,6 @@ import './App.scss';
 function App() {
   const { state } = useContext(Context);
   const { intercept } = state;
-  console.log('state: ', state);
 
   return (
     <BrowserRouter>
@@ -33,7 +33,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup_detail" element={<SignupDetail />} />
       </Routes>
       <Footer />
     </BrowserRouter>
