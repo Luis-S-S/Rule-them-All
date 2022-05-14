@@ -12,6 +12,7 @@ import { createDocWithId, getDocById } from '../../services/firestore';
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 
 export default function GoogleLoginButton({ children, isLogin }) {
+  const defaultAvatar = 'https://res.cloudinary.com/dt7ptke8d/image/upload/c_scale,w_150/v1652478967/logo-light--bw_virbfz.png';
   const { dispatch } = useContext(Context);
   const messageType = isLogin ? 'Login' : 'Sign up';
 
@@ -22,7 +23,7 @@ export default function GoogleLoginButton({ children, isLogin }) {
         try {
           let userDoc = await getDocById('users', userCredential?.user.uid);
           if (!userDoc) {
-            await createDocWithId({ email: userCredential?.user.email }, 'users', userCredential?.user.uid);
+            await createDocWithId({ email: userCredential?.user.email, avatar: defaultAvatar }, 'users', userCredential?.user.uid);
             userDoc = await getDocById('users', userCredential?.user.uid);
           }
           localStorage.setItem('userToken', userCredential?.user.accessToken);

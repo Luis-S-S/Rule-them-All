@@ -26,6 +26,8 @@ function App() {
   const { state, dispatch } = useContext(Context);
   const { intercept } = state;
 
+  // console.log(state);
+
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {

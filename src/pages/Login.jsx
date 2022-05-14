@@ -5,10 +5,11 @@ import { Context } from '../store';
 import { setIntercept, setUser } from '../store/actions';
 
 import { auth } from '../config/firebase';
+import { getDocById } from '../services/firestore';
 
 import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 import GoogleLoginButton from '../components/GoogleLoginButton/GoogleLoginButton';
-import { getDocById } from '../services/firestore';
+import Input from '../components/Input/Input';
 
 export default function Login() {
   const [form, setForm] = useState({});
@@ -49,20 +50,10 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <form className="login-form">
-        <div className="form__control">
-          <label htmlFor="email">
-            Email
-            <input type="email" name="email" id="email" onChange={handlerOnChange} />
-          </label>
-        </div>
-        <div className="form__control">
-          <label htmlFor="password">
-            Password
-            <input id="password" name="password" type="password" onChange={handlerOnChange} />
-          </label>
-        </div>
-        <ButtonPrimary onClick={handlerEmailLogin} isSubmit>Login</ButtonPrimary>
+      <form className="login-form" onSubmit={handlerEmailLogin}>
+        <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} />
+        <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
+        <ButtonPrimary isSubmit>Login</ButtonPrimary>
       </form>
       <GoogleLoginButton isLogin>Login with Google</GoogleLoginButton>
     </div>

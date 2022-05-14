@@ -9,6 +9,7 @@ import { auth } from '../config/firebase';
 import { createDocWithId } from './firestore';
 
 const googleProvider = new GoogleAuthProvider();
+const defaultAvatar = 'https://res.cloudinary.com/dt7ptke8d/image/upload/c_scale,w_150/v1652478967/logo-light--bw_virbfz.png';
 
 /**
  * Function validates already used email or weak passwords
@@ -20,7 +21,7 @@ export async function createDocOnEmailSignup(email, password) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await sendEmailVerification(userCredential.user);
-    await createDocWithId({ email }, 'users', userCredential.user.uid);
+    await createDocWithId({ email, avatar: defaultAvatar }, 'users', userCredential.user.uid);
     return userCredential.user;
   } catch (error) {
     return error.message;
