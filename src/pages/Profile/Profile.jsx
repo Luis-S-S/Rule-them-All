@@ -1,3 +1,9 @@
+import './Profile.scss';
+
 export default function Profile() {
-  return <h1>Profile JSX</h1>;
+  return (
+    <div className="profile-page">
+      <h1>Profile JSX</h1>
+    </div>
+  );
 }
