@@ -1,7 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 // Colors
-$dominant: #962525;
-$secondary: #FF776C;
-$text: #F3EED9;
-$accent: #D1E7E0;
+$dominant: black;
+$secondary: white;
+$accent: #62388E;
+$grey: #333;
 
 // Fonts
+$text-font: 'Open Sans', sans-serif;
+
+// View height minus header height
+$fullScreen: calc(100vh - 120px);
+
+// Root Styles
+* {
+    font-family: $text-font;
+}
+
+// tags
+a {
+    text-decoration: none;
+}
+
+.button__transparent--generic {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+// forms
+.form__input--generic {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-family: 'Roboto', sans-serif;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+.form__input--generic:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__error--generic {
+    color: red;
+}
+
+// icons
+.google__icon {
+    width: 30px;
+}

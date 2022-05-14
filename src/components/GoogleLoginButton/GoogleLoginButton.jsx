@@ -23,7 +23,7 @@ export default function GoogleLoginButton({ children, isLogin }) {
         try {
           let userDoc = await getDocById('users', userCredential?.user.uid);
           if (!userDoc) {
-            await createDocWithId({ email: userCredential?.user.email, avatar: defaultAvatar }, 'users', userCredential?.user.uid);
+            await createDocWithId('users', userCredential?.user.uid, { email: userCredential?.user.email, avatar: defaultAvatar });
             userDoc = await getDocById('users', userCredential?.user.uid);
           }
           localStorage.setItem('userToken', userCredential?.user.accessToken);

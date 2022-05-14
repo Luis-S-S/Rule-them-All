@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './ButtonPrimary.scss';
 
 export default function ButtonPrimary({
   children, onClick, className, isSubmit,

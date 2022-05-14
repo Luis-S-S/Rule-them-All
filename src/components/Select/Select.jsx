@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './Select.scss';
 
 export default function Select(props) {
   const {
@@ -9,13 +10,13 @@ export default function Select(props) {
       <label htmlFor={name}>
         {labelText}
       </label>
-      <select name={name} id={name} onChange={onChange}>
+      <select className="form__select--generic" name={name} id={name} onChange={onChange}>
         <option value="">Select</option>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>
         ))}
       </select>
-      {error && <p className="form__error">{error}</p>}
+      {error && <p className="form__error--generic">{error}</p>}
     </div>
   );
 }

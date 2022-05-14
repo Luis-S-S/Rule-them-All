@@ -1,0 +1,80 @@
+@import '../../App.scss';
+
+.header__container {
+    align-items: center;
+    background-color: $dominant;
+    box-sizing: border-box;
+    display: flex;
+    height: 120px;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.header__left {
+    color: $secondary;
+}
+
+.header__menu {
+    width: 30px;
+}
+
+.collapse__menu {
+    box-sizing: border-box;
+    border: 3px solid $accent;
+    background-color: $dominant;
+    position: absolute;
+    top: 124px;
+    left: -250px;
+    padding: 1.5em;
+    border-radius: 10px;
+    max-width: 250px;
+    transition: left 0.3s ease-in-out;
+}
+
+.collapse__menu.active {
+    left: 20px;
+}
+
+.collapse__menu li {
+    box-sizing: border-box;
+    border-radius: 10px;
+    list-style: none;
+    margin: .5em 0;
+    min-width: 100px;
+    padding: 0 .75em;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.collapse__menu li a, .header__right a {
+    color: $secondary;
+}
+
+.collapse__menu li:hover {
+    background-color: $accent;
+}
+
+.header__logo {
+    width: 120px;
+}
+
+.header__right {
+    padding: 0 .25em;
+}
+
+.header__right button {
+    background-color: transparent;
+    color: $secondary;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.header__right a:hover, .header__right button:hover {
+    color: $accent;
+}
+
+@media (min-width: 768px) {
+    .header__logo {
+        width: 150px;
+    }
+}

@@ -1,7 +1,11 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { Context } from '../../store';
+
+import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+
 import './Intercept.scss';
 
 export default function Intercept(props) {
@@ -21,7 +25,7 @@ export default function Intercept(props) {
       <div className="intercept__container">
         <h1 className="intercept__title">{title}</h1>
         <p className="intercept__body">{message}</p>
-        <button className="intercept__button" type="button" onClick={handleRemoveIntercept}>{buttonMsg}</button>
+        <ButtonPrimary isSubmit={false} onClick={handleRemoveIntercept}>{buttonMsg}</ButtonPrimary>
       </div>
     </div>
   );

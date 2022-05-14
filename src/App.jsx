@@ -8,15 +8,15 @@ import { setUser } from './store/actions';
 import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
 
-import Home from './pages/Home';
-import About from './pages/About';
-import Profile from './pages/Profile';
-import Signup from './pages/Signup';
-import SignupDetail from './pages/SignupDetail';
-import Login from './pages/Login';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import Profile from './pages/Profile/Profile';
+import Signup from './pages/Signup/Signup';
+import SignupDetail from './pages/SignupDetail/SignupDetail';
+import Login from './pages/Login/Login';
 
-import Header from './sections/Header';
-import Footer from './sections/Footer';
+import Header from './sections/Header/Header';
+import Footer from './sections/Footer/Footer';
 
 import Intercept from './components/Intercept/Intercept';
 
