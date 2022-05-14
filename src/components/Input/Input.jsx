@@ -16,7 +16,7 @@ export default function Input(props) {
       <label htmlFor={name}>
         {labelText}
       </label>
-      <input className="form__input" type={type} name={name} id={name} onChange={onChange} />
+      <input className="form__input--generic" type={type} name={name} id={name} onChange={onChange} />
       {error && <p className="form__error">{error}</p>}
     </div>
   );

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import './TeammateListItem.scss';
 
 export default function TeammateListItem({ teammate, onRemove }) {
   return (

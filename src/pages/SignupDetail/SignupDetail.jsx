@@ -10,6 +10,7 @@ import Select from '../../components/Select/Select';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
 import TeammateListItem from '../../components/TeammateListItem/TeammateListItem';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import './SignupDetail.scss';
 
 export default function SignupDetail() {
   const [form, setForm] = useState(null);
@@ -67,36 +68,40 @@ export default function SignupDetail() {
   };
 
   return (
-    <div className="signupdetail__container">
-      <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
-        <h1 className="form__title">Complete Signup</h1>
-        <Input type="text" name="username" labelText="Username" onChange={handlerOnChange} error={null} />
-        {/* Verificar que el username sea unico */}
-        <Select name="type" labelText="Type of account" onChange={handlerOnChange} options={['gamer', 'team']} />
-        {form?.type === 'team' && (
-          <div>
-            <DataListSearch
-              name="stagging"
-              labelText="Add your teammates"
-              onChange={searchOnChange}
-              options={usernameList}
-              error={null}
-            />
-            <ButtonPrimary isSubmit={false} onClick={handlerAddTeammates}>
-              Add teammate
-            </ButtonPrimary>
-            <h3 className="teammates__title">Teammates</h3>
-            {teammates.length > 0 ? (
-              teammates.map((teammate) => (
-                <TeammateListItem teammate={teammate} onRemove={handlerRemoveTeammates} />
-              ))
-            ) : (
-              <div>No teammates added</div>
-            )}
-          </div>
-        )}
-        <ButtonPrimary isSubmit>Sign up</ButtonPrimary>
-      </form>
+    <div className="signupdetail__page">
+      <div className="signupdetail__container">
+        <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
+          <h1 className="form__title">Complete Signup</h1>
+          <Input type="text" name="username" labelText="Username" onChange={handlerOnChange} error={null} />
+          {/* Verificar que el username sea unico */}
+          <Select name="type" labelText="Type of account" onChange={handlerOnChange} options={['gamer', 'team']} />
+          {form?.type === 'team' && (
+            <div className="signupdetail__teammates">
+              <DataListSearch
+                name="stagging"
+                labelText="Add your teammates"
+                onChange={searchOnChange}
+                options={usernameList}
+                error={null}
+              />
+              <ButtonPrimary isSubmit={false} onClick={handlerAddTeammates}>
+                Add teammate
+              </ButtonPrimary>
+              <h3>Teammates</h3>
+              {teammates.length > 0 ? (
+                <div className="teammates__list">
+                  {teammates.map((teammate) => (
+                    <TeammateListItem teammate={teammate} onRemove={handlerRemoveTeammates} />
+                  ))}
+                </div>
+              ) : (
+                <h4>No teammates added</h4>
+              )}
+            </div>
+          )}
+          <ButtonPrimary isSubmit>Finish sign up</ButtonPrimary>
+        </form>
+      </div>
     </div>
   );
 }

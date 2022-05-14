@@ -9,7 +9,7 @@ export default function DataListSearch(props) {
   return (
     <div className="datalist__container">
       <label htmlFor={name}>{labelText}</label>
-      <input list={`list-${name}`} name={name} id={name} onChange={onChange} />
+      <input className="form__input--generic" list={`list-${name}`} name={name} id={name} onChange={onChange} />
       <datalist id={`list-${name}`}>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>

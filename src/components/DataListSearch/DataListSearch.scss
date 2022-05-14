@@ -1,1 +1,10 @@
+@import '../../App.scss';
 
+.datalist__container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+    justify-content: center;
+    margin: 10px 0;
+}
