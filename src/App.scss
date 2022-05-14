@@ -17,6 +17,10 @@ $fullScreen: calc(100vh - 120px);
     font-family: $text-font;
 }
 
+.disabled--generic {
+    cursor: not-allowed;
+}
+
 // tags
 a {
     text-decoration: none;
