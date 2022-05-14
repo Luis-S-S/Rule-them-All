@@ -1,0 +1,47 @@
+@import '../../App.scss';
+
+.footer__container {
+    align-items: center;
+    background-color: $dominant;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+
+.footer__information {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    min-width: 250px;
+    width: 40%;
+}
+
+.footer__title {
+    border-bottom: 2px solid $accent;
+    color: $secondary;
+    padding-bottom: 0.75em;
+    text-align: center;
+    width: 100%;
+}
+
+.footer__body {
+    color: $secondary;
+    margin: 0;
+    text-align: justify;
+}
+
+.social-media__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1em;
+}
+
+.social-media__icon {
+    width: 40px;
+}
+

@@ -40,6 +40,8 @@ export default function Header() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/">Tournaments</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>
       <div className="header__logo-container">
@@ -48,7 +50,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="header__right">
-        <Link to="/login">Login</Link>
+        <Link to="/signup">Join Us</Link>
       </div>
       {2 === 3 && (<button type="button" onClick={handlerSignout}>Sign out</button>)}
     </header>
