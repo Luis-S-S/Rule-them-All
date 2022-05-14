@@ -16,16 +16,38 @@ $fullScreen: calc(100vh - 120px);
 * {
     font-family: $text-font;
 }
+
+// tags
 a {
     text-decoration: none;
 }
 
-.r-button--transparent {
+.button__transparent--generic {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
+// forms
+.form__input--generic {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-family: 'Roboto', sans-serif;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+.form__input--generic:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__error--generic {
+    color: red;
+}
+
+// icons
 .google__icon {
     width: 30px;
 }

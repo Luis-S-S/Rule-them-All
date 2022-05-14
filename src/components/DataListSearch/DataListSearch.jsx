@@ -15,7 +15,7 @@ export default function DataListSearch(props) {
           <option key={option} value={option}>{option}</option>
         ))}
       </datalist>
-      {error && <p className="form__error">{error}</p>}
+      {error && <p className="form__error--generic">{error}</p>}
     </div>
 
   );

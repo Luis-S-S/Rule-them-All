@@ -7,17 +7,3 @@
     justify-content: center;
     margin: 10px 0;
 }
-
-.form__input--generic {
-    border-radius: 5px;
-    border: 1px solid $grey;
-    color: $grey;
-    font-family: 'Roboto', sans-serif;
-    padding: 5px 10px;
-    width: 200px;
-}
-
-.form__input--generic:focus {
-    border: 1px solid $accent;
-    outline: 2px solid $accent;
-}

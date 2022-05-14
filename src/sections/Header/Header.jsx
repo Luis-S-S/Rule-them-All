@@ -16,7 +16,7 @@ export default function Header() {
     localStorage.removeItem('userToken');
     dispatch(clearUser());
     dispatch(setIntercept({
-      title: 'You have been signed out',
+      title: 'Logging out',
       message: 'You have been signed out securely from your account',
       navigation: '/',
       buttonMsg: 'Acknowledge',
@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header className="header__container">
       <div className="header__left">
-        <button className="r-button--transparent" type="button" onClick={handlerCollapsableMenu} data-toggle-button>
+        <button className="button__transparent--generic" type="button" onClick={handlerCollapsableMenu} data-toggle-button>
           <img className="header__menu" src="/icons/burguer-menu-icon.svg" alt="Menu" data-toggle-image />
         </button>
         <ul className="collapse__menu">

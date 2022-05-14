@@ -14,9 +14,15 @@ import './Login.scss';
 
 export default function Login() {
   const [form, setForm] = useState({});
+  const [emailError, setEmailError] = useState(null);
   const { dispatch } = useContext(Context);
 
   const handlerOnChange = (e) => {
+    const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (e.target.name === 'email') {
+      const msg = emailRegExp.test(e.target.value) ? null : 'Invalid email';
+      setEmailError(msg);
+    }
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -44,7 +50,10 @@ export default function Login() {
       }
     } catch (error) {
       dispatch(setIntercept({
-        title: 'Error', message: 'Login failed', navigation: '/login', buttonMsg: 'Try again',
+        title: 'Login unsuccessful',
+        message: 'email or password incorrect',
+        navigation: '/login',
+        buttonMsg: 'Try again',
       }));
     }
   };
@@ -54,7 +63,7 @@ export default function Login() {
       <div className="login__container">
         <h1 className="login__title">Login</h1>
         <form className="login-form" onSubmit={handlerEmailLogin}>
-          <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} />
+          <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} error={emailError} />
           <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
           <ButtonPrimary isSubmit>Login</ButtonPrimary>
         </form>

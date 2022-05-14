@@ -16,7 +16,7 @@ export default function Select(props) {
           <option key={option} value={option}>{option}</option>
         ))}
       </select>
-      {error && <p className="form__error">{error}</p>}
+      {error && <p className="form__error--generic">{error}</p>}
     </div>
   );
 }
