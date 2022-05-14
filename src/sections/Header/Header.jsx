@@ -8,7 +8,8 @@ import { clearUser } from '../../store/actions';
 import './Header.scss';
 
 export default function Header() {
-  const { dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
 
   const handlerSignout = () => {
     auth.signOut();
@@ -40,7 +41,7 @@ export default function Header() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/">Tournaments</Link></li>
-          <li><Link to="/login">Login</Link></li>
+          {!user && (<li><Link to="/login">Login</Link></li>)}
           <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>
@@ -50,9 +51,12 @@ export default function Header() {
         </Link>
       </div>
       <div className="header__right">
-        <Link to="/signup">Join Us</Link>
+        {
+          !user
+            ? (<Link to="/signup">Join Us</Link>)
+            : (<button type="button" onClick={handlerSignout}>Sign out</button>)
+        }
       </div>
-      {2 === 3 && (<button type="button" onClick={handlerSignout}>Sign out</button>)}
     </header>
   );
 }

@@ -58,8 +58,10 @@
     width: 120px;
 }
 
-.header__right {
+.header__right button {
     color: $secondary;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {

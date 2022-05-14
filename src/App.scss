@@ -1,11 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 // Colors
 $dominant: black;
 $secondary: white;
 $accent: #62388E;
+$grey: #333;
 
 // Fonts
+$text-font: 'Open Sans', sans-serif;
+
+// View height minus header height
+$fullScreen: calc(100vh - 120px);
 
 // Root Styles
+* {
+    font-family: $text-font;
+}
 a {
     text-decoration: none;
 }
@@ -14,4 +24,8 @@ a {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.google__icon {
+    width: 30px;
 }

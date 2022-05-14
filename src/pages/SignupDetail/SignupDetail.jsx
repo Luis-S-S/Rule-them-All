@@ -1,15 +1,15 @@
 import { useState, useContext } from 'react';
 
-import { Context } from '../store';
-import { setUser, setIntercept } from '../store/actions';
+import { Context } from '../../store';
+import { setUser, setIntercept } from '../../store/actions';
 
-import { editDocById, getDocById, queryUserByUsername } from '../services/firestore';
+import { editDocById, getDocById, queryUserByUsername } from '../../services/firestore';
 
-import Input from '../components/Input/Input';
-import Select from '../components/Select/Select';
-import DataListSearch from '../components/DataListSearch/DataListSearch';
-import TeammateListItem from '../components/TeammateListItem/TeammateListItem';
-import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
+import Input from '../../components/Input/Input';
+import Select from '../../components/Select/Select';
+import DataListSearch from '../../components/DataListSearch/DataListSearch';
+import TeammateListItem from '../../components/TeammateListItem/TeammateListItem';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 
 export default function SignupDetail() {
   const [form, setForm] = useState(null);
@@ -45,7 +45,7 @@ export default function SignupDetail() {
 
   const handlerOnSubmit = async (e) => {
     e.preventDefault();
-    const updateUser = teammates.length > 0 ? { ...form, players: teammates } : form;
+    const updateUser = teammates.length > 0 && form.type === 'team' ? { ...form, players: teammates } : form;
     try {
       await editDocById('users', user.id, updateUser);
       const userDoc = await getDocById('users', user.id);

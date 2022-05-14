@@ -6,7 +6,7 @@ export default function TeammateListItem({ teammate, onRemove }) {
   return (
     <div className="teammate-list-item">
       <p className="teammate-item__name">{teammate}</p>
-      <ButtonPrimary isSubmit={false} onClick={() => onRemove(teammate)}>Remove</ButtonPrimary>
+      <ButtonPrimary isSubmit={false} onClick={() => onRemove(teammate)}>×</ButtonPrimary>
     </div>
   );
 }

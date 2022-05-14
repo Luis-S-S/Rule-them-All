@@ -1,15 +1,15 @@
 import { useState, useContext } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import { Context } from '../store';
-import { setIntercept, setUser } from '../store/actions';
+import { Context } from '../../store';
+import { setIntercept, setUser } from '../../store/actions';
 
-import { auth } from '../config/firebase';
-import { getDocById } from '../services/firestore';
+import { auth } from '../../config/firebase';
+import { getDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
-import GoogleLoginButton from '../components/GoogleLoginButton/GoogleLoginButton';
-import Input from '../components/Input/Input';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
+import Input from '../../components/Input/Input';
 
 export default function Login() {
   const [form, setForm] = useState({});
@@ -55,7 +55,10 @@ export default function Login() {
         <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
         <ButtonPrimary isSubmit>Login</ButtonPrimary>
       </form>
-      <GoogleLoginButton isLogin>Login with Google</GoogleLoginButton>
+      <GoogleLoginButton isLogin>
+        <img src="/icons/google-icon.svg" alt="Google" className="google__icon" />
+        Login with Google
+      </GoogleLoginButton>
     </div>
   );
 }
