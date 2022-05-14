@@ -1,14 +1,14 @@
 .intercept__bg {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .intercept__container {
@@ -29,4 +29,10 @@
     margin: 0;
 }
 
+.intercept__title {
+    text-align: center;
+}
 
+.intercept__body {
+    text-align: justify;
+}

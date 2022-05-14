@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 
 import { Context } from '../../store';
-import { clearUser } from '../../store/actions';
+import { clearUser, setIntercept } from '../../store/actions';
 
 import './Header.scss';
 
@@ -13,8 +13,14 @@ export default function Header() {
 
   const handlerSignout = () => {
     auth.signOut();
-    dispatch(clearUser());
     localStorage.removeItem('userToken');
+    dispatch(clearUser());
+    dispatch(setIntercept({
+      title: 'You have been signed out',
+      message: 'You have been signed out securely from your account',
+      navigation: '/',
+      buttonMsg: 'Acknowledge',
+    }));
   };
 
   const handlerCollapsableMenu = () => {
