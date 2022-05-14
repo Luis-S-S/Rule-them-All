@@ -10,6 +10,7 @@ import { getDocById } from '../../services/firestore';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
 import Input from '../../components/Input/Input';
+import './Login.scss';
 
 export default function Login() {
   const [form, setForm] = useState({});
@@ -49,16 +50,19 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handlerEmailLogin}>
-        <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} />
-        <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
-        <ButtonPrimary isSubmit>Login</ButtonPrimary>
-      </form>
-      <GoogleLoginButton isLogin>
-        <img src="/icons/google-icon.svg" alt="Google" className="google__icon" />
-        Login with Google
-      </GoogleLoginButton>
+    <div className="login-page">
+      <div className="login__container">
+        <h1 className="login__title">Login</h1>
+        <form className="login-form" onSubmit={handlerEmailLogin}>
+          <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} />
+          <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
+          <ButtonPrimary isSubmit>Login</ButtonPrimary>
+        </form>
+        <GoogleLoginButton isLogin>
+          <img src="/icons/google-icon.svg" alt="Google" className="google__icon" />
+          Login with Google
+        </GoogleLoginButton>
+      </div>
     </div>
   );
 }
