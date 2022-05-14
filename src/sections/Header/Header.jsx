@@ -46,8 +46,9 @@ export default function Header() {
         <ul className="collapse__menu">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/">Tournaments</Link></li>
+          <li><Link to="/tournaments">Tournaments</Link></li>
           {!user && (<li><Link to="/login">Login</Link></li>)}
+          {user && (<li><Link to="/profile">Profile</Link></li>)}
           <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>

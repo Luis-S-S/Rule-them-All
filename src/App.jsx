@@ -14,6 +14,7 @@ import Profile from './pages/Profile/Profile';
 import Signup from './pages/Signup/Signup';
 import SignupDetail from './pages/SignupDetail/SignupDetail';
 import Login from './pages/Login/Login';
+import Tournaments from './pages/Tournaments/Tournaments';
 
 import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
@@ -51,10 +52,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup_detail" element={<SignupDetail />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/tournaments" element={<Tournaments />} />
       </Routes>
       <Footer />
     </BrowserRouter>
