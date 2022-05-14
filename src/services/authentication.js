@@ -21,7 +21,7 @@ export async function createDocOnEmailSignup(email, password) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await sendEmailVerification(userCredential.user);
-    await createDocWithId({ email, avatar: defaultAvatar }, 'users', userCredential.user.uid);
+    await createDocWithId('users', userCredential.user.uid, { email, avatar: defaultAvatar });
     return userCredential.user;
   } catch (error) {
     return error.message;
