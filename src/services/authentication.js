@@ -18,14 +18,10 @@ const defaultAvatar = 'https://res.cloudinary.com/dt7ptke8d/image/upload/c_scale
  * @returns The new user created or an error if it fails
  */
 export async function createDocOnEmailSignup(email, password) {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    await sendEmailVerification(userCredential.user);
-    await createDocWithId('users', userCredential.user.uid, { email, avatar: defaultAvatar });
-    return userCredential.user;
-  } catch (error) {
-    return error.message;
-  }
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  await sendEmailVerification(userCredential.user);
+  await createDocWithId('users', userCredential.user.uid, { email, avatar: defaultAvatar });
+  return userCredential.user;
 }
 
 export async function googleLoginWithRedirect() {
