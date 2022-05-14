@@ -15,8 +15,8 @@ import Signup from './pages/Signup';
 import SignupDetail from './pages/SignupDetail';
 import Login from './pages/Login';
 
-import Header from './sections/Header';
-import Footer from './sections/Footer';
+import Header from './sections/Header/Header';
+import Footer from './sections/Footer/Footer';
 
 import Intercept from './components/Intercept/Intercept';
 

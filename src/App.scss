@@ -1,7 +1,17 @@
 // Colors
-$dominant: #962525;
-$secondary: #FF776C;
-$text: #F3EED9;
-$accent: #D1E7E0;
+$dominant: black;
+$secondary: white;
+$accent: #62388E;
 
 // Fonts
+
+// Root Styles
+a {
+    text-decoration: none;
+}
+
+.r-button--transparent {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
