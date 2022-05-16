@@ -17,6 +17,10 @@ $fullScreen: calc(100vh - 120px);
     font-family: $text-font;
 }
 
+.disabled--generic {
+    cursor: not-allowed;
+}
+
 // tags
 a {
     text-decoration: none;
@@ -29,11 +33,19 @@ a {
 }
 
 // forms
+.form__control--generic_input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
 .form__input--generic {
     border-radius: 5px;
     border: 1px solid $grey;
     color: $grey;
-    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     padding: 5px 10px;
     width: 200px;
 }
@@ -41,6 +53,33 @@ a {
 .form__input--generic:focus {
     border: 1px solid $accent;
     outline: 2px solid $accent;
+}
+
+.form__control--generic__select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form__select--generic {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 200;
+}
+
+.form__select--generic:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__control--generic__checkbox {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
 .form__error--generic {
