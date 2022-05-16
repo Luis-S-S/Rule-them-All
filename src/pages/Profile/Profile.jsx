@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { Context } from '../../store';
 import { setUser } from '../../store/actions';
@@ -7,10 +7,12 @@ import { editDocById, queryUserByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import CloudinaryWidget from '../../components/CloudinaryWidget/CloudinaryWidget';
 import './Profile.scss';
 
 export default function Profile() {
   const [username, setUsername] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [usernameErr, setUsernameErr] = useState(null);
   const { state, dispatch } = useContext(Context);
 
@@ -33,16 +35,22 @@ export default function Profile() {
     }
   };
 
-  const handleOnSubmitAvatar = async () => {
-    console.log('nothing');
+  const handleAvatarChange = async () => {
+    if (avatarUrl) {
+      await editDocById('users', state.user.id, { avatar: avatarUrl });
+      dispatch(setUser({ ...state.user, avatar: avatarUrl }));
+    }
   };
+
+  useEffect(() => {
+    handleAvatarChange();
+  }, [avatarUrl]);
 
   return (
     <div className="profile-page">
       <div className="profile-page__info">
-        <img src={state.user?.avatar} alt="profile" />
-        <input type="file" id="avatar" />
-        <ButtonPrimary onClick={handleOnSubmitAvatar} isSubmit={false}>Change avatar</ButtonPrimary>
+        <img className="profile-page__avatar" src={state.user?.avatar} alt="profile" />
+        <CloudinaryWidget folderName="users-avatar" setNewUrl={setAvatarUrl}>Change avatar</CloudinaryWidget>
         <Input
           type="text"
           name="username"
