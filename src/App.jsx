@@ -15,6 +15,7 @@ import Signup from './pages/Signup/Signup';
 import SignupDetail from './pages/SignupDetail/SignupDetail';
 import Login from './pages/Login/Login';
 import Tournaments from './pages/Tournaments/Tournaments';
+import NewTournament from './pages/NewTournament/NewTournament';
 
 import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
@@ -57,6 +58,7 @@ function App() {
         <Route path="/signup_detail" element={<SignupDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tournaments" element={<Tournaments />} />
+        <Route path="/create_tournament" element={<NewTournament />} />
       </Routes>
       <Footer />
     </BrowserRouter>

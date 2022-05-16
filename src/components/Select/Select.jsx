@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
-import './Select.scss';
 
 export default function Select(props) {
   const {
     name, labelText, onChange, options, error,
   } = props;
   return (
-    <div className="form__control">
+    <div className="form__control--generic__select">
       <label htmlFor={name}>
         {labelText}
       </label>
       <select className="form__select--generic" name={name} id={name} onChange={onChange}>
-        <option value="">Select</option>
+        <option value="">Choose an option</option>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>
         ))}

@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import './Input.scss';
-
 /**
  *
  * @param {Props} props receives the following
@@ -16,7 +14,7 @@ export default function Input(props) {
   const style = disabled ? 'form__input--generic disabled--generic' : 'form__input--generic';
 
   return (
-    <div className="form__control">
+    <div className="form__control--generic_input">
       <label htmlFor={name}>
         {labelText}
       </label>

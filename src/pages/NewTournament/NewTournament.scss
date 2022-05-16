@@ -1,9 +1,9 @@
 @import '../../App.scss';
 
-.form__control {
+.new-tournament-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 10px 0;
+    min-height: $fullScreen;
 }
