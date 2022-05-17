@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { Context } from '../../store';
 import { setUser, setIntercept } from '../../store/actions';
 
-import { editDocById, getDocById, queryUserByUsername } from '../../services/firestore';
+import { editDocById, getDocById, queryCollectionByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
@@ -25,7 +25,7 @@ export default function SignupDetail() {
   const { user } = state;
 
   const searchOnChangeUsernames = async (e) => {
-    const search = await queryUserByUsername(e.target.value);
+    const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
     if (searchUsernames.includes(e.target.value)) {
       setUsernameErr('Username already exists');
@@ -35,7 +35,7 @@ export default function SignupDetail() {
   };
 
   const searchOnChangeTeammates = async (e) => {
-    const search = await queryUserByUsername(e.target.value);
+    const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
     setUsernameList(searchUsernames);
   };

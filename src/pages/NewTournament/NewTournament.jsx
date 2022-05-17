@@ -4,7 +4,7 @@ import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
 
 import {
-  getAllDocs, queryUserByUsername, createDoc, createAndSendTournamentInvitation,
+  getAllDocs, queryCollectionByUsername, createDoc, createAndSendTournamentInvitation,
 } from '../../services/firestore';
 import { availableTournaments, handleTournamentObject } from '../../services/tournaments';
 
@@ -42,7 +42,7 @@ export default function NewTournament() {
   };
 
   const searchOnChangeUsernames = async (e) => {
-    const response = await queryUserByUsername(e.target.value);
+    const response = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = response.map((item) => item.username);
     setUsernameList(searchUsernames);
   };

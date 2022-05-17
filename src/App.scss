@@ -9,8 +9,9 @@ $grey: #333;
 // Fonts
 $text-font: 'Open Sans', sans-serif;
 
-// View height minus header height
+// Extra variables
 $fullScreen: calc(100vh - 120px);
+$boxShadow--generic: 0px 0px 10px rgba(0, 0, 0, 0.5);
 
 // Root Styles
 * {

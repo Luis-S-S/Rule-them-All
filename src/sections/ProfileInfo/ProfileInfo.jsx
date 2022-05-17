@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../store';
 import { setUser } from '../../store/actions';
 
-import { editDocById, queryUserByUsername } from '../../services/firestore';
+import { editDocById, queryCollectionByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
@@ -18,7 +18,7 @@ export default function ProfileInfo() {
   const { state, dispatch } = useContext(Context);
 
   const handleOnChangeUsername = async (e) => {
-    const search = await queryUserByUsername(e.target.value);
+    const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
     if (searchUsernames.includes(e.target.value)) {
       setUsernameErr('Username already exists');

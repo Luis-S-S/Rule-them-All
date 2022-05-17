@@ -17,6 +17,7 @@ import SignupDetail from './pages/SignupDetail/SignupDetail';
 import Login from './pages/Login/Login';
 import Tournaments from './pages/Tournaments/Tournaments';
 import NewTournament from './pages/NewTournament/NewTournament';
+import Invitations from './pages/Invitations/Invitations';
 
 import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
@@ -32,7 +33,6 @@ function App() {
   // console.log(state);
 
   useEffect(() => {
-    listeningRealTime(user?.username);
     onAuthStateChanged(auth, async (loginUser) => {
       if (loginUser) {
         const userDoc = await getDocById('users', loginUser.uid);
@@ -40,6 +40,10 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    listeningRealTime(user?.username);
+  }, [user]);
 
   return (
     <BrowserRouter>
@@ -61,6 +65,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/create_tournament" element={<NewTournament />} />
+        <Route path="/invitations" element={<Invitations />} />
       </Routes>
       <Footer />
     </BrowserRouter>

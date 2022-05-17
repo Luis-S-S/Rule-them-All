@@ -28,6 +28,16 @@ export async function getAllDocs(collectionName) {
   return docsArray;
 }
 
+export async function getAllDocsByUsername(collectionName, username, searchField) {
+  const fieldPath = !searchField ? 'username' : searchField;
+  if (!username) { return null; }
+  const collectionReference = collection(db, collectionName);
+  const queryResult = await query(collectionReference, where(fieldPath, '==', username));
+  const docsSnapshot = await getDocs(queryResult);
+  const documents = docsSnapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
+  return documents;
+}
+
 /**
  * Get all documents from the database without the Id
  * @param {String} collectionName
@@ -88,8 +98,8 @@ export async function editDocById(collectionName, id, data) {
   return res;
 }
 
-export async function queryUserByUsername(username) {
-  const collectionRef = collection(db, 'users');
+export async function queryCollectionByUsername(collectionName, username) {
+  const collectionRef = collection(db, collectionName);
   const queryResult = query(collectionRef, where('username', '>=', username), where('username', '<=', `${username}\uf8ff`));
   const documents = await getDocs(queryResult);
   const docsArray = documents.docs.map((document) => document.data());
