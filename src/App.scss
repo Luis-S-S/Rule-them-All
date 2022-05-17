@@ -41,6 +41,14 @@ a {
     margin: 10px 0;
 }
 
+.form__control--generic_input_inline {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
 .form__input--generic {
     border-radius: 5px;
     border: 1px solid $grey;
@@ -56,6 +64,7 @@ a {
 }
 
 .form__control--generic__select {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,7 +77,7 @@ a {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     padding: 5px 10px;
-    width: 200;
+    width: 200px;
 }
 
 .form__select--generic:focus {

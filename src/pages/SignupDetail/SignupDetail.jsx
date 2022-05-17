@@ -8,7 +8,7 @@ import { editDocById, getDocById, queryUserByUsername } from '../../services/fir
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
-import TeammateListItem from '../../components/TeammateListItem/TeammateListItem';
+import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import './SignupDetail.scss';
 
@@ -112,7 +112,7 @@ export default function SignupDetail() {
               {teammates.length > 0 ? (
                 <div className="teammates__list">
                   {teammates.map((teammate) => (
-                    <TeammateListItem teammate={teammate} onRemove={handlerRemoveTeammates} />
+                    <RemoveableListItem element={teammate} onRemove={handlerRemoveTeammates} />
                   ))}
                 </div>
               ) : (
