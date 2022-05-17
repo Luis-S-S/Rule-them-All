@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react';
 
 import { Context } from '../../store';
+import { setIntercept } from '../../store/actions';
 
-import { getAllDocs, queryUserByUsername } from '../../services/firestore';
-import { availableTournaments } from '../../services/tournaments';
-// import { availableTournaments, handleTournamentObject } from '../../services/tournaments';
+import { getAllDocs, queryUserByUsername, createDoc } from '../../services/firestore';
+import { availableTournaments, handleTournamentObject } from '../../services/tournaments';
 
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
@@ -16,7 +16,8 @@ import RemoveableListItem from '../../components/RemoveableListItem/RemoveableLi
 import './NewTournament.scss';
 
 export default function NewTournament() {
-  const { user } = useContext(Context).state;
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
   const [form, setForm] = useState(null);
   const [pointSystem, setPointSystem] = useState(null);
   const [usernameList, setUsernameList] = useState([]);
@@ -44,7 +45,8 @@ export default function NewTournament() {
     setUsernameList(searchUsernames);
   };
 
-  const addPlayer = () => {
+  const addPlayer = (e) => {
+    e.preventDefault();
     const username = document.getElementById('players').value;
     if (username === '') { return setPlayersError('Type a player to add him/her'); }
     if (!usernameList.includes(username)) { return setPlayersError('Player not found'); }
@@ -76,9 +78,7 @@ export default function NewTournament() {
     }
   };
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    // validations
+  const handleOnSubmit = async () => {
     if (form?.title) { setTitleError(null); } else { return setTitleError('Title is required'); }
     if (form?.type) { setTypeError(null); } else { return setTypeError('Type is required'); }
     if (form?.scaleSystem) { setScaleError(null); } else { return setScaleError('Select a point system'); }
@@ -91,15 +91,19 @@ export default function NewTournament() {
     }
     if (form?.isPublic || players.length >= 2) { setPlayersError(null); } else { return setPlayersError('Add at least two players'); }
 
-    // data handling
-
-    // send to firestore
-    console.log({
-      ...form, pointSystem: { ...pointSystem }, admin: user.username, players,
+    const newTournament = handleTournamentObject({
+      ...form, pointSystem: { ...pointSystem }, admin: user.username, players, status: 'Scheduled',
     });
+
+    await createDoc('tournaments', newTournament);
+    dispatch(setIntercept({
+      title: 'Tournament created successfully',
+      message: 'You can now go back to the list of tournaments, all players have received an invite to join the tournament',
+      navigation: '/profile',
+      buttonMsg: 'Continue',
+    }));
     return null;
   };
-  // handleTournamentObject({...form, pointSystem:{...pointSystem},admin:user.username,players})
 
   return (
     <div className="new-tournament-page">
@@ -143,7 +147,7 @@ export default function NewTournament() {
             options={usernameList}
             error={playersError}
           />
-          <ButtonPrimary isSubmit={false} onClick={addPlayer}>Add player</ButtonPrimary>
+          <ButtonPrimary isSubmit onClick={addPlayer}>Add player</ButtonPrimary>
           {players.length > 0
             ? (
               <div className="new-tournament__players">
@@ -157,7 +161,7 @@ export default function NewTournament() {
             )}
         </>
         )}
-        <ButtonPrimary isSubmit onClick={handleOnSubmit}>Create Tournament</ButtonPrimary>
+        <ButtonPrimary isSubmit={false} onClick={handleOnSubmit}>Create Tournament</ButtonPrimary>
       </form>
     </div>
   );

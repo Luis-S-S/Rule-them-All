@@ -57,23 +57,19 @@ function ffaScheduleGenerator(totalParticipants) {
   return schedule;
 }
 
-function scheduleHandler(tournamentType, totalParticipants) {
+export function scheduleHandler(tournamentType, totalParticipants) {
   let schedule;
   switch (tournamentType) {
     case 'Free For All':
       schedule = ffaScheduleGenerator(totalParticipants);
       break;
     case 'Single Elimination':
-      console.log('Not supported yet');
       break;
     case 'Double Elimination':
-      console.log('Not supported yet');
       break;
     case 'Round Robin':
-      console.log('Not supported yet');
       break;
     case 'Knockout':
-      console.log('Not supported yet');
       break;
     default:
       break;
@@ -99,7 +95,6 @@ export function handleTournamentObject(tournament) {
     }
     return obj;
   });
-  newTournament.schedule = scheduleHandler(newTournament.type, newTournament.players.length);
 
   return newTournament;
 }
