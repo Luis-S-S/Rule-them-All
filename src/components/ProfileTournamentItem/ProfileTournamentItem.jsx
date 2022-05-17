@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import LinkPrimary from '../LinkPrimary/LinkPrimary';
 
 import './ProfileTournamentItem.scss';
 
@@ -9,14 +9,14 @@ export default function ProfileTournamentItem({ tournament, type }) {
       case 'admin':
         return (
           <>
-            <ButtonPrimary isSubmit={false}>Dashboard</ButtonPrimary>
-            <ButtonPrimary isSubmit={false}>Score Card</ButtonPrimary>
+            <LinkPrimary path="/tournament/admin/:id">Dashboard</LinkPrimary>
+            <LinkPrimary path="/standing/:id">Standings</LinkPrimary>
           </>
         );
       case 'participant':
-        return (<ButtonPrimary isSubmit={false}>Score Card</ButtonPrimary>);
+        return (<LinkPrimary path="/standing/:id">Standings</LinkPrimary>);
       case 'finished':
-        return (<ButtonPrimary isSubmit={false}>Score Card</ButtonPrimary>);
+        return (<LinkPrimary path="/standing/:id">Standings</LinkPrimary>);
       default:
         return null;
     }

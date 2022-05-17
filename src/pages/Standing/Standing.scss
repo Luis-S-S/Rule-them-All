@@ -1,0 +1,8 @@
+@import '../../App.scss'; 
+
+.standing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $fullScreen;
+}

@@ -18,6 +18,8 @@ import Login from './pages/Login/Login';
 import Tournaments from './pages/Tournaments/Tournaments';
 import NewTournament from './pages/NewTournament/NewTournament';
 import Invitations from './pages/Invitations/Invitations';
+import Standing from './pages/Standing/Standing';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
@@ -68,6 +70,8 @@ function App() {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/create_tournament" element={<NewTournament />} />
         <Route path="/invitations" element={<Invitations />} />
+        <Route path="/standing/:id" element={<Standing />} />
+        <Route path="/tournament/admin/:id" element={<Dashboard />} />
       </Routes>
       <Footer />
       <Notification className={notification ? 'notification__container--active' : ''} notification={notification} setNotification={setNotification} />
