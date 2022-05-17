@@ -9,7 +9,6 @@ export async function listeningRealTime(channel, setProp) {
     const refListening = ref(realTimeDB, channel);
     onValue(refListening, (snapshot) => {
       data = snapshot.val();
-      console.log(`Listenning changes in channel ${channel}: `, data); // Notifications component
       setProp(data);
       setTimeout(() => { setProp(null); }, 5000);
     });

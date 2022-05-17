@@ -7,7 +7,7 @@ import { setUser } from './store/actions';
 
 import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
-import { listeningRealTime, emitRealTime } from './services/realTime';
+import { listeningRealTime } from './services/realTime';
 
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
@@ -34,10 +34,6 @@ function App() {
 
   // console.log(state);
 
-  const handleEmit = () => {
-    emitRealTime(user.username, { message: Math.random() });
-  };
-
   useEffect(() => {
     onAuthStateChanged(auth, async (loginUser) => {
       if (loginUser) {
@@ -62,7 +58,6 @@ function App() {
         />
       )}
       <Header />
-      <button type="button" onClick={handleEmit}>Emit something</button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
