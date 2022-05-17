@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { Context } from './store';
@@ -7,7 +7,7 @@ import { setUser } from './store/actions';
 
 import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
-import { listeningRealTime } from './services/realTime';
+import { listeningRealTime, emitRealTime } from './services/realTime';
 
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
@@ -23,14 +23,20 @@ import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
 
 import Intercept from './components/Intercept/Intercept';
+import Notification from './components/Notification/Notification';
 
 import './App.scss';
 
 function App() {
   const { state, dispatch } = useContext(Context);
   const { user, intercept } = state;
+  const [notification, setNotification] = useState(null);
 
   // console.log(state);
+
+  const handleEmit = () => {
+    emitRealTime(user.username, { message: Math.random() });
+  };
 
   useEffect(() => {
     onAuthStateChanged(auth, async (loginUser) => {
@@ -42,9 +48,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      listeningRealTime(user?.username);
-    }
+    listeningRealTime(user?.username, setNotification);
   }, [user]);
 
   return (
@@ -58,6 +62,7 @@ function App() {
         />
       )}
       <Header />
+      <button type="button" onClick={handleEmit}>Emit something</button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -70,6 +75,7 @@ function App() {
         <Route path="/invitations" element={<Invitations />} />
       </Routes>
       <Footer />
+      <Notification className={notification ? 'notification__container--active' : ''} notification={notification} setNotification={setNotification} />
     </BrowserRouter>
   );
 }

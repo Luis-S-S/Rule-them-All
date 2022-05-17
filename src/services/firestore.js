@@ -124,7 +124,7 @@ export async function createAndSendTournamentInvitation(tournamentId, tournament
   const invitation = {
     tournament: tournamentTitle, player: username, acceptedInvite: false, timeStamp: new Date(),
   };
-  await emitRealTime(username, { [tournamentId]: invitation });
+  await emitRealTime(username, { title: 'New tournament invitation', msg: `You have a new tournament invitation from ${tournamentTitle}` });
   await createDoc('tournamentInvitations', invitation);
 }
 
