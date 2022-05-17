@@ -32,7 +32,11 @@ Notification.propTypes = {
   notification: PropTypes.shape({
     title: PropTypes.string,
     msg: PropTypes.string,
-  }).isRequired,
+  }),
   setNotification: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
+};
+
+Notification.defaultProps = {
+  notification: null,
 };
