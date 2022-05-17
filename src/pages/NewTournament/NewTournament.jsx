@@ -97,9 +97,10 @@ export default function NewTournament() {
       ...form, pointSystem: { ...pointSystem }, admin: user.username, players, status: 'Scheduled',
     });
 
-    await createDoc('tournaments', newTournament);
-    // Sent invitation with username and tournament title
-    players.forEach((player) => { createAndSendTournamentInvitation(form.title, player); });
+    const res = await createDoc('tournaments', newTournament);
+    players.forEach((player) => {
+      createAndSendTournamentInvitation(res.id, form.title, player);
+    });
     dispatch(setIntercept({
       title: 'Tournament created successfully',
       message: 'You can now go back to the list of tournaments, all players have received an invite to join the tournament',

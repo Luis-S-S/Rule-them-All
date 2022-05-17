@@ -11,6 +11,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
+import { emitRealTime } from './realTime';
+
 /**
  * Get all documents from the database
  * @param {String} collectionName
@@ -94,10 +96,12 @@ export async function queryUserByUsername(username) {
   return docsArray;
 }
 
-export async function createAndSendTournamentInvitation(tournamentTitle, username) {
+// eslint-disable-next-line max-len
+export async function createAndSendTournamentInvitation(tournamentId, tournamentTitle, username) {
   const invitation = {
     tournament: tournamentTitle, player: username, acceptedInvite: false, timeStamp: new Date(),
   };
+  await emitRealTime(username, { [tournamentId]: invitation });
   await createDoc('tournamentInvitations', invitation);
 }
 

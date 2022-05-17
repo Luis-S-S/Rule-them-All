@@ -7,6 +7,7 @@ import { setUser } from './store/actions';
 
 import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
+import { listeningRealTime } from './services/realTime';
 
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
@@ -26,14 +27,15 @@ import './App.scss';
 
 function App() {
   const { state, dispatch } = useContext(Context);
-  const { intercept } = state;
+  const { user, intercept } = state;
 
   // console.log(state);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDoc = await getDocById('users', user.uid);
+    listeningRealTime(user?.username);
+    onAuthStateChanged(auth, async (loginUser) => {
+      if (loginUser) {
+        const userDoc = await getDocById('users', loginUser.uid);
         dispatch(setUser(userDoc));
       }
     });
