@@ -1,5 +1,5 @@
 import {
-  ref, onValue, update,
+  ref, onValue, set,
 } from 'firebase/database';
 import { realTimeDB } from '../config/firebase';
 
@@ -13,5 +13,5 @@ export async function listeningRealTime(channel) {
 
 export async function emitRealTime(channel, object) {
   const refEmit = ref(realTimeDB, channel);
-  update(refEmit, object);
+  set(refEmit, object);
 }

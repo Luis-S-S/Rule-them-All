@@ -6,7 +6,7 @@ import { setIntercept } from '../../store/actions';
 import {
   getAllDocs, queryCollectionByUsername, createDoc, createAndSendTournamentInvitation,
 } from '../../services/firestore';
-import { availableTournaments, handleTournamentObject } from '../../services/tournaments';
+import { availableTournaments } from '../../services/tournaments';
 
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
@@ -23,13 +23,13 @@ export default function NewTournament() {
   const [form, setForm] = useState(null);
   const [pointSystem, setPointSystem] = useState(null);
   const [usernameList, setUsernameList] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [prospectivePlayers, setProspectivePlayers] = useState([]);
 
   const [titleError, setTitleError] = useState(null);
   const [typeError, setTypeError] = useState(null);
   const [scaleError, setScaleError] = useState(null);
   const [pointsError, setPointsError] = useState(null);
-  const [playersError, setPlayersError] = useState(null);
+  const [prospectivePlayersError, setProspectivePlayersError] = useState(null);
 
   const searchOnChangeTitles = async (incomingTitle) => {
     const response = await getAllDocs('tournaments');
@@ -49,22 +49,22 @@ export default function NewTournament() {
 
   const addPlayer = (e) => {
     e.preventDefault();
-    const username = document.getElementById('players').value;
-    if (username === '') { return setPlayersError('Type a player to add him/her'); }
-    if (!usernameList.includes(username)) { return setPlayersError('Player not found'); }
-    if (!players.includes(username) && username !== '') {
-      setPlayersError(null);
-      setPlayers([...players, username]);
-      document.getElementById('players').value = '';
+    const username = document.getElementById('prospectivePlayers').value;
+    if (username === '') { return setProspectivePlayersError('Type a player to add him/her'); }
+    if (!usernameList.includes(username)) { return setProspectivePlayersError('Player not found'); }
+    if (!prospectivePlayers.includes(username) && username !== '') {
+      setProspectivePlayersError(null);
+      setProspectivePlayers([...prospectivePlayers, username]);
+      document.getElementById('prospectivePlayers').value = '';
     } else {
-      setPlayersError('Player already added');
+      setProspectivePlayersError('Player already added');
     }
     return null;
   };
 
   const removePlayer = (element) => {
-    const newArray = players.filter((item) => item !== element);
-    setPlayers(newArray);
+    const newArray = prospectivePlayers.filter((item) => item !== element);
+    setProspectivePlayers(newArray);
   };
 
   const handleOnChangePoints = (e) => {
@@ -91,14 +91,21 @@ export default function NewTournament() {
         return setPointsError('Points are required');
       }
     }
-    if (form?.isPublic || players.length >= 2) { setPlayersError(null); } else { return setPlayersError('Add at least two players'); }
+    if (form?.isPublic || prospectivePlayers.length >= 2) { setProspectivePlayersError(null); } else { return setProspectivePlayersError('Add at least two players'); }
 
-    const newTournament = handleTournamentObject({
-      ...form, pointSystem: { ...pointSystem }, admin: user.username, players, status: 'Scheduled',
-    });
+    const newTournament = {
+      admin: user.username,
+      ...form,
+      players: [],
+      pointSystem: { ...pointSystem },
+      prospectivePlayers,
+      status: 'Scheduled',
+    };
+    if (form?.isPublic) { newTournament.players = []; }
+    if (form?.scaleSystem !== 'Score') { delete newTournament.pointSystem; }
 
     const res = await createDoc('tournaments', newTournament);
-    players.forEach((player) => {
+    prospectivePlayers.forEach((player) => {
       createAndSendTournamentInvitation(res.id, form.title, player);
     });
     dispatch(setIntercept({
@@ -146,17 +153,17 @@ export default function NewTournament() {
         {!form?.isPublic && (
         <>
           <DataListSearch
-            name="players"
+            name="prospectivePlayers"
             labelText="Players"
             onChange={searchOnChangeUsernames}
             options={usernameList}
-            error={playersError}
+            error={prospectivePlayersError}
           />
           <ButtonPrimary isSubmit onClick={addPlayer}>Add player</ButtonPrimary>
-          {players.length > 0
+          {prospectivePlayers.length > 0
             ? (
               <div className="new-tournament__players">
-                {players.map((player) => (
+                {prospectivePlayers.map((player) => (
                   <RemoveableListItem element={player} onRemove={removePlayer} />
                 ))}
               </div>

@@ -77,26 +77,4 @@ export function scheduleHandler(tournamentType, totalParticipants) {
   return schedule;
 }
 
-export function handleTournamentObject(tournament) {
-  const newTournament = { ...tournament };
-  if (tournament.isPublic) { newTournament.players = []; }
-  if (tournament.scaleSystem !== 'Score') { delete newTournament.pointSystem; }
-  newTournament.players = tournament.players.map((player) => {
-    let obj;
-    if (tournament.scaleSystem === 'Score') {
-      obj = {
-        player, wins: 0, ties: 0, losses: 0, score: 0,
-      };
-    }
-    if (tournament.scaleSystem === 'Win/Loss') {
-      obj = {
-        player, wins: 0, losses: 0,
-      };
-    }
-    return obj;
-  });
-
-  return newTournament;
-}
-
 export { availableTournaments };

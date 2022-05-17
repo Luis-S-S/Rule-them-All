@@ -3,9 +3,10 @@ import {
   doc,
   getDoc,
   getDocs,
-  setDoc,
   addDoc,
+  setDoc,
   updateDoc,
+  deleteDoc,
   query,
   where,
 } from 'firebase/firestore';
@@ -28,16 +29,6 @@ export async function getAllDocs(collectionName) {
   return docsArray;
 }
 
-export async function getAllDocsByUsername(collectionName, username, searchField) {
-  const fieldPath = !searchField ? 'username' : searchField;
-  if (!username) { return null; }
-  const collectionReference = collection(db, collectionName);
-  const queryResult = await query(collectionReference, where(fieldPath, '==', username));
-  const docsSnapshot = await getDocs(queryResult);
-  const documents = docsSnapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
-  return documents;
-}
-
 /**
  * Get all documents from the database without the Id
  * @param {String} collectionName
@@ -48,6 +39,22 @@ export async function getAllDocsNoId(collectionName) {
   const documents = await getDocs(collectionRef);
   const docsArray = documents.docs.map((document) => document.data());
   return docsArray;
+}
+
+/**
+ *
+ * @param {String} value Search value
+ * @param {String} collectionName Collection to query
+ * @param {String} searchField Field to query, if not specified, it will search with 'username'
+ * @returns An array with all the coincidences
+ */
+export async function getAllDocsByField(value, collectionName, searchField = 'username') {
+  if (!value) { return null; }
+  const collectionReference = collection(db, collectionName);
+  const queryResult = await query(collectionReference, where(searchField, '==', value));
+  const docsSnapshot = await getDocs(queryResult);
+  const documents = docsSnapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
+  return documents;
 }
 
 /**
@@ -95,6 +102,12 @@ export async function createDoc(collectionName, data) {
 export async function editDocById(collectionName, id, data) {
   const docRef = doc(db, collectionName, id);
   const res = await updateDoc(docRef, data);
+  return res;
+}
+
+export async function deleteDocById(collectionName, id) {
+  const docRef = doc(db, collectionName, id);
+  const res = await deleteDoc(docRef);
   return res;
 }
 

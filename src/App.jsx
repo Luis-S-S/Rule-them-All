@@ -42,7 +42,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    listeningRealTime(user?.username);
+    if (user) {
+      listeningRealTime(user?.username);
+    }
   }, [user]);
 
   return (
