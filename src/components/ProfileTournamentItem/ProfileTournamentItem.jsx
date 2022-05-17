@@ -9,14 +9,14 @@ export default function ProfileTournamentItem({ tournament, type }) {
       case 'admin':
         return (
           <>
-            <LinkPrimary path="/tournament/admin/:id">Dashboard</LinkPrimary>
-            <LinkPrimary path="/standing/:id">Standings</LinkPrimary>
+            <LinkPrimary path={`/tournament/admin/${tournament?.id}`}>Dashboard</LinkPrimary>
+            <LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>
           </>
         );
       case 'participant':
-        return (<LinkPrimary path="/standing/:id">Standings</LinkPrimary>);
+        return (<LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>);
       case 'finished':
-        return (<LinkPrimary path="/standing/:id">Standings</LinkPrimary>);
+        return (<LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>);
       default:
         return null;
     }
