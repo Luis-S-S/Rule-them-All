@@ -3,7 +3,9 @@ import { useState, useContext } from 'react';
 import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
 
-import { getAllDocs, queryUserByUsername, createDoc } from '../../services/firestore';
+import {
+  getAllDocs, queryUserByUsername, createDoc, createAndSendTournamentInvitation,
+} from '../../services/firestore';
 import { availableTournaments, handleTournamentObject } from '../../services/tournaments';
 
 import Input from '../../components/Input/Input';
@@ -96,6 +98,8 @@ export default function NewTournament() {
     });
 
     await createDoc('tournaments', newTournament);
+    // Sent invitation with username and tournament title
+    players.forEach((player) => { createAndSendTournamentInvitation(form.title, player); });
     dispatch(setIntercept({
       title: 'Tournament created successfully',
       message: 'You can now go back to the list of tournaments, all players have received an invite to join the tournament',

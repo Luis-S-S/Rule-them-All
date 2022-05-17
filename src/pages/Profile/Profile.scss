@@ -8,56 +8,9 @@
     min-height: $fullScreen;
 }
 
-.profile-page__info {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .5em;
-    padding: 1em;
-}
-
-.profile-page__avatar {
-    max-width: 200px;
-}
-
-.profile-page__tournaments {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: .5em;
-    padding: 1em;
-}
-
-.profile-tournaments__container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.profile-tournaments__item {
-    max-width: 500px;
-    width: 40%;
-    min-width: 270px;
-    background-color: aquamarine;
-    margin: 1em 0;
-}
-
 @media (min-width:768px) {
     .profile-page {
         flex-direction: row;
         align-items: flex-start;
-    }
-
-    .profile-page__info {
-        width: 30%;
-        padding: 5em 1em;
-    }
-    
-    .profile-page__tournaments {
-        width: 70%;
-        padding: 3em 1em;
     }
 }

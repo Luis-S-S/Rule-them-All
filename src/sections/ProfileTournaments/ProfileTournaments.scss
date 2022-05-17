@@ -1,0 +1,31 @@
+@import '../../App.scss';
+
+.profile-page__tournaments {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    padding: 1em;
+}
+
+.profile-tournaments__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile-tournaments__item {
+    max-width: 500px;
+    width: 40%;
+    min-width: 270px;
+    background-color: aquamarine;
+    margin: 1em 0;
+}
+
+@media (min-width:768px) {
+    .profile-page__tournaments {
+        width: 70%;
+        padding: 3em 1em;
+    }
+}
