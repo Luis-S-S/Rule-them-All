@@ -12,12 +12,13 @@ import {
 } from '../../services/firestore';
 import { availableTournaments } from '../../services/tournaments';
 
-import Input from '../../components/Input/Input';
-import Select from '../../components/Select/Select';
-import DataListSearch from '../../components/DataListSearch/DataListSearch';
-import Checkbox from '../../components/Checkbox/Checkbox';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import Checkbox from '../../components/Checkbox/Checkbox';
+import DataListSearch from '../../components/DataListSearch/DataListSearch';
+import Input from '../../components/Input/Input';
+import InputSmall from '../../components/Input/InputSmall';
 import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
+import Select from '../../components/Select/Select';
 
 import './NewTournament.scss';
 
@@ -153,9 +154,9 @@ export default function NewTournament() {
         />
         {form?.scaleSystem === 'Score' && (
         <div>
-          <Input type="number" name="win" labelText="Winner Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
-          <Input type="number" name="tie" labelText="Tie Game Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
-          <Input type="number" name="loss" labelText="Loser Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
+          <InputSmall type="number" name="win" labelText="Winner Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
+          <InputSmall type="number" name="tie" labelText="Tie Game Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
+          <InputSmall type="number" name="loss" labelText="Loser Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
         </div>
         )}
         {!form?.isPublic && (

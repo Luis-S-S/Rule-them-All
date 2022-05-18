@@ -39,9 +39,8 @@ export default function DashboardStatus({ tournamentData, onChangeStatus }) {
   return (
     <div className="dashboard-status__container">
       <h2>{`Status: ${status}`}</h2>
-      {status === 'Scheduled'
-        ? (<ButtonPrimary isSubmit={false} onClick={handleActivate} name="Active">Start tournament!</ButtonPrimary>)
-        : (<ButtonPrimary isSubmit={false} onClick={handleFinish} name="Finished">Finish the tournament!</ButtonPrimary>)}
+      {status === 'Scheduled' && (<ButtonPrimary isSubmit={false} onClick={handleActivate} name="Active">Start tournament!</ButtonPrimary>)}
+      {status === 'Active' && (<ButtonPrimary isSubmit={false} onClick={handleFinish} name="Finished">Finish the tournament!</ButtonPrimary>)}
       {statusError && (<p className="form__error--generic">{statusError}</p>)}
     </div>
   );

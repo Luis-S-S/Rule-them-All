@@ -78,4 +78,25 @@ export function scheduleHandler(tournamentType, participants) {
   return schedule;
 }
 
+export function resultsHandler(tournamentType, scaleSystem) {
+  let results;
+  switch (tournamentType) {
+    case 'Free For All':
+      if (scaleSystem === 'Points') { results = ['TBD', 'Win', 'Loss', 'Tie']; }
+      if (scaleSystem === 'Win/Loss') { results = ['TBD', 'Win', 'Loss']; }
+      break;
+    case 'Single Elimination':
+      break;
+    case 'Double Elimination':
+      break;
+    case 'Round Robin':
+      break;
+    case 'Knockout':
+      break;
+    default:
+      return null;
+  }
+  return results;
+}
+
 export { availableTournaments };

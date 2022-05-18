@@ -46,6 +46,13 @@ export default function Dashboard() {
     await editDocById('tournaments', id, changeObject);
   };
 
+  const onResultUpdate = async (index, result) => {
+    const newSchedule = [...tournament.schedule];
+    newSchedule[index].resultP1 = result;
+    setTournament({ ...tournament, schedule: newSchedule });
+    await editDocById('tournaments', id, { schedule: newSchedule });
+  };
+
   const onRemovePlayer = async (playerUsername) => {
     const [response] = await getAllDocsByField(playerUsername, 'users');
     const playerId = response.id;
@@ -94,6 +101,13 @@ export default function Dashboard() {
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
             />
+            {(tournament?.schedule?.length > 0 && tournament?.status === 'Active') && (
+              <DashboardSchedule
+                tournament={tournament}
+                playerAndIdObj={playerAndIdObj}
+                onResultsChange={onResultUpdate}
+              />
+            )}
             <div className="dashboard__players">
               <h2 className="dashboard__players__title">Players</h2>
               {playersNames?.length > 0 ? (
@@ -104,9 +118,6 @@ export default function Dashboard() {
                 <h3>No player has accepted invitations yet</h3>
               )}
             </div>
-            {tournament?.schedule?.length > 0 && (
-              <DashboardSchedule schedule={tournament.schedule} playerAndIdObj={playerAndIdObj} />
-            )}
             {tournament?.status !== 'Finished' && (
               <ButtonPrimary isSubmit={false} onClick={onDeleteTournament}>
                 Delete Tournament

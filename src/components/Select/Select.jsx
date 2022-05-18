@@ -11,7 +11,7 @@ export default function Select(props) {
       </label>
       <select className="form__select--generic" name={name} id={name} onChange={onChange}>
         <option value="">Choose an option</option>
-        {options.map((option) => (
+        {options?.map((option) => (
           <option key={option} value={option}>{option}</option>
         ))}
       </select>

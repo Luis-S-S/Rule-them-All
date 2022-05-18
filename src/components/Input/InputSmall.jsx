@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
  * type, name, labelText, onChange[opt], placeholder[opt], disabled[opt], format[opt], error[opt]
  * @returns Styled input component
  */
-export default function Input(props) {
+export default function InputSmall(props) {
   const {
     type, name, labelText, onChange, error, placeholder, disabled, format,
   } = props;
 
-  const style = disabled ? 'form__input--generic disabled--generic' : 'form__input--generic';
+  const style = disabled ? 'form__input--small disabled--generic' : 'form__input--small';
   const formatting = format === 'inline' ? 'form__control--generic_input_inline' : 'form__control--generic_input';
 
   return (
@@ -33,7 +33,7 @@ export default function Input(props) {
   );
 }
 
-Input.propTypes = {
+InputSmall.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   labelText: PropTypes.string,
@@ -44,7 +44,7 @@ Input.propTypes = {
   format: PropTypes.string,
 };
 
-Input.defaultProps = {
+InputSmall.defaultProps = {
   labelText: '',
   onChange: () => {},
   error: '',
