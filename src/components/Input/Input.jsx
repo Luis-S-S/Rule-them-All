@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 /**
  *
  * @param {Props} props receives the following
- * type, name, labelText, onChange[opt], placeholder[opt], disabled[opt]
+ * type, name, labelText, onChange[opt], placeholder[opt], disabled[opt], format[opt], error[opt]
  * @returns Styled input component
  */
 export default function Input(props) {
   const {
-    type, name, labelText, onChange, error, placeholder, disabled,
+    type, name, labelText, onChange, error, placeholder, disabled, format,
   } = props;
 
   const style = disabled ? 'form__input--generic disabled--generic' : 'form__input--generic';
+  const formatting = format === 'inline' ? 'form__control--generic_input_inline' : 'form__control--generic_input';
 
   return (
-    <div className="form__control--generic_input">
+    <div className={formatting}>
       <label htmlFor={name}>
         {labelText}
       </label>
@@ -40,6 +41,7 @@ Input.propTypes = {
   error: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  format: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -47,4 +49,5 @@ Input.defaultProps = {
   error: '',
   placeholder: '',
   disabled: false,
+  format: '',
 };

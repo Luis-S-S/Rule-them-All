@@ -1,6 +1,7 @@
 /* eslint-disable default-param-last */
 const initialState = {
   user: null,
+  authValidation: true,
   intercept: null,
 };
 

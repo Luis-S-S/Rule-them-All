@@ -1,0 +1,26 @@
+@import '../../App.scss';
+
+.profile-tournament__item * {
+    margin: 0;
+    color: $secondary
+}
+
+.profile-tournament__item {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+    background-color: $dominant;
+    padding: 1em;
+    box-shadow: $boxShadow--generic;
+}
+
+.tournament-item__title {
+    text-align: center;
+    color: $accent;
+}
+
+.tournament-item__buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+}

@@ -49,6 +49,7 @@ export default function Header() {
           <li><Link to="/tournaments">Tournaments</Link></li>
           {!user && (<li><Link to="/login">Login</Link></li>)}
           {user && (<li><Link to="/profile">Profile</Link></li>)}
+          {user && (<li><Link to="/invitations">Invitations</Link></li>)}
           <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>

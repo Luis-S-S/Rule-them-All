@@ -3,12 +3,12 @@ import { useState, useContext } from 'react';
 import { Context } from '../../store';
 import { setUser, setIntercept } from '../../store/actions';
 
-import { editDocById, getDocById, queryUserByUsername } from '../../services/firestore';
+import { editDocById, getDocById, queryCollectionByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
-import TeammateListItem from '../../components/TeammateListItem/TeammateListItem';
+import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import './SignupDetail.scss';
 
@@ -25,7 +25,7 @@ export default function SignupDetail() {
   const { user } = state;
 
   const searchOnChangeUsernames = async (e) => {
-    const search = await queryUserByUsername(e.target.value);
+    const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
     if (searchUsernames.includes(e.target.value)) {
       setUsernameErr('Username already exists');
@@ -35,7 +35,7 @@ export default function SignupDetail() {
   };
 
   const searchOnChangeTeammates = async (e) => {
-    const search = await queryUserByUsername(e.target.value);
+    const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
     setUsernameList(searchUsernames);
   };
@@ -112,7 +112,7 @@ export default function SignupDetail() {
               {teammates.length > 0 ? (
                 <div className="teammates__list">
                   {teammates.map((teammate) => (
-                    <TeammateListItem teammate={teammate} onRemove={handlerRemoveTeammates} />
+                    <RemoveableListItem element={teammate} onRemove={handlerRemoveTeammates} />
                   ))}
                 </div>
               ) : (

@@ -1,0 +1,53 @@
+@import '../../App.scss';
+
+@keyframes displayNotification {
+    0% {
+        opacity: 0;
+        display: flex;
+        bottom: 0;
+        right: 20px;
+    }
+    20% {
+        opacity: 1;
+        bottom: 20px;
+        right: 20px;
+    }
+    80% {
+        opacity: 1;
+        bottom: 20px;
+        right: 20px;
+    }
+    100% {
+        display: flex;
+        bottom: 0;
+        right: 20px;
+    }
+}
+
+.notification__container {
+    background-color: $dominant;
+    border-radius: 20px;
+    color: $secondary;
+    display: none;
+    flex-direction: column;
+    gap: .25em;
+    padding: .75em;
+    position: fixed;
+    opacity: 0;
+    width: 300px;
+}
+
+.notification__container--active {
+    animation: displayNotification 5s normal;
+    display: flex;
+}
+
+.notification__text {
+    margin: 0;
+}
+
+.notification-button__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
