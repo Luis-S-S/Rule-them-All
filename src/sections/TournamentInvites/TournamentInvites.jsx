@@ -14,7 +14,7 @@ export default function TournamentInvites() {
   const [tournamentInvites, setTournamentInvites] = useState([]);
 
   const getTournamentInvites = async () => {
-    const response = await getAllDocsByField(user?.username, 'tournamentInvitations', 'player');
+    const response = await getAllDocsByField(user?.id, 'tournamentInvitations', 'player');
     setTournamentInvites(response);
   };
 
@@ -32,7 +32,7 @@ export default function TournamentInvites() {
     dispatch(setIntercept({
       title: 'Invitation Accepted',
       message: `You have accepted the invitation to ${tournamentTitle} tournament`,
-      navigation: '/invitations',
+      navigation: '/profile',
       buttonMsg: 'Go to Tournaments',
     }));
     setTournamentInvites(tournamentInvites.filter((invite) => invite.id !== invitationId));
