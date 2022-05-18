@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    listeningRealTime(user?.username, setNotification);
+    listeningRealTime(user?.id, setNotification);
   }, [user]);
 
   return (

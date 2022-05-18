@@ -10,7 +10,7 @@ export async function listeningRealTime(channel, setProp) {
     onValue(refListening, (snapshot) => {
       data = snapshot.val();
       setProp(data);
-      setTimeout(() => { setProp(null); }, 5000);
+      setTimeout(() => { setProp(null); }, 10_000);
     });
   }
 }
