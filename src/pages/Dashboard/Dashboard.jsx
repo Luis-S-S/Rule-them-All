@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
 
-import { getDocById, editDocById, deleteDocById } from '../../services/firestore';
+import {
+  getDocById, editDocById, deleteDocById, getAllDocsByField,
+} from '../../services/firestore';
 
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
@@ -13,6 +15,7 @@ import './Dashboard.scss';
 
 export default function Dashboard() {
   const [tournament, setTournament] = useState(null);
+  const [playersNames, setPlayersNames] = useState([]);
   const { state, dispatch } = useContext(Context);
   const { user } = state;
   const { id } = useParams();
@@ -21,9 +24,16 @@ export default function Dashboard() {
 
   const getTournamentInfo = async () => {
     const response = await getDocById('tournaments', id);
-    if (response.admin === user?.username) {
+    if (response.admin === user?.id) {
       setTournament(response);
     }
+  };
+
+  const getPlayersNames = async () => {
+    const promises = tournament?.players.map((player) => getDocById('users', player));
+    const promisesResponses = await Promise.all(promises);
+    const players = promisesResponses.map((response) => response.username);
+    setPlayersNames(players);
   };
 
   const onChangeStatus = async (changeObject) => {
@@ -31,19 +41,23 @@ export default function Dashboard() {
     await editDocById('tournaments', id, changeObject);
   };
 
-  const onRemovePlayer = async (player) => {
-    const newPlayers = tournament.players.filter((p) => p !== player);
+  const onRemovePlayer = async (playerUsername) => {
+    const [response] = await getAllDocsByField(playerUsername, 'users');
+    const playerId = response.id;
+    const newPlayers = tournament.players.filter((p) => p !== playerId);
     await editDocById('tournaments', id, { players: newPlayers });
     setTournament({ ...tournament, players: newPlayers });
     dispatch(setIntercept({
       title: 'Player removed',
-      message: `${player} has been removed from the tournament`,
+      message: `${playerUsername} has been removed from the tournament`,
       navigation: `/tournament/admin/${id}`,
       buttonMsg: 'Continue',
     }));
   };
 
   const onDeleteTournament = async () => {
+    const invitations = await getAllDocsByField(tournament?.title, 'tournamentInvitations', 'tournament');
+    invitations.forEach((invitation) => deleteDocById('tournamentInvitations', invitation.id));
     await deleteDocById('tournaments', id);
     dispatch(setIntercept({
       title: 'Tournament deleted',
@@ -59,6 +73,12 @@ export default function Dashboard() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (tournament) {
+      getPlayersNames();
+    }
+  }, [tournament]);
+
   return (
     <div className="dashboard-page">
       {tournament
@@ -73,8 +93,8 @@ export default function Dashboard() {
             />
             <div className="dashboard__players">
               <h2 className="dashboard__players__title">Players</h2>
-              {tournament?.players.length > 0 ? (
-                tournament?.players.map((player) => (
+              {playersNames?.length > 0 ? (
+                playersNames?.map((player) => (
                   <RemoveableListItem key={player} element={player} onRemove={onRemovePlayer} />
                 ))
               ) : (
