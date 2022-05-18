@@ -23,7 +23,7 @@ export default function TournamentInvites() {
     const invitationId = e.target.parentElement.id;
     const [doc] = await getAllDocsByField(tournamentTitle, 'tournaments', 'title');
     const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.id);
-    doc.players.push(user?.id);
+    if (!doc.players.includes(user?.id)) { doc.players.push(user?.id); }
     await editDocById('tournaments', doc.id, {
       prospectivePlayers: newProspectives,
       players: doc.players,

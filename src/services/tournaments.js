@@ -1,9 +1,9 @@
 const availableTournaments = [
   'Free For All',
-  'Single Elimination',
-  'Double Elimination',
-  'Round Robin',
-  'Knockout',
+  // 'Single Elimination',
+  // 'Double Elimination',
+  // 'Round Robin',
+  // 'Knockout',
 ];
 
 function ffaScheduleGenerator(participants) {

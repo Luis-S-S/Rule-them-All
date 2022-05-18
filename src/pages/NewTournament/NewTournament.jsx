@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
@@ -57,13 +57,10 @@ export default function NewTournament() {
     const username = document.getElementById('prospectivePlayers').value;
     if (username === '') { return setProspectivePlayersError('Type a player to add him/her'); }
     if (!usernameList.includes(username)) { return setProspectivePlayersError('Player not found'); }
-    if (!prospectivePlayers.includes(username) && username !== '') {
-      setProspectivePlayersError(null);
-      setProspectivePlayers([...prospectivePlayers, username]);
-      document.getElementById('prospectivePlayers').value = '';
-    } else {
-      setProspectivePlayersError('Player already added');
-    }
+    if (prospectivePlayers.includes(username)) { return setProspectivePlayersError('Player already added'); }
+    setProspectivePlayersError(null);
+    setProspectivePlayers([...prospectivePlayers, username]);
+    document.getElementById('prospectivePlayers').value = '';
     return null;
   };
 
@@ -125,6 +122,11 @@ export default function NewTournament() {
     }));
     return null;
   };
+
+  useEffect(() => {
+    const [$prospectivePlayersDiv] = document.getElementsByClassName('new-tournament__players');
+    $prospectivePlayersDiv?.scrollTo(0, $prospectivePlayersDiv.scrollHeight);
+  }, [prospectivePlayers]);
 
   return (
     <div className="new-tournament-page">

@@ -17,10 +17,17 @@ import './Dashboard.scss';
 export default function Dashboard() {
   const [tournament, setTournament] = useState(null);
   const [playersNames, setPlayersNames] = useState([]);
+  const [prospectivePlayersNames, setProspectivePlayersNames] = useState([]);
   const [playerAndIdObj, setPlayerAndIdObj] = useState([]);
   const { state, dispatch } = useContext(Context);
   const { user } = state;
   const { id } = useParams();
+  const validation = {
+    notFinished: tournament?.status !== 'Finished',
+    isFinished: tournament?.status === 'Finished',
+    isActive: tournament?.status === 'Active',
+    isScheduled: tournament?.status === 'Scheduled',
+  };
 
   // emit realtime updates
 
@@ -41,6 +48,13 @@ export default function Dashboard() {
     setPlayerAndIdObj(namesAndId);
   };
 
+  const getProspectivePlayersNames = async () => {
+    const promises = tournament?.prospectivePlayers.map((prospectivePlayer) => getDocById('users', prospectivePlayer));
+    const promisesResponses = await Promise.all(promises);
+    const names = promisesResponses.map((response) => response.username);
+    setProspectivePlayersNames(names);
+  };
+
   const onChangeStatus = async (changeObject) => {
     setTournament({ ...tournament, ...changeObject });
     await editDocById('tournaments', id, changeObject);
@@ -57,14 +71,28 @@ export default function Dashboard() {
     const [response] = await getAllDocsByField(playerUsername, 'users');
     const playerId = response.id;
     const newPlayers = tournament.players.filter((p) => p !== playerId);
-    await editDocById('tournaments', id, { players: newPlayers });
-    setTournament({ ...tournament, players: newPlayers });
-    dispatch(setIntercept({
-      title: 'Player removed',
-      message: `${playerUsername} has been removed from the tournament`,
-      navigation: `/tournament/admin/${id}`,
-      buttonMsg: 'Continue',
-    }));
+    if (newPlayers.length >= 2) {
+      let schedule = [...tournament.schedule];
+      if (validation.isActive) {
+        schedule = schedule
+          .filter((round) => (round.player1 !== playerId && round.player2 !== playerId));
+      }
+      await editDocById('tournaments', id, { players: newPlayers, schedule });
+      setTournament({ ...tournament, players: newPlayers, schedule });
+      dispatch(setIntercept({
+        title: 'Player removed',
+        message: `${playerUsername} has been removed from the tournament`,
+        navigation: `/tournament/admin/${id}`,
+        buttonMsg: 'Continue',
+      }));
+    } else {
+      dispatch(setIntercept({
+        title: 'Unable to remove player',
+        message: 'The minimum number of players is 2. If you want, you can delete this tournament and start a new one',
+        navigation: `/tournament/admin/${id}`,
+        buttonMsg: 'Continue',
+      }));
+    }
   };
 
   const onDeleteTournament = async () => {
@@ -88,6 +116,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (tournament) {
       getPlayersNames();
+      getProspectivePlayersNames();
     }
   }, [tournament]);
 
@@ -110,18 +139,38 @@ export default function Dashboard() {
             )}
             <div className="dashboard__players">
               <h2 className="dashboard__players__title">Players</h2>
+              {validation.notFinished && (<p className="text__note--generic">Deleting players is not reversible, be careful!</p>)}
               {playersNames?.length > 0 ? (
                 playersNames?.map((player) => (
-                  <RemoveableListItem key={player} element={player} onRemove={onRemovePlayer} />
+                  validation.notFinished
+                    ? (
+                      <RemoveableListItem key={player} element={player} onRemove={onRemovePlayer} />
+                    )
+                    : (
+                      <div>{player}</div>
+                    )
                 ))
               ) : (
                 <h3>No player has accepted invitations yet</h3>
               )}
             </div>
-            {tournament?.status !== 'Finished' && (
-              <ButtonPrimary isSubmit={false} onClick={onDeleteTournament}>
-                Delete Tournament
-              </ButtonPrimary>
+            {validation.isScheduled && (
+              <div className="dashboard__players">
+                <h2 className="dashboard__players__title">Prospective Players</h2>
+                {prospectivePlayersNames?.length > 0 ? (
+                  prospectivePlayersNames?.map((player) => <div>{player}</div>)
+                ) : (
+                  <h3>No prospective players at the time</h3>
+                )}
+              </div>
+            )}
+            {validation.notFinished && (
+              <>
+                <p className="text__warning--generic">Deleting a tournament is not reversible, be careful!</p>
+                <ButtonPrimary isSubmit={false} onClick={onDeleteTournament}>
+                  Delete Tournament
+                </ButtonPrimary>
+              </>
             )}
           </div>
         )

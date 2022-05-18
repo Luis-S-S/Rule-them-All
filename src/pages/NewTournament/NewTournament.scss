@@ -16,9 +16,14 @@
 }
 
 .new-tournament__players {
+    box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid $grey;
     margin: 10px;
     padding: .75em;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 300px;
+    scroll-behavior: smooth;
 }

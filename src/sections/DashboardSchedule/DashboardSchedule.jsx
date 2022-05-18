@@ -26,8 +26,13 @@ export default function DashboardSchedule({ tournament, playerAndIdObj, onResult
   };
 
   const handleOnChange = (e) => {
-    setResult(e.target.value);
-    setIsVisible(true);
+    if (e.target.value === '') {
+      setResult('');
+      setIsVisible(false);
+    } else {
+      setResult(e.target.value);
+      setIsVisible(true);
+    }
   };
 
   const handleOnChangeResults = (index) => {

@@ -22,6 +22,20 @@ $boxShadow--generic: 0px 0px 10px rgba(0, 0, 0, 0.5);
     cursor: not-allowed;
 }
 
+.text__note--generic {
+    color: $grey;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.text__warning--generic {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
 // tags
 a {
     text-decoration: none;

@@ -7,10 +7,16 @@
     min-height: $fullScreen;
 }
 
+.dashboard__content {
+    margin-bottom: 2em;
+}
+
 .dashboard__players {
+    box-sizing: border-box;
     border: 1px solid $grey;
     border-radius: 20px;
     padding: .5em 2em;
+    width: 300px;
 }
 
 .dashboard__players__title {
