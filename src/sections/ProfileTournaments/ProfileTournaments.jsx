@@ -19,15 +19,15 @@ export default function ProfileInfo() {
     const allTournaments = await getAllDocs('tournaments');
     const createdTournaments = allTournaments.filter((tournament) => {
       const validationOne = tournament.admin === user?.username;
-      return validationOne && tournament.status !== 'finished';
+      return validationOne && tournament.status !== 'Finished';
     });
     const participatingTournaments = allTournaments.filter((tournament) => {
       const validationOne = tournament.players.includes(user?.username);
-      return validationOne && tournament.status !== 'finished';
+      return validationOne && tournament.status !== 'Finished';
     });
     const finishedTournaments = allTournaments.filter((tournament) => {
       const validationOne = (tournament.admin === user?.username || tournament.players.includes(user?.username));
-      return validationOne && tournament.status === 'finished';
+      return validationOne && tournament.status === 'Finished';
     });
     setCreated(createdTournaments);
     setParticipating(participatingTournaments);

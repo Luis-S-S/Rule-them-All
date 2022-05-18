@@ -2,7 +2,18 @@
 
 .dashboard-page {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     min-height: $fullScreen;
+}
+
+.dashboard__players {
+    border: 1px solid $grey;
+    border-radius: 20px;
+    padding: .5em 2em;
+}
+
+.dashboard__players__title {
+    color: $accent;
+    text-align: center;
 }

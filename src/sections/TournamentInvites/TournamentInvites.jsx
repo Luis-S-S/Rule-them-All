@@ -50,7 +50,7 @@ export default function TournamentInvites() {
     dispatch(setIntercept({
       title: 'Invitation Declined',
       message: `You have declined the invitation to ${tournamentTitle} tournament`,
-      navigation: '/invitations',
+      navigation: '/profile',
       buttonMsg: 'Go to Tournaments',
     }));
     setTournamentInvites(tournamentInvites.filter((invite) => invite.id !== invitationId));

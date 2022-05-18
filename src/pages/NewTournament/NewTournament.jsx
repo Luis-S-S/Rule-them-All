@@ -164,7 +164,7 @@ export default function NewTournament() {
             ? (
               <div className="new-tournament__players">
                 {prospectivePlayers.map((player) => (
-                  <RemoveableListItem element={player} onRemove={removePlayer} />
+                  <RemoveableListItem key={player} element={player} onRemove={removePlayer} />
                 ))}
               </div>
             )
