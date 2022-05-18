@@ -8,14 +8,16 @@ import {
   getDocById, editDocById, deleteDocById, getAllDocsByField,
 } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
+import DashboardSchedule from '../../sections/DashboardSchedule/DashboardSchedule';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
 import './Dashboard.scss';
 
 export default function Dashboard() {
   const [tournament, setTournament] = useState(null);
   const [playersNames, setPlayersNames] = useState([]);
+  const [playerAndIdObj, setPlayerAndIdObj] = useState([]);
   const { state, dispatch } = useContext(Context);
   const { user } = state;
   const { id } = useParams();
@@ -32,8 +34,11 @@ export default function Dashboard() {
   const getPlayersNames = async () => {
     const promises = tournament?.players.map((player) => getDocById('users', player));
     const promisesResponses = await Promise.all(promises);
-    const players = promisesResponses.map((response) => response.username);
-    setPlayersNames(players);
+    const names = promisesResponses.map((response) => response.username);
+    const namesAndId = promisesResponses
+      .map((response) => ({ username: response.username, id: response.id }));
+    setPlayersNames(names);
+    setPlayerAndIdObj(namesAndId);
   };
 
   const onChangeStatus = async (changeObject) => {
@@ -86,9 +91,7 @@ export default function Dashboard() {
           <div className="dashboard__content">
             <h1>{tournament?.title}</h1>
             <DashboardStatus
-              type={tournament?.type}
-              status={tournament?.status}
-              players={tournament?.players}
+              tournamentData={tournament}
               onChangeStatus={onChangeStatus}
             />
             <div className="dashboard__players">
@@ -101,6 +104,9 @@ export default function Dashboard() {
                 <h3>No player has accepted invitations yet</h3>
               )}
             </div>
+            {tournament?.schedule?.length > 0 && (
+              <DashboardSchedule schedule={tournament.schedule} playerAndIdObj={playerAndIdObj} />
+            )}
             {tournament?.status !== 'Finished' && (
               <ButtonPrimary isSubmit={false} onClick={onDeleteTournament}>
                 Delete Tournament

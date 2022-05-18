@@ -27,7 +27,7 @@ function ffaScheduleGenerator(participants) {
     let index = totalParticipants - 1;
     for (let i = 0; i < schedule.length; i += 1) {
       schedule[i].player2 = participants[index];
-      schedule[i].result = 'TBD';
+      schedule[i].resultP1 = 'TBD';
       if (index !== 0) { index -= 1; } else { index = totalParticipants - 1; }
     }
   } else {
@@ -42,14 +42,14 @@ function ffaScheduleGenerator(participants) {
 
     for (let i = 0; i < rounds; i += 1) {
       schedule[i * gamesPerRound].player2 = participants[totalParticipants - 1];
-      schedule[i * gamesPerRound].result = 'TBD';
+      schedule[i * gamesPerRound].resultP1 = 'TBD';
     }
 
     let index = totalParticipants - 2;
     for (let i = 0; i < rounds * gamesPerRound; i += 1) {
       if (i % gamesPerRound !== 0) {
         schedule[i].player2 = participants[index];
-        schedule[i].result = 'TBD';
+        schedule[i].resultP1 = 'TBD';
         if (index !== 0) { index -= 1; } else { index = totalParticipants - 2; }
       }
     }
@@ -63,7 +63,6 @@ export function scheduleHandler(tournamentType, participants) {
   switch (tournamentType) {
     case 'Free For All':
       schedule = ffaScheduleGenerator(participants);
-      console.log(schedule);
       break;
     case 'Single Elimination':
       break;
