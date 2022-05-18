@@ -4,7 +4,11 @@ import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
 
 import {
-  getAllDocs, queryCollectionByUsername, createDoc, createAndSendTournamentInvitation,
+  getAllDocs,
+  queryCollectionByUsername,
+  createDoc,
+  createAndSendTournamentInvitation,
+  getAllDocsByField,
 } from '../../services/firestore';
 import { availableTournaments } from '../../services/tournaments';
 
@@ -93,19 +97,23 @@ export default function NewTournament() {
     }
     if (form?.isPublic || prospectivePlayers.length >= 2) { setProspectivePlayersError(null); } else { return setProspectivePlayersError('Add at least two players'); }
 
+    const promises = prospectivePlayers.map((item) => getAllDocsByField(item, 'users'));
+    const promisesResult = await Promise.all(promises);
+    const newProstectivePlayers = promisesResult.map((item) => item[0].id);
+
     const newTournament = {
-      admin: user.username,
+      admin: user.id,
       ...form,
       players: [],
       pointSystem: { ...pointSystem },
-      prospectivePlayers,
+      prospectivePlayers: newProstectivePlayers,
       status: 'Scheduled',
     };
     if (form?.isPublic) { newTournament.players = []; }
     if (form?.scaleSystem !== 'Score') { delete newTournament.pointSystem; }
 
     const res = await createDoc('tournaments', newTournament);
-    prospectivePlayers.forEach((player) => {
+    newProstectivePlayers.forEach((player) => {
       createAndSendTournamentInvitation(res.id, form.title, player);
     });
     dispatch(setIntercept({
