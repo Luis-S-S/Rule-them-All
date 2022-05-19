@@ -65,11 +65,9 @@ export default function SignupDetail() {
 
   const handlerOnSubmit = async (e) => {
     e.preventDefault();
-    const updateUser = teammates.length > 0 && form.type === 'team' ? { ...form, players: teammates } : form;
+    const updateUser = teammates.length > 0 && form.type === 'Team' ? { ...form, players: teammates } : form;
     try {
-      if (!form?.username || !form?.type) {
-        throw new Error('Username and/or user type are required');
-      }
+      if (!form?.username || !form?.type) { throw new Error('Username and/or user type are required'); }
       await editDocById('users', user.id, { ...updateUser, lastInviteChecked: Date.now() });
       const userDoc = await getDocById('users', user.id);
       dispatch(setUser(userDoc));
@@ -95,8 +93,8 @@ export default function SignupDetail() {
         <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
           <h1 className="form__title">Complete Signup</h1>
           <Input type="text" name="username" labelText="Username" onChange={handlerOnChange} error={usernameErr} />
-          <Select name="type" labelText="Type of account" onChange={handlerOnChange} options={['gamer', 'team']} error={typeErr} />
-          {form?.type === 'team' && (
+          <Select name="type" labelText="Type of account" onChange={handlerOnChange} options={['Gamer', 'Team']} error={typeErr} />
+          {form?.type === 'Team' && (
             <div className="signupdetail__teammates">
               <DataListSearch
                 name="stagging"

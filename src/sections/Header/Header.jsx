@@ -53,9 +53,9 @@ export default function Header() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/tournaments">Tournaments</Link></li>
-          {!user && (<li><Link to="/login">Login</Link></li>)}
-          {user && (<li><Link to="/profile">Profile</Link></li>)}
-          {user && (<li><Link onClick={handleWatchInvites} to="/invitations">Invitations</Link></li>)}
+          {(user && !user?.username) && (<li><Link to="/signup_detail">Complete sign up</Link></li>)}
+          {user?.username && (<li><Link to="/profile">Profile</Link></li>)}
+          {user?.username && (<li><Link onClick={handleWatchInvites} to="/invitations">Invitations</Link></li>)}
           <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>
@@ -67,7 +67,12 @@ export default function Header() {
       <div className="header__right">
         {
           !user
-            ? (<Link to="/signup">Join Us</Link>)
+            ? (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Join Us</Link>
+              </>
+            )
             : (<button type="button" onClick={handlerSignout}>Sign out</button>)
         }
       </div>
