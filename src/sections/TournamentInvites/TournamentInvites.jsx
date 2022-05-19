@@ -14,7 +14,7 @@ export default function TournamentInvites() {
   const [tournamentInvites, setTournamentInvites] = useState([]);
 
   const getTournamentInvites = async () => {
-    const response = await getAllDocsByField(user?.username, 'tournamentInvitations', 'player');
+    const response = await getAllDocsByField(user?.id, 'tournamentInvitations', 'player');
     setTournamentInvites(response);
   };
 
@@ -22,8 +22,8 @@ export default function TournamentInvites() {
     const tournamentTitle = e.target.parentElement.attributes.name.value;
     const invitationId = e.target.parentElement.id;
     const [doc] = await getAllDocsByField(tournamentTitle, 'tournaments', 'title');
-    const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.username);
-    doc.players.push(user?.username);
+    const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.id);
+    if (!doc.players.includes(user?.id)) { doc.players.push(user?.id); }
     await editDocById('tournaments', doc.id, {
       prospectivePlayers: newProspectives,
       players: doc.players,
@@ -32,7 +32,7 @@ export default function TournamentInvites() {
     dispatch(setIntercept({
       title: 'Invitation Accepted',
       message: `You have accepted the invitation to ${tournamentTitle} tournament`,
-      navigation: '/invitations',
+      navigation: '/profile',
       buttonMsg: 'Go to Tournaments',
     }));
     setTournamentInvites(tournamentInvites.filter((invite) => invite.id !== invitationId));
@@ -42,7 +42,7 @@ export default function TournamentInvites() {
     const tournamentTitle = e.target.parentElement.attributes.name.value;
     const invitationId = e.target.parentElement.id;
     const [doc] = await getAllDocsByField(tournamentTitle, 'tournaments', 'title');
-    const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.username);
+    const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.id);
     await editDocById('tournaments', doc.id, {
       prospectivePlayers: newProspectives,
     });

@@ -22,6 +22,20 @@ $boxShadow--generic: 0px 0px 10px rgba(0, 0, 0, 0.5);
     cursor: not-allowed;
 }
 
+.text__note--generic {
+    color: $grey;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.text__warning--generic {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
 // tags
 a {
     text-decoration: none;
@@ -64,11 +78,26 @@ a {
     outline: 2px solid $accent;
 }
 
+.form__input--small {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 50px;
+}
+
+.form__input--small:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
 .form__control--generic__select {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 10px 0;
 }
 
 .form__select--generic {
@@ -94,6 +123,10 @@ a {
 
 .form__error--generic {
     color: red;
+}
+
+.form__success--generic {
+    color: green;
 }
 
 // icons

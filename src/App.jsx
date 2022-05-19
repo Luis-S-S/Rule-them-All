@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { Context } from './store';
@@ -9,29 +9,30 @@ import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
 import { listeningRealTime } from './services/realTime';
 
-import Home from './pages/Home/Home';
 import About from './pages/About/About';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Home from './pages/Home/Home';
+import Invitations from './pages/Invitations/Invitations';
+import Login from './pages/Login/Login';
+import NewTournament from './pages/NewTournament/NewTournament';
 import Profile from './pages/Profile/Profile';
 import Signup from './pages/Signup/Signup';
 import SignupDetail from './pages/SignupDetail/SignupDetail';
-import Login from './pages/Login/Login';
-import Tournaments from './pages/Tournaments/Tournaments';
-import NewTournament from './pages/NewTournament/NewTournament';
-import Invitations from './pages/Invitations/Invitations';
 import Standing from './pages/Standing/Standing';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Tournaments from './pages/Tournaments/Tournaments';
 
 import Header from './sections/Header/Header';
 import Footer from './sections/Footer/Footer';
 
 import Intercept from './components/Intercept/Intercept';
 import Notification from './components/Notification/Notification';
+import ValidationIntercept from './components/Intercept/ValidationIntercept';
 
 import './App.scss';
 
 function App() {
   const { state, dispatch } = useContext(Context);
-  const { user, intercept } = state;
+  const { user, intercept, validationIntercept } = state;
   const [notification, setNotification] = useState(null);
 
   // console.log(state);
@@ -46,7 +47,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    listeningRealTime(user?.username, setNotification);
+    listeningRealTime(user?.id, setNotification, user?.lastInviteChecked);
   }, [user]);
 
   return (
@@ -57,6 +58,15 @@ function App() {
           message={intercept.message}
           navigation={intercept.navigation}
           buttonMsg={intercept.buttonMsg}
+        />
+      )}
+      {validationIntercept && (
+        <ValidationIntercept
+          title={validationIntercept.title}
+          message={validationIntercept.message}
+          navigation={validationIntercept.navigation}
+          executableFunction={validationIntercept.executableFunction}
+          parameters={validationIntercept.parameters}
         />
       )}
       <Header />

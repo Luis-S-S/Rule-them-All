@@ -5,6 +5,8 @@ import { auth } from '../../config/firebase';
 import { Context } from '../../store';
 import { clearUser, setIntercept } from '../../store/actions';
 
+import { editDocById } from '../../services/firestore';
+
 import './Header.scss';
 
 export default function Header() {
@@ -37,6 +39,10 @@ export default function Header() {
     }
   });
 
+  const handleWatchInvites = async () => {
+    await editDocById('users', user.id, { lastInviteChecked: Date.now() });
+  };
+
   return (
     <header className="header__container">
       <div className="header__left">
@@ -49,7 +55,7 @@ export default function Header() {
           <li><Link to="/tournaments">Tournaments</Link></li>
           {!user && (<li><Link to="/login">Login</Link></li>)}
           {user && (<li><Link to="/profile">Profile</Link></li>)}
-          {user && (<li><Link to="/invitations">Invitations</Link></li>)}
+          {user && (<li><Link onClick={handleWatchInvites} to="/invitations">Invitations</Link></li>)}
           <li><a href="https://github.com/Luis-S-S" target="_blank" rel="noreferrer">Creator</a></li>
         </ul>
       </div>

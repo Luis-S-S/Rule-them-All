@@ -3,6 +3,7 @@ const initialState = {
   user: null,
   authValidation: true,
   intercept: null,
+  validationIntercept: null,
 };
 
 function reducer(state = initialState, action) {
@@ -27,6 +28,16 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         intercept: null,
+      };
+    case 'SET_VALIDATION_INTERCEPT':
+      return {
+        ...state,
+        validationIntercept: { ...payload },
+      };
+    case 'REMOVE_VALIDATION_INTERCEPT':
+      return {
+        ...state,
+        validationIntercept: null,
       };
     default:
       return state;

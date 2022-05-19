@@ -15,18 +15,18 @@ export default function ProfileInfo() {
   const [participating, setParticipating] = useState([]);
   const [finished, setFinished] = useState([]);
 
-  const getCreatedTournaments = async () => {
+  const getMyTournaments = async () => {
     const allTournaments = await getAllDocs('tournaments');
     const createdTournaments = allTournaments.filter((tournament) => {
-      const validationOne = tournament.admin === user?.username;
+      const validationOne = tournament.admin === user?.id;
       return validationOne && tournament.status !== 'Finished';
     });
     const participatingTournaments = allTournaments.filter((tournament) => {
-      const validationOne = tournament.players.includes(user?.username);
+      const validationOne = tournament.players.includes(user?.id);
       return validationOne && tournament.status !== 'Finished';
     });
     const finishedTournaments = allTournaments.filter((tournament) => {
-      const validationOne = (tournament.admin === user?.username || tournament.players.includes(user?.username));
+      const validationOne = (tournament.admin === user?.id || tournament.players.includes(user?.id));
       return validationOne && tournament.status === 'Finished';
     });
     setCreated(createdTournaments);
@@ -35,7 +35,7 @@ export default function ProfileInfo() {
   };
 
   useEffect(() => {
-    getCreatedTournaments();
+    getMyTournaments();
   }, [user]);
 
   return (
