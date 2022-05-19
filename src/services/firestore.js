@@ -125,8 +125,8 @@ export async function createAndSendTournamentInvitation(tournamentTitle, userId)
     tournament: tournamentTitle, player: userId, acceptedInvite: false, timeStamp: Date.now(),
   };
   await emitRealTime(userId, {
-    title: 'New tournament invitation',
-    msg: `You have a new tournament invitation from ${tournamentTitle}`,
+    title: 'Pending invitations',
+    msg: 'You have invitations unseen. Check your pending invitations.',
     invitationTime: Date.now(),
   });
   await createDoc('tournamentInvitations', invitation);
