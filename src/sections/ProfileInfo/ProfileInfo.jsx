@@ -20,7 +20,7 @@ export default function ProfileInfo() {
   const handleOnChangeUsername = async (e) => {
     const search = await queryCollectionByUsername('users', e.target.value);
     const searchUsernames = search.map((item) => item.username);
-    if (searchUsernames.includes(e.target.value)) {
+    if (searchUsernames?.includes(e.target.value)) {
       setUsernameErr('Username already exists');
     } else {
       setUsernameErr(null);

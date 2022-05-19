@@ -11,6 +11,7 @@ import { listeningRealTime } from './services/realTime';
 
 import About from './pages/About/About';
 import Dashboard from './pages/Dashboard/Dashboard';
+import JoinTournament from './pages/JoinTournament/JoinTournament';
 import Home from './pages/Home/Home';
 import Invitations from './pages/Invitations/Invitations';
 import Login from './pages/Login/Login';
@@ -82,6 +83,7 @@ function App() {
         <Route path="/invitations" element={<Invitations />} />
         <Route path="/standing/:id" element={<Standing />} />
         <Route path="/tournament/admin/:id" element={<Dashboard />} />
+        <Route path="/tournament/join/:id" element={<JoinTournament />} />
       </Routes>
       <Footer />
       <Notification className={notification ? 'notification__container--active' : ''} notification={notification} setNotification={setNotification} />

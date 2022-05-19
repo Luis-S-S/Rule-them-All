@@ -8,6 +8,7 @@ import {
   getDocById, editDocById, deleteDocById, getAllDocsByField,
 } from '../../services/firestore';
 
+import CopyToClipboard from '../../components/CopyToClipboard/CopyToClipboard';
 import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
 import DashboardSchedule from '../../sections/DashboardSchedule/DashboardSchedule';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
@@ -28,8 +29,6 @@ export default function Dashboard() {
     isActive: tournament?.status === 'Active',
     isScheduled: tournament?.status === 'Scheduled',
   };
-
-  // emit realtime updates
 
   const getTournamentInfo = async () => {
     const response = await getDocById('tournaments', id);
@@ -149,11 +148,17 @@ export default function Dashboard() {
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
             />
-            {(tournament?.schedule?.length > 0 && tournament?.status === 'Active') && (
+            {(validation.isActive && tournament?.schedule?.length > 0) && (
               <DashboardSchedule
                 tournament={tournament}
                 playerAndIdObj={playerAndIdObj}
                 onResultsChange={onResultUpdate}
+              />
+            )}
+            {(validation.isScheduled && tournament?.isPublic) && (
+              <CopyToClipboard
+                buttonText="Copy link to clipboard!"
+                textToCopy={`http://localhost:3000/tournament/join/${id}`} // https://rulethemall.vercel.app/tournament/join/${id}
               />
             )}
             <div className="dashboard__players">
@@ -176,7 +181,7 @@ export default function Dashboard() {
                 <h3>No player has accepted invitations yet</h3>
               )}
             </div>
-            {validation.isScheduled && (
+            {(validation.isScheduled && !tournament?.isPublic) && (
               <div className="dashboard__players">
                 <h2 className="dashboard__players__title">Prospective Players</h2>
                 {prospectivePlayersNames?.length > 0 ? (
