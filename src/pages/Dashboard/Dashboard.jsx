@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Context } from '../../store';
-import { setIntercept } from '../../store/actions';
+import { setIntercept, setValidationIntercept } from '../../store/actions';
 
 import {
   getDocById, editDocById, deleteDocById, getAllDocsByField,
@@ -72,7 +72,7 @@ export default function Dashboard() {
     const playerId = response.id;
     const newPlayers = tournament.players.filter((p) => p !== playerId);
     if (newPlayers.length >= 2) {
-      let schedule = [...tournament.schedule];
+      let schedule = tournament.schedule ? [...tournament.schedule] : [];
       if (validation.isActive) {
         schedule = schedule
           .filter((round) => (round.player1 !== playerId && round.player2 !== playerId));
@@ -95,6 +95,16 @@ export default function Dashboard() {
     }
   };
 
+  const validateOnRemovePlayer = async (playerUsername) => {
+    dispatch(setValidationIntercept({
+      title: 'Remove player',
+      message: `Are you sure you want to remove ${playerUsername} from the tournament?`,
+      navigation: `/tournament/admin/${id}`,
+      executableFunction: onRemovePlayer,
+      parameters: [playerUsername],
+    }));
+  };
+
   const onDeleteTournament = async () => {
     const invitations = await getAllDocsByField(tournament?.title, 'tournamentInvitations', 'tournament');
     invitations.forEach((invitation) => deleteDocById('tournamentInvitations', invitation.id));
@@ -104,6 +114,15 @@ export default function Dashboard() {
       message: 'The tournament has been deleted',
       navigation: '/profile',
       buttonMsg: 'Go to profile',
+    }));
+  };
+
+  const validateOnDeleteTournament = async () => {
+    dispatch(setValidationIntercept({
+      title: 'Delete tournament',
+      message: 'Are you sure you want to delete the tournament?',
+      navigation: `/tournament/admin/${id}`,
+      executableFunction: onDeleteTournament,
     }));
   };
 
@@ -139,12 +158,15 @@ export default function Dashboard() {
             )}
             <div className="dashboard__players">
               <h2 className="dashboard__players__title">Players</h2>
-              {validation.notFinished && (<p className="text__note--generic">Deleting players is not reversible, be careful!</p>)}
               {playersNames?.length > 0 ? (
                 playersNames?.map((player) => (
                   validation.notFinished
                     ? (
-                      <RemoveableListItem key={player} element={player} onRemove={onRemovePlayer} />
+                      <RemoveableListItem
+                        key={player}
+                        element={player}
+                        onRemove={validateOnRemovePlayer}
+                      />
                     )
                     : (
                       <div>{player}</div>
@@ -165,12 +187,9 @@ export default function Dashboard() {
               </div>
             )}
             {validation.notFinished && (
-              <>
-                <p className="text__warning--generic">Deleting a tournament is not reversible, be careful!</p>
-                <ButtonPrimary isSubmit={false} onClick={onDeleteTournament}>
-                  Delete Tournament
-                </ButtonPrimary>
-              </>
+              <ButtonPrimary isSubmit={false} onClick={validateOnDeleteTournament}>
+                Delete Tournament
+              </ButtonPrimary>
             )}
           </div>
         )

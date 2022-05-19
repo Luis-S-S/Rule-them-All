@@ -1,9 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
+
 import { Context } from '../../store';
+import { removeIntercept } from '../../store/actions';
 
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 
@@ -17,7 +18,7 @@ export default function Intercept(props) {
   const navigate = useNavigate();
 
   const handleRemoveIntercept = () => {
-    dispatch({ type: 'REMOVE_INTERCEPT' });
+    dispatch(removeIntercept());
     navigate(navigation);
   };
 
@@ -26,9 +27,6 @@ export default function Intercept(props) {
       <div className="intercept__container">
         <h1 className="intercept__title">{title}</h1>
         <p className="intercept__body">{message}</p>
-        {false && (
-          <ButtonPrimary isSubmit={false} onClick={handleRemoveIntercept}>Cancel</ButtonPrimary>
-        )}
         <ButtonPrimary
           isSubmit={false}
           onClick={handleRemoveIntercept}

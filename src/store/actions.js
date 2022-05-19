@@ -11,6 +11,19 @@ export const removeIntercept = () => ({
   type: 'REMOVE_INTERCEPT',
 });
 
+export const setValidationIntercept = ({
+  title, message, navigation, executableFunction, parameters,
+}) => ({
+  type: 'SET_VALIDATION_INTERCEPT',
+  payload: {
+    title, message, navigation, executableFunction, parameters,
+  },
+});
+
+export const removeValidationIntercept = () => ({
+  type: 'REMOVE_VALIDATION_INTERCEPT',
+});
+
 export const setUser = (user) => ({
   type: 'SET_USER',
   payload: { ...user },
