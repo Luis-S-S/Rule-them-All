@@ -49,7 +49,7 @@ export default function Dashboard() {
   };
 
   const getProspectivePlayersNames = async () => {
-    const promises = tournament?.prospectivePlayers.map((prospectivePlayer) => getDocById('users', prospectivePlayer));
+    const promises = tournament?.prospectivePlayers?.map((prospectivePlayer) => getDocById('users', prospectivePlayer));
     const promisesResponses = await Promise.all(promises);
     const names = promisesResponses.map((response) => response.username);
     setProspectivePlayersNames(names);

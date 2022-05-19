@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import { getDocById } from '../../services/firestore';
 
+import TablePoint from '../../sections/Table/TablePoint';
+import TableWinLoss from '../../sections/Table/TableWinLoss';
+
 import './Standing.scss';
 
 export default function Standing() {
@@ -16,6 +19,17 @@ export default function Standing() {
     setTournament(response);
   };
 
+  const drawTable = () => {
+    switch (tournament?.scaleSystem) {
+      case 'Points':
+        return <TablePoint tournament={tournament} />;
+      case 'Win/Loss':
+        return <TableWinLoss tournament={tournament} />;
+      default:
+        return null;
+    }
+  };
+
   useEffect(() => {
     getTournamentInfo();
   }, []);
@@ -23,6 +37,8 @@ export default function Standing() {
   return (
     <div className="standing-page">
       <h1>{tournament?.title}</h1>
+      <h1>{tournament?.status}</h1>
+      {drawTable()}
     </div>
   );
 }

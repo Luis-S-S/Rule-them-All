@@ -86,7 +86,7 @@ export default function NewTournament() {
     if (form?.title) { setTitleError(null); } else { return setTitleError('Title is required'); }
     if (form?.type) { setTypeError(null); } else { return setTypeError('Type is required'); }
     if (form?.scaleSystem) { setScaleError(null); } else { return setScaleError('Select a point system'); }
-    if (form?.scaleSystem === 'Score') {
+    if (form?.scaleSystem === 'Points') {
       if (pointSystem?.win && pointSystem?.tie && pointSystem?.loss) {
         setPointsError(null);
       } else {
@@ -108,7 +108,7 @@ export default function NewTournament() {
       status: 'Scheduled',
     };
     if (form?.isPublic) { newTournament.players = []; }
-    if (form?.scaleSystem !== 'Score') { delete newTournament.pointSystem; }
+    if (form?.scaleSystem !== 'Points') { delete newTournament.pointSystem; }
 
     const res = await createDoc('tournaments', newTournament);
     newProstectivePlayers.forEach((player) => {
@@ -150,11 +150,11 @@ export default function NewTournament() {
         <Select
           name="scaleSystem"
           labelText="How are you going to keep score?"
-          options={['Win/Loss', 'Score']}
+          options={['Win/Loss', 'Points']}
           onChange={handleOnChange}
           error={scaleError}
         />
-        {form?.scaleSystem === 'Score' && (
+        {form?.scaleSystem === 'Points' && (
         <div>
           <InputSmall type="number" name="win" labelText="Winner Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
           <InputSmall type="number" name="tie" labelText="Tie Game Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
