@@ -15,18 +15,18 @@ export default function ProfileInfo() {
   const [participating, setParticipating] = useState([]);
   const [finished, setFinished] = useState([]);
 
-  const getMyTournaments = async () => {
+  const getMyTournaments = async (userData) => {
     const allTournaments = await getAllDocs('tournaments');
     const createdTournaments = allTournaments.filter((tournament) => {
-      const validationOne = tournament.admin === user?.id;
+      const validationOne = tournament.admin === userData.id;
       return validationOne && tournament.status !== 'Finished';
     });
     const participatingTournaments = allTournaments.filter((tournament) => {
-      const validationOne = tournament.players.includes(user?.id);
+      const validationOne = tournament.players?.includes(userData.id);
       return validationOne && tournament.status !== 'Finished';
     });
     const finishedTournaments = allTournaments.filter((tournament) => {
-      const validationOne = (tournament.admin === user?.id || tournament.players.includes(user?.id));
+      const validationOne = (tournament.admin === userData.id || tournament.players?.includes(userData.id));
       return validationOne && tournament.status === 'Finished';
     });
     setCreated(createdTournaments);
@@ -35,7 +35,9 @@ export default function ProfileInfo() {
   };
 
   useEffect(() => {
-    getMyTournaments();
+    if (user) {
+      getMyTournaments(user);
+    }
   }, [user]);
 
   return (
@@ -48,7 +50,7 @@ export default function ProfileInfo() {
             ? (created.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="admin" />
             )))
-            : (<h3>Create your first tournament!</h3>)}
+            : (<h3 className="profile-tournament__error">Create your first tournament!</h3>)}
         </div>
         <div className="profile-tournaments__list">
           <h2>Participating</h2>
@@ -56,7 +58,7 @@ export default function ProfileInfo() {
             ? (participating.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="participant" />
             )))
-            : (<h3>Join your first tournament!</h3>)}
+            : (<h3 className="profile-tournament__error">Join your first tournament!</h3>)}
         </div>
         <div className="profile-tournaments__list">
           <h2>Finished</h2>
@@ -64,7 +66,7 @@ export default function ProfileInfo() {
             ? (finished.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="participant" />
             )))
-            : (<h3>No tournaments finished</h3>)}
+            : (<h3 className="profile-tournament__error">No tournaments finished</h3>)}
         </div>
       </div>
     </div>

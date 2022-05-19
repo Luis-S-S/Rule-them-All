@@ -1,17 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { editDocById } from '../../services/firestore';
+
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 import './Notification.scss';
 
-export default function Notification({ className, notification, setNotification }) {
+export default function Notification({
+  className, notification, setNotification, userId,
+}) {
   const navigate = useNavigate();
 
   const handleClose = () => {
     setNotification(null);
   };
 
-  const handleRedirect = () => {
+  const handleRedirect = async () => {
+    await editDocById('users', userId, { lastInviteChecked: Date.now() });
     setNotification(null);
     navigate('/invitations');
   };
@@ -35,8 +40,10 @@ Notification.propTypes = {
   }),
   setNotification: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
+  userId: PropTypes.string,
 };
 
 Notification.defaultProps = {
   notification: null,
+  userId: '',
 };

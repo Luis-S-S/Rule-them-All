@@ -5,9 +5,10 @@ import { Context } from '../../store';
 import { setIntercept, setValidationIntercept } from '../../store/actions';
 
 import {
-  getDocById, editDocById, deleteDocById, getAllDocsByField,
+  getDocById, editDocById, deleteDocById, getAllDocsByField, listenDocById,
 } from '../../services/firestore';
 
+import CopyToClipboard from '../../components/CopyToClipboard/CopyToClipboard';
 import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
 import DashboardSchedule from '../../sections/DashboardSchedule/DashboardSchedule';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
@@ -29,13 +30,12 @@ export default function Dashboard() {
     isScheduled: tournament?.status === 'Scheduled',
   };
 
-  // emit realtime updates
-
   const getTournamentInfo = async () => {
-    const response = await getDocById('tournaments', id);
-    if (response.admin === user?.id) {
-      setTournament(response);
-    }
+    listenDocById('tournaments', id, setTournament);
+    // const response = await getDocById('tournaments', id);
+    // if (response.admin === user?.id) {
+    //   setTournament(response);
+    // }
   };
 
   const getPlayersNames = async () => {
@@ -99,7 +99,7 @@ export default function Dashboard() {
     dispatch(setValidationIntercept({
       title: 'Remove player',
       message: `Are you sure you want to remove ${playerUsername} from the tournament?`,
-      navigation: `/tournament/admin/${id}`,
+      navigationOnCancel: `/tournament/admin/${id}`,
       executableFunction: onRemovePlayer,
       parameters: [playerUsername],
     }));
@@ -121,7 +121,7 @@ export default function Dashboard() {
     dispatch(setValidationIntercept({
       title: 'Delete tournament',
       message: 'Are you sure you want to delete the tournament?',
-      navigation: `/tournament/admin/${id}`,
+      navigationOnCancel: `/tournament/admin/${id}`,
       executableFunction: onDeleteTournament,
     }));
   };
@@ -145,15 +145,22 @@ export default function Dashboard() {
         ? (
           <div className="dashboard__content">
             <h1>{tournament?.title}</h1>
+            <h1>{tournament?.game}</h1>
             <DashboardStatus
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
             />
-            {(tournament?.schedule?.length > 0 && tournament?.status === 'Active') && (
+            {(validation.isActive && tournament?.schedule?.length > 0) && (
               <DashboardSchedule
                 tournament={tournament}
                 playerAndIdObj={playerAndIdObj}
                 onResultsChange={onResultUpdate}
+              />
+            )}
+            {(validation.isScheduled && tournament?.isPublic) && (
+              <CopyToClipboard
+                buttonText="Copy link to clipboard!"
+                textToCopy={`http://localhost:3000/tournament/join/${id}`} // https://rulethemall.vercel.app/tournament/join/${id}
               />
             )}
             <div className="dashboard__players">
@@ -176,7 +183,7 @@ export default function Dashboard() {
                 <h3>No player has accepted invitations yet</h3>
               )}
             </div>
-            {validation.isScheduled && (
+            {(validation.isScheduled && !tournament?.isPublic) && (
               <div className="dashboard__players">
                 <h2 className="dashboard__players__title">Prospective Players</h2>
                 {prospectivePlayersNames?.length > 0 ? (

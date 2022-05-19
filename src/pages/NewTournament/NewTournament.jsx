@@ -35,6 +35,7 @@ export default function NewTournament() {
   const [scaleError, setScaleError] = useState(null);
   const [pointsError, setPointsError] = useState(null);
   const [prospectivePlayersError, setProspectivePlayersError] = useState(null);
+  const [maxPlayersError, setMaxPlayersError] = useState(null);
 
   const searchOnChangeTitles = async (incomingTitle) => {
     const response = await getAllDocs('tournaments');
@@ -76,10 +77,12 @@ export default function NewTournament() {
   const handleOnChange = (e) => {
     if (e.target.name === 'title') { searchOnChangeTitles(e.target.value.trim()); }
     if (e.target.name === 'isPublic') {
-      setForm({ ...form, [e.target.name]: e.target.checked });
-    } else {
-      setForm({ ...form, [e.target.name]: e.target.value.trim() });
+      return setForm({ ...form, [e.target.name]: e.target.checked });
     }
+    if (e.target.name === 'maxPlayers') {
+      return setForm({ ...form, [e.target.name]: e.target.value });
+    }
+    return setForm({ ...form, [e.target.name]: e.target.value.trim() });
   };
 
   const handleOnSubmit = async () => {
@@ -93,7 +96,25 @@ export default function NewTournament() {
         return setPointsError('Points are required');
       }
     }
-    if (form?.isPublic || prospectivePlayers.length >= 2) { setProspectivePlayersError(null); } else { return setProspectivePlayersError('Add at least two players'); }
+    if (form?.isPublic) {
+      if (form?.maxPlayers) {
+        setMaxPlayersError(null);
+      } else {
+        return setMaxPlayersError('Max players is required');
+      }
+      if (form?.maxPlayers >= 2) {
+        setMaxPlayersError(null);
+      } else {
+        return setMaxPlayersError('Minimum of 2 players to create a tournament');
+      }
+    }
+    if (!form?.isPublic) {
+      if (prospectivePlayers.length >= 2) {
+        setProspectivePlayersError(null);
+      } else {
+        return setProspectivePlayersError('Add at least two players');
+      }
+    }
 
     const promises = prospectivePlayers.map((item) => getAllDocsByField(item, 'users'));
     const promisesResult = await Promise.all(promises);
@@ -107,13 +128,16 @@ export default function NewTournament() {
       prospectivePlayers: newProstectivePlayers,
       status: 'Scheduled',
     };
-    if (form?.isPublic) { newTournament.players = []; }
+    if (!form?.isPublic) { delete newTournament.maxPlayers; }
+    if (form?.isPublic) { delete newTournament.prospectivePlayers; }
     if (form?.scaleSystem !== 'Points') { delete newTournament.pointSystem; }
 
     await createDoc('tournaments', newTournament);
-    newProstectivePlayers.forEach((player) => {
-      createAndSendTournamentInvitation(form.title, player);
-    });
+    if (!form?.isPublic) {
+      newProstectivePlayers.forEach((player) => {
+        createAndSendTournamentInvitation(form.title, player);
+      });
+    }
     dispatch(setIntercept({
       title: 'Tournament created successfully',
       message: 'You can now go back to the list of tournaments, all players have received an invite to join the tournament',
@@ -139,6 +163,13 @@ export default function NewTournament() {
           placeholder="Tournament title"
           error={titleError}
         />
+        <Input
+          type="text"
+          name="game"
+          labelText="Game Title"
+          onChange={handleOnChange}
+          placeholder="Game Title"
+        />
         <Select
           name="type"
           labelText="Tournament Type"
@@ -161,28 +192,30 @@ export default function NewTournament() {
           <InputSmall type="number" name="loss" labelText="Loser Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
         </div>
         )}
-        {!form?.isPublic && (
-        <>
-          <DataListSearch
-            name="prospectivePlayers"
-            labelText="Players"
-            onChange={searchOnChangeUsernames}
-            options={usernameList}
-            error={prospectivePlayersError}
-          />
-          <ButtonPrimary isSubmit onClick={addPlayer}>Add player</ButtonPrimary>
-          {prospectivePlayers.length > 0
-            ? (
-              <div className="new-tournament__players">
-                {prospectivePlayers.map((player) => (
-                  <RemoveableListItem key={player} element={player} onRemove={removePlayer} />
-                ))}
-              </div>
-            )
-            : (
-              <h4>No players added</h4>
-            )}
-        </>
+        {form?.isPublic ? (
+          <InputSmall type="number" name="maxPlayers" labelText="Max Players" onChange={handleOnChange} error={maxPlayersError} />
+        ) : (
+          <>
+            <DataListSearch
+              name="prospectivePlayers"
+              labelText="Players"
+              onChange={searchOnChangeUsernames}
+              options={usernameList}
+              error={prospectivePlayersError}
+            />
+            <ButtonPrimary isSubmit onClick={addPlayer}>Add player</ButtonPrimary>
+            {prospectivePlayers.length > 0
+              ? (
+                <div className="new-tournament__players">
+                  {prospectivePlayers.map((player) => (
+                    <RemoveableListItem key={player} element={player} onRemove={removePlayer} />
+                  ))}
+                </div>
+              )
+              : (
+                <h4>No players added</h4>
+              )}
+          </>
         )}
         <ButtonPrimary isSubmit={false} onClick={handleOnSubmit}>Create Tournament</ButtonPrimary>
       </form>

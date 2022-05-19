@@ -10,7 +10,7 @@ export default function Tournaments() {
   return (
     <div className="tournaments-page">
       <h1>Welcome to the Arena!</h1>
-      {user && (<LinkPrimary path="/create_tournament">Create new tournament</LinkPrimary>)}
+      {user?.username && (<LinkPrimary path="/create_tournament">Create new tournament</LinkPrimary>)}
       <section className="tournaments-page__container">All tournaments</section>
     </div>
   );

@@ -12,14 +12,14 @@ import './Intercept.scss';
 
 export default function ValidationIntercept(props) {
   const {
-    title, message, navigation, executableFunction, parameters,
+    title, message, navigationOnCancel, executableFunction, parameters,
   } = props;
   const { dispatch } = useContext(Context);
   const navigate = useNavigate();
 
   const handleRemoveValidationIntercept = () => {
     dispatch(removeValidationIntercept());
-    navigate(navigation);
+    navigate(navigationOnCancel);
   };
 
   const handleExecuteFunction = () => {
@@ -52,7 +52,7 @@ export default function ValidationIntercept(props) {
 ValidationIntercept.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  navigation: PropTypes.string.isRequired,
+  navigationOnCancel: PropTypes.string.isRequired,
   executableFunction: PropTypes.func.isRequired,
   parameters: PropTypes.array,
 };

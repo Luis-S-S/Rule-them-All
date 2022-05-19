@@ -59,6 +59,10 @@
 }
 
 .header__right {
+    align-items: center;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
     padding: 0 .25em;
 }
 
