@@ -70,7 +70,7 @@ export default function SignupDetail() {
       if (!form?.username || !form?.type) {
         throw new Error('Username and/or user type are required');
       }
-      await editDocById('users', user.id, updateUser);
+      await editDocById('users', user.id, { ...updateUser, lastInviteChecked: Date.now() });
       const userDoc = await getDocById('users', user.id);
       dispatch(setUser(userDoc));
       dispatch(setIntercept({

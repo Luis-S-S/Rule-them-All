@@ -47,7 +47,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    listeningRealTime(user?.id, setNotification);
+    listeningRealTime(user?.id, setNotification, user?.lastInviteChecked);
   }, [user]);
 
   return (

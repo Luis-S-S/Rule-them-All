@@ -110,9 +110,9 @@ export default function NewTournament() {
     if (form?.isPublic) { newTournament.players = []; }
     if (form?.scaleSystem !== 'Points') { delete newTournament.pointSystem; }
 
-    const res = await createDoc('tournaments', newTournament);
+    await createDoc('tournaments', newTournament);
     newProstectivePlayers.forEach((player) => {
-      createAndSendTournamentInvitation(res.id, form.title, player);
+      createAndSendTournamentInvitation(form.title, player);
     });
     dispatch(setIntercept({
       title: 'Tournament created successfully',

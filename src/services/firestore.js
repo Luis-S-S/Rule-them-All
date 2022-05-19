@@ -120,11 +120,15 @@ export async function queryCollectionByUsername(collectionName, username) {
 }
 
 // eslint-disable-next-line max-len
-export async function createAndSendTournamentInvitation(tournamentId, tournamentTitle, userId) {
+export async function createAndSendTournamentInvitation(tournamentTitle, userId) {
   const invitation = {
-    tournament: tournamentTitle, player: userId, acceptedInvite: false, timeStamp: new Date(),
+    tournament: tournamentTitle, player: userId, acceptedInvite: false, timeStamp: Date.now(),
   };
-  await emitRealTime(userId, { title: 'New tournament invitation', msg: `You have a new tournament invitation from ${tournamentTitle}` });
+  await emitRealTime(userId, {
+    title: 'New tournament invitation',
+    msg: `You have a new tournament invitation from ${tournamentTitle}`,
+    invitationTime: Date.now(),
+  });
   await createDoc('tournamentInvitations', invitation);
 }
 
