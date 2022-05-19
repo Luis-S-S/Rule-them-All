@@ -1,0 +1,41 @@
+@import '../../App.scss';
+
+.profile-page__tournaments {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+    padding: 1em;
+}
+
+.profile-tournaments__container {
+    align-items:stretch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.profile-tournaments__list {
+    width: 45%;
+    min-width: 270px;
+    margin: 1em 0;
+    padding: 1em;
+    box-shadow: $boxShadow--generic;
+}
+
+.profile-tournaments__list > h2 {
+    text-align: center;
+}
+
+.profile-tournament__error {
+    text-align: center;
+}
+
+@media (min-width:768px) {
+    .profile-page__tournaments {
+        width: 70%;
+        padding: 3em 1em;
+    }
+}

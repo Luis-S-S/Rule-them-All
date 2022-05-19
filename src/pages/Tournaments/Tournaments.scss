@@ -1,0 +1,26 @@
+@import '../../App.scss';
+
+.tournaments-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1em;
+    height: $fullScreen;
+}
+
+.tournaments-page__container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 80%;
+    box-shadow: $boxShadow--generic;
+    padding: 1em;
+    // border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+    .tournaments-page__container {
+        width: 90%;
+    }
+}

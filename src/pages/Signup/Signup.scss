@@ -1,0 +1,32 @@
+@import '../../App.scss'; 
+
+.signup-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $fullScreen;
+}
+
+.signup__container {
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid $grey;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+    padding: 1em;
+    width: 30%;
+}
+
+.signup-form {
+    align-items: center;
+    border-bottom: 1px solid $grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    width: 80%;
+}

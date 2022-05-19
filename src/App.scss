@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+// Colors
+$dominant: black;
+$secondary: white;
+$accent: #62388E;
+$grey: #333;
+
+// Fonts
+$text-font: 'Open Sans', sans-serif;
+
+// Extra variables
+$fullScreen: calc(100vh - 120px);
+$boxShadow--generic: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+// Root Styles
+* {
+    font-family: $text-font;
+}
+
+.disabled--generic {
+    cursor: not-allowed;
+}
+
+.text__note--generic {
+    color: $grey;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.text__warning--generic {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+// tags
+a {
+    text-decoration: none;
+}
+
+.button__transparent--generic {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+// forms
+.form__control--generic_input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.form__control--generic_input_inline {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.form__input--generic {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+.form__input--generic:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__input--small {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 50px;
+}
+
+.form__input--small:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__control--generic__select {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.form__select--generic {
+    border-radius: 5px;
+    border: 1px solid $grey;
+    color: $grey;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+.form__select--generic:focus {
+    border: 1px solid $accent;
+    outline: 2px solid $accent;
+}
+
+.form__control--generic__checkbox {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.form__error--generic {
+    color: red;
+}
+
+.form__success--generic {
+    color: green;
+}
+
+// icons
+.google__icon {
+    width: 30px;
+}

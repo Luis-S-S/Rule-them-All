@@ -1,0 +1,45 @@
+.intercept__bg {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 9999;
+}
+
+.intercept__container {
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    justify-content: center;
+    max-width: 400px;
+    padding: 1em;
+    width: 80%;
+}
+
+.intercept__title, .intercept__body {
+    margin: 0;
+}
+
+.intercept__title {
+    text-align: center;
+}
+
+.intercept__body {
+    text-align: justify;
+}
+
+.intercept--buttons__container {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
