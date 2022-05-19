@@ -65,7 +65,7 @@ function App() {
         <ValidationIntercept
           title={validationIntercept.title}
           message={validationIntercept.message}
-          navigation={validationIntercept.navigation}
+          navigationOnCancel={validationIntercept.navigationOnCancel}
           executableFunction={validationIntercept.executableFunction}
           parameters={validationIntercept.parameters}
         />
@@ -86,7 +86,12 @@ function App() {
         <Route path="/tournament/join/:id" element={<JoinTournament />} />
       </Routes>
       <Footer />
-      <Notification className={notification ? 'notification__container--active' : ''} notification={notification} setNotification={setNotification} />
+      <Notification
+        className={notification ? 'notification__container--active' : ''}
+        notification={notification}
+        setNotification={setNotification}
+        userId={user?.id}
+      />
     </BrowserRouter>
   );
 }

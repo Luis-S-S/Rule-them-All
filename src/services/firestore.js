@@ -9,6 +9,7 @@ import {
   deleteDoc,
   query,
   where,
+  onSnapshot,
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -72,6 +73,21 @@ export async function getDocById(collectionName, id) {
     return { id: docSnap.id, ...data };
   }
   return false;
+}
+
+/**
+ *
+ * @param {String} collectionName
+ * @param {String} id
+ * @param {Function} setStatus function to set the status
+ * @returns Void => updates the status of the document
+ */
+export async function listenDocById(collectionName, id, setStatus) {
+  const docRef = doc(db, collectionName, id);
+  return onSnapshot(docRef, (docSnap) => {
+    const data = docSnap.data();
+    setStatus(data);
+  });
 }
 
 /**

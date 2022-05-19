@@ -70,20 +70,6 @@ export default function SignUp() {
         title: 'An error ocurred', message: errorMsg, navigation: '/signup', buttonMsg: 'Try again',
       }));
     }
-    // const user = await createDocOnEmailSignup(form.email, form.password);
-    // if (user.accessToken) {
-    //   dispatch(setIntercept({
-    //     title: 'Success',
-    //     message: 'Sign up successful,
-    // please check your inbox or spam folder to verify your email',
-    //     navigation: '/login',
-    //     buttonMsg: 'Continue',
-    //   }));
-    // } else {
-    //   dispatch(setIntercept({
-    //     title: 'Error', message: 'Sign up failed', navigation: '/signup', buttonMsg: 'Try again',
-    //   }));
-    // }
     return null;
   };
 

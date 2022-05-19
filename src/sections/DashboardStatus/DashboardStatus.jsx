@@ -47,7 +47,7 @@ export default function DashboardStatus({ tournamentData, onChangeStatus }) {
     dispatch(setValidationIntercept({
       title: 'Status change',
       message: 'Are you sure you want to start the tournament? You won\'t be able to add any players or undo after this',
-      navigation: `/tournament/admin/${id}`,
+      navigationOnCancel: `/tournament/admin/${id}`,
       executableFunction: handleActivate,
       parameters: [e],
     }));
@@ -68,7 +68,7 @@ export default function DashboardStatus({ tournamentData, onChangeStatus }) {
     dispatch(setValidationIntercept({
       title: 'Status change',
       message: 'Are you sure you want to mark the tournament as completed? You won\'t be able to undo this',
-      navigation: `/tournament/admin/${id}`,
+      navigationOnCancel: `/tournament/admin/${id}`,
       executableFunction: handleFinish,
       parameters: [e],
     }));

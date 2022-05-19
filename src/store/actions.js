@@ -12,11 +12,11 @@ export const removeIntercept = () => ({
 });
 
 export const setValidationIntercept = ({
-  title, message, navigation, executableFunction, parameters,
+  title, message, navigationOnCancel, executableFunction, parameters,
 }) => ({
   type: 'SET_VALIDATION_INTERCEPT',
   payload: {
-    title, message, navigation, executableFunction, parameters,
+    title, message, navigationOnCancel, executableFunction, parameters,
   },
 });
 

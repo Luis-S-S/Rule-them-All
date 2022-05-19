@@ -163,6 +163,13 @@ export default function NewTournament() {
           placeholder="Tournament title"
           error={titleError}
         />
+        <Input
+          type="text"
+          name="game"
+          labelText="Game Title"
+          onChange={handleOnChange}
+          placeholder="Game Title"
+        />
         <Select
           name="type"
           labelText="Tournament Type"
