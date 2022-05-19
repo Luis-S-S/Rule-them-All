@@ -93,7 +93,13 @@ export default function SignupDetail() {
         <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
           <h1 className="form__title">Complete Signup</h1>
           <Input type="text" name="username" labelText="Username" onChange={handlerOnChange} error={usernameErr} />
-          <Select name="type" labelText="Type of account" onChange={handlerOnChange} options={['Gamer', 'Team']} error={typeErr} />
+          <Select
+            name="type"
+            labelText="Type of account"
+            onChange={handlerOnChange}
+            options={['Gamer']} // ['Gamer', 'Team']
+            error={typeErr}
+          />
           {form?.type === 'Team' && (
             <div className="signupdetail__teammates">
               <DataListSearch
