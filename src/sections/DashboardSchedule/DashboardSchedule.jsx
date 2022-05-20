@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { resultsHandler } from '../../services/tournaments';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import Select from '../../components/Select/Select';
 import './DashboardSchedule.scss';
 
@@ -128,7 +128,7 @@ export default function DashboardSchedule({ tournament, playerAndIdObj, onResult
         <ButtonPrimary isSubmit={false} onClick={nextRound}>{'>'}</ButtonPrimary>
       </div>
       {errorMsg && <p className="form__error--generic">{errorMsg}</p>}
-      {isFinished && <p className="form__success--generic">All games completed</p>}
+      {isFinished && <p className="form__success--generic title--generic schedule__finish">All games completed</p>}
     </div>
   );
 }

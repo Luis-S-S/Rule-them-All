@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Context } from '../../store';
 import { removeIntercept } from '../../store/actions';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../Buttons/ButtonPrimary';
 
 import './Intercept.scss';
 

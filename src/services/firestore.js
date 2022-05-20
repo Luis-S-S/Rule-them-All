@@ -42,6 +42,18 @@ export async function getAllDocsNoId(collectionName) {
   return docsArray;
 }
 
+export async function listenAllDocs(collectionName, field, operation, value, setProp) {
+  const collectionRef = collection(db, collectionName);
+  const q = query(collectionRef, where(field, operation, value));
+  onSnapshot(q, (snapshot) => {
+    const docsArray = snapshot.docs.map((document) => {
+      const data = document.data();
+      return { id: document.id, ...data };
+    });
+    setProp(docsArray);
+  });
+}
+
 /**
  *
  * @param {String} value Search value

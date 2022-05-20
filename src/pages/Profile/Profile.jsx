@@ -5,9 +5,9 @@ import './Profile.scss';
 
 export default function Profile() {
   return (
-    <div className="profile-page">
+    <main className="profile-page">
       <ProfileInfo />
       <ProfileTournaments />
-    </div>
+    </main>
   );
 }

@@ -6,21 +6,29 @@
 }
 
 .profile-tournament__item {
+    background-color: $dominant;
+    border-radius: 20px;
+    box-shadow: $boxShadow--generic;
     display: flex;
     flex-direction: column;
     margin: 1em 0;
-    background-color: $dominant;
     padding: 1em;
-    box-shadow: $boxShadow--generic;
+}
+
+.profile-tournament__item:hover {
+    box-shadow: 0px 0px 10px $accent;
+}
+
+.tournament-item__content {
+    margin: 1em 0;
 }
 
 .tournament-item__title {
     text-align: center;
-    color: $accent;
+    color: $accent-blue;
 }
 
 .tournament-item__buttons {
     display: flex;
     justify-content: space-around;
-    margin-top: 1em;
 }

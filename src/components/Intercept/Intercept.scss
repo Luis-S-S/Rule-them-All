@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .intercept__bg {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
@@ -42,4 +44,79 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
+}
+
+// Loading
+
+@keyframes loadingAnimation {
+    0% {
+        transform: translate(0px);
+    }
+    10% {
+        box-shadow: 
+            -11px 0 0 -1px $accent;
+    }
+    20% {
+        box-shadow: 
+            -11px 0 0 -1px $accent,
+            -22px 0 0 -2px $secondary;
+    }
+    30% {
+        box-shadow: 
+            -11px 0 0 -1px $accent,
+            -22px 0 0 -2px $secondary,
+            -33px 0 0 -3px $accent;
+    }
+    50% {
+        transform: translate(140px);
+        box-shadow: none;
+    }
+    60% {
+        box-shadow: 
+            11px 0 0 -1px $accent;
+    }
+    70% {
+        box-shadow: 
+            11px 0 0 -1px $accent,
+            22px 0 0 -2px $secondary;
+    }
+    80% {
+        box-shadow: 
+            11px 0 0 -1px $accent,
+            22px 0 0 -2px $secondary,
+            33px 0 0 -3px $accent;
+    }
+    100% {
+        transform: translate(0px);
+        box-shadow: none;
+    }
+    
+}
+
+.loading__bg {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 9999;
+}
+
+.loading-page__title {
+    text-align: center;
+    color: $secondary;
+}
+
+.loading-page__animation {
+    background-color: $secondary;
+    border-radius: 50%;
+    border: 2px solid $secondary;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    animation: loadingAnimation 3s infinite linear;
 }

@@ -1,4 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../store';
 import { setUser, setIntercept } from '../../store/actions';
@@ -9,7 +10,7 @@ import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
 import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import './SignupDetail.scss';
 
 export default function SignupDetail() {
@@ -23,6 +24,8 @@ export default function SignupDetail() {
 
   const { state, dispatch } = useContext(Context);
   const { user } = state;
+
+  const navigate = useNavigate();
 
   const searchOnChangeUsernames = async (e) => {
     const search = await queryCollectionByUsername('users', e.target.value);
@@ -87,8 +90,14 @@ export default function SignupDetail() {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
-    <div className="signupdetail__page">
+    <main className="signupdetail__page">
       <div className="signupdetail__container">
         <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
           <h1 className="form__title">Complete Signup</h1>
@@ -127,6 +136,6 @@ export default function SignupDetail() {
           <ButtonPrimary isSubmit>Finish sign up</ButtonPrimary>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

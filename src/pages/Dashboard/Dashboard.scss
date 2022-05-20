@@ -8,18 +8,63 @@
 }
 
 .dashboard__content {
-    margin-bottom: 2em;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    margin: 2em 0;
+    width: 100%;
+
+    h1 {
+        margin: 0;
+    }
 }
 
-.dashboard__players {
-    box-sizing: border-box;
-    border: 1px solid $grey;
-    border-radius: 20px;
-    padding: .5em 2em;
-    width: 300px;
+
+.dasboard__body {
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: center;
+
+    .dashboard__players {
+        box-sizing: border-box;
+        box-shadow: $boxShadow--generic;
+        padding: .5em 2em;
+        width: 300px;
+    }
+    
+    .dashboard__players__title {
+        color: $accent;
+        text-align: center;
+    }
 }
 
-.dashboard__players__title {
-    color: $accent;
+.dashboard-page__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $fullScreen;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.dashboard__error {
+    animation: blink 0.5s infinite linear;
+    font-family: $title-font;
+    font-size: 2.5em;
     text-align: center;
 }
+

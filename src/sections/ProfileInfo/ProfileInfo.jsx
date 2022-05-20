@@ -6,7 +6,7 @@ import { setUser } from '../../store/actions';
 import { editDocById, queryCollectionByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import CloudinaryWidget from '../../components/CloudinaryWidget/CloudinaryWidget';
 
 import './ProfileInfo.scss';
@@ -49,6 +49,7 @@ export default function ProfileInfo() {
 
   return (
     <div className="profile-page__info">
+      <h1 className="page-title--generic">Profile</h1>
       <img className="profile-page__avatar" src={state.user?.avatar} alt="profile" />
       <CloudinaryWidget folderName="users-avatar" setNewUrl={setAvatarUrl}>Change avatar</CloudinaryWidget>
       <Input

@@ -1,21 +1,24 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
 
 import { createDocOnEmailSignup } from '../../services/authentication';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
 import Input from '../../components/Input/Input';
 import './Signup.scss';
 
 export default function SignUp() {
-  const { dispatch } = useContext(Context);
   const [form, setForm] = useState({});
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmErr, setConfirmErr] = useState(null);
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
+  const navigate = useNavigate();
   const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const handlerOnChange = (e) => {
@@ -73,8 +76,14 @@ export default function SignUp() {
     return null;
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
-    <div className="signup-page">
+    <main className="signup-page">
       <div className="signup__container">
         <h1 className="signup__title">Sign up</h1>
         <form className="signup-form" onSubmit={handlerEmailSignup}>
@@ -88,6 +97,6 @@ export default function SignUp() {
           Sign up with Google
         </GoogleLoginButton>
       </div>
-    </div>
+    </main>
   );
 }

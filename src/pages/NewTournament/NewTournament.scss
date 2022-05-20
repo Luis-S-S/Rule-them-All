@@ -17,8 +17,7 @@
 
 .new-tournament__players {
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid $grey;
+    box-shadow: $boxShadow--generic;
     margin: 10px;
     padding: .75em;
     width: 100%;

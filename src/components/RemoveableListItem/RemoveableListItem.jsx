@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonWarning from '../Buttons/ButtonWarning';
 import './RemoveableListItem.scss';
 
 export default function RemoveableListItem({ element, onRemove }) {
   return (
     <div className="element-list-item">
       <p className="element-item__name">{element}</p>
-      <ButtonPrimary isSubmit={false} onClick={() => onRemove(element)}>×</ButtonPrimary>
+      <ButtonWarning isSubmit={false} onClick={() => onRemove(element)}>×</ButtonWarning>
     </div>
   );
 }
