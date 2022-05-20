@@ -8,10 +8,10 @@ import {
   getDocById, editDocById, deleteDocById, getAllDocsByField, listenDocById,
 } from '../../services/firestore';
 
+import ButtonWarning from '../../components/Buttons/ButtonWarning';
 import CopyToClipboard from '../../components/CopyToClipboard/CopyToClipboard';
-import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
 import DashboardSchedule from '../../sections/DashboardSchedule/DashboardSchedule';
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import DashboardStatus from '../../sections/DashboardStatus/DashboardStatus';
 import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
 import './Dashboard.scss';
 
@@ -144,46 +144,47 @@ export default function Dashboard() {
       {tournament
         ? (
           <div className="dashboard__content">
-            <h1>{tournament?.title}</h1>
-            <h1>{tournament?.game}</h1>
+            <h1 className="page-title--generic">{tournament?.title}</h1>
+            <h1 className="title--generic">{tournament?.game}</h1>
             <DashboardStatus
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
             />
-            {(validation.isActive && tournament?.schedule?.length > 0) && (
+            {(validation.isScheduled && tournament?.isPublic) && (
+              <CopyToClipboard
+                buttonText="Copy link to clipboard!"
+                textToCopy={`https://rulethemall.vercel.app/tournament/join/${id}`}
+              />
+            )}
+            <div className="dasboard__body">
+              {(validation.isActive && tournament?.schedule?.length > 0) && (
               <DashboardSchedule
                 tournament={tournament}
                 playerAndIdObj={playerAndIdObj}
                 onResultsChange={onResultUpdate}
               />
-            )}
-            {(validation.isScheduled && tournament?.isPublic) && (
-              <CopyToClipboard
-                buttonText="Copy link to clipboard!"
-                textToCopy={`https://rulethemall.vercel.app/tournament/join/${id}`} // http://localhost:3000/tournament/join/${id}
-              />
-            )}
-            <div className="dashboard__players">
-              <h2 className="dashboard__players__title">Players</h2>
-              {playersNames?.length > 0 ? (
-                playersNames?.map((player) => (
-                  validation.notFinished
-                    ? (
-                      <RemoveableListItem
-                        key={player}
-                        element={player}
-                        onRemove={validateOnRemovePlayer}
-                      />
-                    )
-                    : (
-                      <div>{player}</div>
-                    )
-                ))
-              ) : (
-                <h3>No player has accepted invitations yet</h3>
               )}
-            </div>
-            {(validation.isScheduled && !tournament?.isPublic) && (
+              <div className="dashboard__players">
+                <h2 className="dashboard__players__title">Players</h2>
+                {playersNames?.length > 0 ? (
+                  playersNames?.map((player) => (
+                    validation.notFinished
+                      ? (
+                        <RemoveableListItem
+                          key={player}
+                          element={player}
+                          onRemove={validateOnRemovePlayer}
+                        />
+                      )
+                      : (
+                        <div>{player}</div>
+                      )
+                  ))
+                ) : (
+                  <h3>No player has accepted invitations yet</h3>
+                )}
+              </div>
+              {(validation.isScheduled && !tournament?.isPublic) && (
               <div className="dashboard__players">
                 <h2 className="dashboard__players__title">Prospective Players</h2>
                 {prospectivePlayersNames?.length > 0 ? (
@@ -192,11 +193,12 @@ export default function Dashboard() {
                   <h3>No prospective players at the time</h3>
                 )}
               </div>
-            )}
+              )}
+            </div>
             {validation.notFinished && (
-              <ButtonPrimary isSubmit={false} onClick={validateOnDeleteTournament}>
+              <ButtonWarning isSubmit={false} onClick={validateOnDeleteTournament}>
                 Delete Tournament
-              </ButtonPrimary>
+              </ButtonWarning>
             )}
           </div>
         )

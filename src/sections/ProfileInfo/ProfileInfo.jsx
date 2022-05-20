@@ -6,7 +6,7 @@ import { setUser } from '../../store/actions';
 import { editDocById, queryCollectionByUsername } from '../../services/firestore';
 
 import Input from '../../components/Input/Input';
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import CloudinaryWidget from '../../components/CloudinaryWidget/CloudinaryWidget';
 
 import './ProfileInfo.scss';

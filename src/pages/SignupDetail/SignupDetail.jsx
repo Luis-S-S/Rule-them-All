@@ -9,7 +9,7 @@ import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
 import RemoveableListItem from '../../components/RemoveableListItem/RemoveableListItem';
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import './SignupDetail.scss';
 
 export default function SignupDetail() {

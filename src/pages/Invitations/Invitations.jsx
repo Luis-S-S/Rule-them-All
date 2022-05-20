@@ -5,7 +5,7 @@ import { setIntercept } from '../../store/actions';
 
 import { getAllDocsByField, editDocById, deleteDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import './Invitations.scss';
 
 export default function Invitations() {
@@ -19,8 +19,8 @@ export default function Invitations() {
   };
 
   const handleAcceptInvite = async (e) => {
-    const tournamentTitle = e.target.parentElement.attributes.name.value;
-    const invitationId = e.target.parentElement.id;
+    const tournamentTitle = e.target.parentElement.parentElement.attributes.name.value;
+    const invitationId = e.target.parentElement.parentElement.id;
     const [doc] = await getAllDocsByField(tournamentTitle, 'tournaments', 'title');
     const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.id);
     if (!doc.players.includes(user?.id)) { doc.players.push(user?.id); }
@@ -39,8 +39,8 @@ export default function Invitations() {
   };
 
   const handleRejectInvite = async (e) => {
-    const tournamentTitle = e.target.parentElement.attributes.name.value;
-    const invitationId = e.target.parentElement.id;
+    const tournamentTitle = e.target.parentElement.parentElement.attributes.name.value;
+    const invitationId = e.target.parentElement.parentElement.id;
     const [doc] = await getAllDocsByField(tournamentTitle, 'tournaments', 'title');
     const newProspectives = doc.prospectivePlayers.filter((player) => player !== user?.id);
     await editDocById('tournaments', doc.id, {

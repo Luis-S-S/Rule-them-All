@@ -8,7 +8,7 @@ import { auth } from '../../config/firebase';
 import { forgotPasswordEmail } from '../../services/authentication';
 import { getDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
 import Input from '../../components/Input/Input';
 import './Login.scss';

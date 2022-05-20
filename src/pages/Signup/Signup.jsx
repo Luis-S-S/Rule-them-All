@@ -5,7 +5,7 @@ import { setIntercept } from '../../store/actions';
 
 import { createDocOnEmailSignup } from '../../services/authentication';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
 import Input from '../../components/Input/Input';
 import './Signup.scss';

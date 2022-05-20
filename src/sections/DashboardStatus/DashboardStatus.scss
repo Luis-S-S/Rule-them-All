@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .dashboard-status__container {
     align-items: center;
     display: flex;
@@ -5,11 +7,14 @@
     justify-content: center;
 }
 
-.dashboard__content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1em;
-    width: 100%;
+.title-scheduled {
+    color: $accent-blue;
+}
+
+.title-active {
+    color: green;
+}
+
+.title-finished {
+    color: $accent;
 }

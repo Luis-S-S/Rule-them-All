@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../Buttons/ButtonPrimary';
 
 export default function CloudinaryWidget({ children, folderName, setNewUrl }) {
   const Clodinary = window.cloudinary;

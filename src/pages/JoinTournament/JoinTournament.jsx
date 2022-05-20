@@ -6,7 +6,7 @@ import { setIntercept, setValidationIntercept } from '../../store/actions';
 
 import { getDocById, editDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import LinkPrimary from '../../components/LinkPrimary/LinkPrimary';
 import './JoinTournament.scss';
 

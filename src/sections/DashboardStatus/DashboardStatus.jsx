@@ -8,7 +8,8 @@ import { setValidationIntercept, setIntercept } from '../../store/actions';
 import { scheduleHandler } from '../../services/tournaments';
 import { getAllDocsByField, deleteDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
+import ButtonSuccess from '../../components/Buttons/ButtonSuccess';
 
 import './DashboardStatus.scss';
 
@@ -74,10 +75,27 @@ export default function DashboardStatus({ tournamentData, onChangeStatus }) {
     }));
   };
 
+  const constSetColor = (currentStatus) => {
+    switch (currentStatus) {
+      case 'Scheduled':
+        return 'title-scheduled';
+      case 'Active':
+        return 'title-active';
+      case 'Finished':
+        return 'title-finished';
+      default:
+        return 'title--generic';
+    }
+  };
+
   return (
     <div className="dashboard-status__container">
-      <h2>{`Status: ${status}`}</h2>
-      {status === 'Scheduled' && (<ButtonPrimary isSubmit={false} onClick={validateHandleActivate} name="Active">Start tournament!</ButtonPrimary>)}
+      <h2
+        className={constSetColor(status)}
+      >
+        {`Status: ${status}`}
+      </h2>
+      {status === 'Scheduled' && (<ButtonSuccess isSubmit={false} onClick={validateHandleActivate} name="Active">Start tournament!</ButtonSuccess>)}
       {status === 'Active' && (<ButtonPrimary isSubmit={false} onClick={validateHandleFinish} name="Finished">Finish the tournament!</ButtonPrimary>)}
       {statusError && (<p className="form__error--generic">{statusError}</p>)}
     </div>

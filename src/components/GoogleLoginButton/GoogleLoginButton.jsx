@@ -9,7 +9,7 @@ import { auth } from '../../config/firebase';
 import { googleLoginWithRedirect } from '../../services/authentication';
 import { createDocWithId, getDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../Buttons/ButtonPrimary';
 
 export default function GoogleLoginButton({ children, isLogin }) {
   const defaultAvatar = 'https://res.cloudinary.com/dt7ptke8d/image/upload/c_scale,w_150/v1652478967/logo-light--bw_virbfz.png';

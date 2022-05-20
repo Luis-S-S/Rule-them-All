@@ -12,7 +12,7 @@ import {
 } from '../../services/firestore';
 import { availableTournaments } from '../../services/tournaments';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
 import Input from '../../components/Input/Input';
