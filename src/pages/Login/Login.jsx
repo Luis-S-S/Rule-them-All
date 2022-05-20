@@ -1,4 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { Context } from '../../store';
@@ -8,7 +9,7 @@ import { auth } from '../../config/firebase';
 import { forgotPasswordEmail } from '../../services/authentication';
 import { getDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import GoogleLoginButton from '../../components/GoogleLoginButton/GoogleLoginButton';
 import Input from '../../components/Input/Input';
 import './Login.scss';
@@ -16,7 +17,9 @@ import './Login.scss';
 export default function Login() {
   const [form, setForm] = useState({});
   const [emailError, setEmailError] = useState(null);
-  const { dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
+  const navigate = useNavigate();
 
   const handlerOnChange = (e) => {
     const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -31,7 +34,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
-      const user = await getDocById('users', userCredential.user.uid);
+      const loginUser = await getDocById('users', userCredential.user.uid);
       if (!userCredential.user.emailVerified) {
         dispatch(setIntercept({
           title: 'Error',
@@ -41,12 +44,12 @@ export default function Login() {
         }));
       } else {
         localStorage.setItem('userToken', userCredential.user.accessToken);
-        dispatch(setUser(user));
+        dispatch(setUser(loginUser));
         dispatch(setIntercept({
           title: 'Success',
-          message: user.username ? 'Login successful' : 'Complete sign up process',
-          navigation: user.username ? '/' : '/signup_detail',
-          buttonMsg: user.username ? 'Continue' : 'Finish sign up',
+          message: loginUser.username ? 'Login successful' : 'Complete sign up process',
+          navigation: loginUser.username ? '/' : '/signup_detail',
+          buttonMsg: loginUser.username ? 'Continue' : 'Finish sign up',
         }));
       }
     } catch (error) {
@@ -78,8 +81,14 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
-    <div className="login-page">
+    <main className="login-page">
       <div className="login__container">
         <h1 className="login__title">Login</h1>
         <form className="login-form" onSubmit={handlerEmailLogin}>
@@ -95,6 +104,6 @@ export default function Login() {
           Login with Google
         </GoogleLoginButton>
       </div>
-    </div>
+    </main>
   );
 }

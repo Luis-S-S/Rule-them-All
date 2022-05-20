@@ -29,16 +29,18 @@ export default function Standing() {
   }, []);
 
   return (
-    tournament?.status !== 'Scheduled'
-      ? (
-        <div className="standing-page">
-          <h1>{tournament?.title}</h1>
-          <h1>{tournament?.status}</h1>
-          {drawTable()}
-        </div>
-      )
-      : (
-        <h2>Tournament hasn&apos;t started yet</h2>
-      )
+    <main className="standing-page">
+      {tournament?.status !== 'Scheduled'
+        ? (
+          <>
+            <h1>{tournament?.title}</h1>
+            <h1>{tournament?.status}</h1>
+            {drawTable()}
+          </>
+        )
+        : (
+          <h2 className="page-title--generic standing__error">Tournament hasn&apos;t started yet</h2>
+        )}
+    </main>
   );
 }

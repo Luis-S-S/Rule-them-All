@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../Buttons/ButtonPrimary';
 
 import './CopyToClipboard.scss';
 

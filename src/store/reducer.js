@@ -4,6 +4,7 @@ const initialState = {
   authValidation: true,
   intercept: null,
   validationIntercept: null,
+  isLoading: true,
 };
 
 function reducer(state = initialState, action) {
@@ -38,6 +39,16 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         validationIntercept: null,
+      };
+    case 'SET_LOADING_TRUE':
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case 'SET_LOADING_FALSE':
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

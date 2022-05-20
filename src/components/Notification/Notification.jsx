@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { editDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../Buttons/ButtonPrimary';
 import './Notification.scss';
 
 export default function Notification({

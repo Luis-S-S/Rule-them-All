@@ -12,7 +12,7 @@ import {
 } from '../../services/firestore';
 import { availableTournaments } from '../../services/tournaments';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import DataListSearch from '../../components/DataListSearch/DataListSearch';
 import Input from '../../components/Input/Input';
@@ -128,7 +128,7 @@ export default function NewTournament() {
       prospectivePlayers: newProstectivePlayers,
       status: 'Scheduled',
     };
-    if (!form?.isPublic) { delete newTournament.maxPlayers; }
+    if (!form?.isPublic) { newTournament.isPublic = false; delete newTournament.maxPlayers; }
     if (form?.isPublic) { delete newTournament.prospectivePlayers; }
     if (form?.scaleSystem !== 'Points') { delete newTournament.pointSystem; }
 

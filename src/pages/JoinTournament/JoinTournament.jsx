@@ -6,7 +6,7 @@ import { setIntercept, setValidationIntercept } from '../../store/actions';
 
 import { getDocById, editDocById } from '../../services/firestore';
 
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import LinkPrimary from '../../components/LinkPrimary/LinkPrimary';
 import './JoinTournament.scss';
 
@@ -82,6 +82,18 @@ export default function JoinTournament() {
     <main className="join-tournament-page">
       <div className="join-tournament__container">
         <h1 className="join-tournament__title">Join Tournament</h1>
+        {(!user) && (
+        <>
+          <p>You have to Login in order to join the tournament</p>
+          <LinkPrimary path="/login">Login</LinkPrimary>
+        </>
+        )}
+        {(user && !tournament) && (
+        <h2>No tournament found! Please verify the invitation link and try again</h2>
+        )}
+        {(user && tournament && tournament?.maxPlayers <= tournament?.players.length) && (
+        <h2>The tournament is already full! Better luck next time!</h2>
+        )}
         {(user && tournament && tournament?.maxPlayers > tournament?.players.length)
           && (
             <>
@@ -89,28 +101,16 @@ export default function JoinTournament() {
               <p>{`Type of tournament: ${tournament?.type}`}</p>
               <p>{`Tournament status: ${tournament?.status}`}</p>
               <div className="join-tournament__buttons">
+                <LinkPrimary path="/">Go home</LinkPrimary>
                 <ButtonPrimary
                   isSubmit={false}
                   onClick={() => { validateJoinTournament(tournament); }}
                 >
                   Join
                 </ButtonPrimary>
-                <LinkPrimary path="/">Go home</LinkPrimary>
               </div>
             </>
           )}
-        {(user && tournament && tournament?.maxPlayers <= tournament?.players.length) && (
-          <h2>The tournament is already full! Better luck next time!</h2>
-        )}
-        {!tournament && (
-          <h2>No tournament found! Please verify the invitation link and try again</h2>
-        )}
-        {(tournament && !user) && (
-          <>
-            <p>You have to Login in order to join the tournament</p>
-            <LinkPrimary path="/login">Login</LinkPrimary>
-          </>
-        )}
       </div>
     </main>
   );

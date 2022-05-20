@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { Context } from './store';
-import { setUser } from './store/actions';
+import { setLoadingFalse, setUser } from './store/actions';
 
 import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
@@ -28,12 +28,15 @@ import Footer from './sections/Footer/Footer';
 import Intercept from './components/Intercept/Intercept';
 import Notification from './components/Notification/Notification';
 import ValidationIntercept from './components/Intercept/ValidationIntercept';
+import Loading from './components/Intercept/Loading';
 
 import './App.scss';
 
 function App() {
   const { state, dispatch } = useContext(Context);
-  const { user, intercept, validationIntercept } = state;
+  const {
+    user, intercept, validationIntercept, isLoading,
+  } = state;
   const [notification, setNotification] = useState(null);
 
   // console.log(state);
@@ -42,7 +45,10 @@ function App() {
     onAuthStateChanged(auth, async (loginUser) => {
       if (loginUser) {
         const userDoc = await getDocById('users', loginUser.uid);
+        dispatch(setLoadingFalse());
         dispatch(setUser(userDoc));
+      } else {
+        dispatch(setLoadingFalse());
       }
     });
   }, []);
@@ -70,6 +76,7 @@ function App() {
           parameters={validationIntercept.parameters}
         />
       )}
+      {isLoading && <Loading />}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

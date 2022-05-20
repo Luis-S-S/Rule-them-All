@@ -1,13 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Open+Sans&display=swap');
 
 // Colors
 $dominant: black;
 $secondary: white;
 $accent: #62388E;
+$accent-blue: #007acc;
 $grey: #333;
 
 // Fonts
+$title-font: 'Koulen', cursive;
 $text-font: 'Open Sans', sans-serif;
+
+.page-title--generic {
+    font-family: $title-font;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.title--generic {
+    font-family: $title-font;
+}
+
+.bold--generic {
+    font-weight: bold;
+}
 
 // Extra variables
 $fullScreen: calc(100vh - 120px);

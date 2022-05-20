@@ -38,4 +38,17 @@
     gap: .25em;
 }
 
+@keyframes highlightText {
+    from {
+        text-shadow: none;
+    }
+    to {
+        text-shadow: 0 0 2px green;
+    }
+    
+}
 
+.schedule__finish {
+    font-size: 1.5em;
+    animation: highlightText 0.3s infinite;
+}

@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { Context } from '../../store';
 import { removeValidationIntercept } from '../../store/actions';
 
-import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
+import ButtonSuccess from '../Buttons/ButtonSuccess';
+import ButtonWarning from '../Buttons/ButtonWarning';
 
 import './Intercept.scss';
 
@@ -37,12 +38,12 @@ export default function ValidationIntercept(props) {
         <h1 className="intercept__title">{title}</h1>
         <p className="intercept__body">{message}</p>
         <div className="intercept--buttons__container">
-          <ButtonPrimary isSubmit={false} onClick={handleRemoveValidationIntercept}>
+          <ButtonWarning isSubmit={false} onClick={handleRemoveValidationIntercept}>
             Cancel
-          </ButtonPrimary>
-          <ButtonPrimary isSubmit={false} onClick={handleExecuteFunction}>
+          </ButtonWarning>
+          <ButtonSuccess isSubmit={false} onClick={handleExecuteFunction}>
             Continue
-          </ButtonPrimary>
+          </ButtonSuccess>
         </div>
       </div>
     </div>

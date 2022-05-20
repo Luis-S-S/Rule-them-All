@@ -1,5 +1,14 @@
 @import '../../App.scss';
 
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .tournaments-page {
     display: flex;
     flex-direction: column;
@@ -7,19 +16,67 @@
     justify-content: flex-start;
     gap: 1em;
     height: $fullScreen;
+    padding: 1em;
+}
+
+.tournament-create__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: .5em;
+}
+
+.tournament__create-link {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: $dominant;
+    padding: 0.25em;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: green;
+    }
+
+    & + h4 {
+        margin: 0.25em 0;
+    }
+}
+
+.tournament__create-icon {
+    width: 35px;
+}
+
+.tournament__create-link:hover > .tournament__create-icon {
+    animation: rotate 1s linear;
 }
 
 .tournaments-page__container {
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1em;
+    width: 80%;
+}
+
+.tournament-list__container {
+    align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    width: 80%;
-    box-shadow: $boxShadow--generic;
-    padding: 1em;
-    // border-radius: 10px;
+    max-height: 1000px;
+    max-width: 600px;
+    min-width: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 40%;
 }
 
 @media (min-width: 768px) {
+    .tournaments-page {
+        padding: 2.5em 1em;
+    }
     .tournaments-page__container {
         width: 90%;
     }
