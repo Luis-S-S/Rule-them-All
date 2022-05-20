@@ -42,7 +42,7 @@ export default function ProfileInfo() {
 
   return (
     <div className="profile-page__tournaments">
-      <h1 className="profile-page__title title--generic">Tournaments</h1>
+      <h1 className="page-title--generic">Tournaments</h1>
       <div className="profile-tournaments__container">
         <div className="profile-tournaments__list">
           <h2 className="title--generic">Created</h2>

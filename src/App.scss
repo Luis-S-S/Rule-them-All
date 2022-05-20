@@ -11,6 +11,12 @@ $grey: #333;
 $title-font: 'Koulen', cursive;
 $text-font: 'Open Sans', sans-serif;
 
+.page-title--generic {
+    font-family: $title-font;
+    font-size: 2.5em;
+    text-align: center;
+}
+
 .title--generic {
     font-family: $title-font;
 }

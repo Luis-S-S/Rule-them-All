@@ -49,7 +49,7 @@ export default function ProfileInfo() {
 
   return (
     <div className="profile-page__info">
-      <h1 className="profile-page__title title--generic">Profile</h1>
+      <h1 className="page-title--generic">Profile</h1>
       <img className="profile-page__avatar" src={state.user?.avatar} alt="profile" />
       <CloudinaryWidget folderName="users-avatar" setNewUrl={setAvatarUrl}>Change avatar</CloudinaryWidget>
       <Input

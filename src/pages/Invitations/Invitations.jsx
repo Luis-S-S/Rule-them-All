@@ -64,14 +64,21 @@ export default function Invitations() {
 
   return (
     <main className="invitations-page">
-      <h1>Tournament Invitations</h1>
-      <div className="invitations__container">
-        <section className="tournament-invites__container">
-          {tournamentInvites?.length > 0
-            ? (
-              tournamentInvites.map((tournamentInvite) => (
-                <div key={tournamentInvite?.id} id={tournamentInvite?.id} name={tournamentInvite?.tournament} className="tournament-invites__invite">
-                  <p>{`Torneo: ${tournamentInvite?.tournament}`}</p>
+      <h1 className="page-title--generic">Tournament Invitations</h1>
+      <section className="tournament-invites__container">
+        {tournamentInvites?.length > 0
+          ? (
+            tournamentInvites.map((tournamentInvite) => (
+              <div key={tournamentInvite?.id} id={tournamentInvite?.id} name={tournamentInvite?.tournament} className="tournament-invites__invite">
+                <div className="invite__header">
+                  <h2 className="invite-header__title title--generic">{tournamentInvite?.tournament}</h2>
+                  <p className="invite-header__title">
+                    <span className="bold--generic">Game:</span>
+                    {' '}
+                    {tournamentInvite?.tournament}
+                  </p>
+                </div>
+                <div className="invite__buttons">
                   {tournamentInvite?.acceptedInvite
                     ? (
                       <ButtonPrimary isSubmit={false}>Go to tournament</ButtonPrimary>
@@ -87,12 +94,12 @@ export default function Invitations() {
                       </>
                     )}
                 </div>
+              </div>
 
-              ))
-            )
-            : (<h1>Currently you don&apos;t have any invitations</h1>)}
-        </section>
-      </div>
+            ))
+          )
+          : (<h1>Currently you don&apos;t have any invitations</h1>)}
+      </section>
     </main>
   );
 }
