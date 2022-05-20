@@ -97,11 +97,11 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 1);
     display: flex;
-    height: $fullScreen;
+    height: 100vh;
     justify-content: center;
     left: 0;
     position: fixed;
-    top: 120px;
+    top: 0;
     width: 100vw;
     z-index: 9999;
 }

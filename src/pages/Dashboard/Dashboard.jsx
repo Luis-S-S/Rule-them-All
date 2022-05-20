@@ -32,10 +32,6 @@ export default function Dashboard() {
 
   const getTournamentInfo = async () => {
     listenDocById('tournaments', id, setTournament);
-    // const response = await getDocById('tournaments', id);
-    // if (response.admin === user?.id) {
-    //   setTournament(response);
-    // }
   };
 
   const getPlayersNames = async () => {
@@ -140,8 +136,8 @@ export default function Dashboard() {
   }, [tournament]);
 
   return (
-    <div className="dashboard-page">
-      {tournament
+    <main className="dashboard-page">
+      {(tournament && (tournament.admin === user.id))
         ? (
           <div className="dashboard__content">
             <h1 className="page-title--generic">{tournament?.title}</h1>
@@ -202,7 +198,11 @@ export default function Dashboard() {
             )}
           </div>
         )
-        : (<h1>Not authorized</h1>)}
-    </div>
+        : (
+          <div className="dashboard-page__error">
+            <h1 className="dashboard__error">Not authorized</h1>
+          </div>
+        )}
+    </main>
   );
 }

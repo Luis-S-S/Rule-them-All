@@ -128,7 +128,7 @@ export default function NewTournament() {
       prospectivePlayers: newProstectivePlayers,
       status: 'Scheduled',
     };
-    if (!form?.isPublic) { delete newTournament.maxPlayers; }
+    if (!form?.isPublic) { newTournament.isPublic = false; delete newTournament.maxPlayers; }
     if (form?.isPublic) { delete newTournament.prospectivePlayers; }
     if (form?.scaleSystem !== 'Points') { delete newTournament.pointSystem; }
 

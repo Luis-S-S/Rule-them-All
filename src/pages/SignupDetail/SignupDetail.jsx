@@ -88,7 +88,7 @@ export default function SignupDetail() {
   };
 
   return (
-    <div className="signupdetail__page">
+    <main className="signupdetail__page">
       <div className="signupdetail__container">
         <form className="signupdetail__form" onSubmit={handlerOnSubmit}>
           <h1 className="form__title">Complete Signup</h1>
@@ -127,6 +127,6 @@ export default function SignupDetail() {
           <ButtonPrimary isSubmit>Finish sign up</ButtonPrimary>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

@@ -74,7 +74,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup-page">
+    <main className="signup-page">
       <div className="signup__container">
         <h1 className="signup__title">Sign up</h1>
         <form className="signup-form" onSubmit={handlerEmailSignup}>
@@ -88,6 +88,6 @@ export default function SignUp() {
           Sign up with Google
         </GoogleLoginButton>
       </div>
-    </div>
+    </main>
   );
 }

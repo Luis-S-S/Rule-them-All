@@ -101,13 +101,13 @@ export default function JoinTournament() {
               <p>{`Type of tournament: ${tournament?.type}`}</p>
               <p>{`Tournament status: ${tournament?.status}`}</p>
               <div className="join-tournament__buttons">
+                <LinkPrimary path="/">Go home</LinkPrimary>
                 <ButtonPrimary
                   isSubmit={false}
                   onClick={() => { validateJoinTournament(tournament); }}
                 >
                   Join
                 </ButtonPrimary>
-                <LinkPrimary path="/">Go home</LinkPrimary>
               </div>
             </>
           )}

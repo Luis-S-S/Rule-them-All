@@ -95,7 +95,6 @@ export default function Invitations() {
                     )}
                 </div>
               </div>
-
             ))
           )
           : (<h1>Currently you don&apos;t have any invitations</h1>)}

@@ -79,7 +79,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
+    <main className="login-page">
       <div className="login__container">
         <h1 className="login__title">Login</h1>
         <form className="login-form" onSubmit={handlerEmailLogin}>
@@ -95,6 +95,6 @@ export default function Login() {
           Login with Google
         </GoogleLoginButton>
       </div>
-    </div>
+    </main>
   );
 }
