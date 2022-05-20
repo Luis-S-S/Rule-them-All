@@ -30,3 +30,17 @@
     padding-bottom: 1rem;
     width: 80%;
 }
+
+.forgot-password__button {
+    background-color: transparent;
+    border: transparent;
+    color: $grey;
+    cursor: pointer;
+    margin-top: .75em;
+    transition: transform .2s ease-in-out;
+}
+
+.forgot-password__button:hover {
+    color: $accent;
+    transform: scale(1.1);
+}
