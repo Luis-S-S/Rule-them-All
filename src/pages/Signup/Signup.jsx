@@ -1,4 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../store';
 import { setIntercept } from '../../store/actions';
@@ -11,11 +12,13 @@ import Input from '../../components/Input/Input';
 import './Signup.scss';
 
 export default function SignUp() {
-  const { dispatch } = useContext(Context);
   const [form, setForm] = useState({});
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmErr, setConfirmErr] = useState(null);
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
+  const navigate = useNavigate();
   const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const handlerOnChange = (e) => {
@@ -72,6 +75,12 @@ export default function SignUp() {
     }
     return null;
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <main className="signup-page">
