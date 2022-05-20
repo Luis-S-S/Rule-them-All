@@ -1,4 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../store';
 import { setUser, setIntercept } from '../../store/actions';
@@ -23,6 +24,8 @@ export default function SignupDetail() {
 
   const { state, dispatch } = useContext(Context);
   const { user } = state;
+
+  const navigate = useNavigate();
 
   const searchOnChangeUsernames = async (e) => {
     const search = await queryCollectionByUsername('users', e.target.value);
@@ -86,6 +89,12 @@ export default function SignupDetail() {
       }));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <main className="signupdetail__page">
