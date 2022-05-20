@@ -137,7 +137,7 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-page">
-      {(tournament && (tournament.admin === user.id))
+      {(tournament && (tournament?.admin === user?.id))
         ? (
           <div className="dashboard__content">
             <h1 className="page-title--generic">{tournament?.title}</h1>
