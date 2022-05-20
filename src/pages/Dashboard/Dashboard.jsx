@@ -160,7 +160,7 @@ export default function Dashboard() {
             {(validation.isScheduled && tournament?.isPublic) && (
               <CopyToClipboard
                 buttonText="Copy link to clipboard!"
-                textToCopy={`http://localhost:3000/tournament/join/${id}`} // https://rulethemall.vercel.app/tournament/join/${id}
+                textToCopy={`https://rulethemall.vercel.app/tournament/join/${id}`} // http://localhost:3000/tournament/join/${id}
               />
             )}
             <div className="dashboard__players">

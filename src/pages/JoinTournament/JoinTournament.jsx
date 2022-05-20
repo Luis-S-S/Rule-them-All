@@ -73,7 +73,7 @@ export default function JoinTournament() {
     <main className="join-tournament-page">
       <div className="join-tournament__container">
         <h1 className="join-tournament__title">Join Tournament</h1>
-        {(user && tournament && tournament?.maxPlayers >= tournament?.players.length)
+        {(user && tournament && tournament?.maxPlayers > tournament?.players.length)
           && (
             <>
               <h3 className="tournament-item__title">{tournament?.title}</h3>
