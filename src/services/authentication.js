@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithRedirect,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { auth } from '../config/firebase';
@@ -26,4 +27,8 @@ export async function createDocOnEmailSignup(email, password) {
 
 export async function googleLoginWithRedirect() {
   await signInWithRedirect(auth, googleProvider);
+}
+
+export async function forgotPasswordEmail(email) {
+  await sendPasswordResetEmail(auth, email);
 }

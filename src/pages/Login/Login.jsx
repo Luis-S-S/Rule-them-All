@@ -5,6 +5,7 @@ import { Context } from '../../store';
 import { setIntercept, setUser } from '../../store/actions';
 
 import { auth } from '../../config/firebase';
+import { forgotPasswordEmail } from '../../services/authentication';
 import { getDocById } from '../../services/firestore';
 
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
@@ -58,6 +59,25 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      await forgotPasswordEmail(form.email);
+      dispatch(setIntercept({
+        title: 'Success',
+        message: 'We have sent you an email with a link to reset your password',
+        navigation: '/login',
+        buttonMsg: 'Go to login',
+      }));
+    } catch (error) {
+      dispatch(setIntercept({
+        title: 'Error',
+        message: 'Email not found',
+        navigation: '/login',
+        buttonMsg: 'Try again',
+      }));
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login__container">
@@ -66,6 +86,9 @@ export default function Login() {
           <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} error={emailError} />
           <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
           <ButtonPrimary isSubmit>Login</ButtonPrimary>
+          <button className="forgot-password__button" type="button" onClick={handleForgotPassword}>
+            Forgot password?
+          </button>
         </form>
         <GoogleLoginButton isLogin>
           <img src="/icons/google-icon.svg" alt="Google" className="google__icon" />
