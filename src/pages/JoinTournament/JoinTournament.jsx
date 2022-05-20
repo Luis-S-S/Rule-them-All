@@ -24,6 +24,15 @@ export default function JoinTournament() {
   const joinTournament = async (tournamentInfo) => {
     let newPlayers = [];
     if (tournamentInfo.players) {
+      if (tournamentInfo.status !== 'Scheduled') {
+        dispatch(setIntercept({
+          title: 'Unable to join',
+          message: 'Tournament is already started',
+          navigation: '/profile',
+          buttonMsg: 'Go to profile',
+        }));
+        return;
+      }
       if (tournamentInfo.players.includes(user.id)) {
         dispatch(setIntercept({
           title: 'Unable to join',
