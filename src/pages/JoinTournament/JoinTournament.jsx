@@ -82,6 +82,18 @@ export default function JoinTournament() {
     <main className="join-tournament-page">
       <div className="join-tournament__container">
         <h1 className="join-tournament__title">Join Tournament</h1>
+        {(!user) && (
+        <>
+          <p>You have to Login in order to join the tournament</p>
+          <LinkPrimary path="/login">Login</LinkPrimary>
+        </>
+        )}
+        {(user && !tournament) && (
+        <h2>No tournament found! Please verify the invitation link and try again</h2>
+        )}
+        {(user && tournament && tournament?.maxPlayers <= tournament?.players.length) && (
+        <h2>The tournament is already full! Better luck next time!</h2>
+        )}
         {(user && tournament && tournament?.maxPlayers > tournament?.players.length)
           && (
             <>
@@ -99,18 +111,6 @@ export default function JoinTournament() {
               </div>
             </>
           )}
-        {(user && tournament && tournament?.maxPlayers <= tournament?.players.length) && (
-          <h2>The tournament is already full! Better luck next time!</h2>
-        )}
-        {!tournament && (
-          <h2>No tournament found! Please verify the invitation link and try again</h2>
-        )}
-        {(tournament && !user) && (
-          <>
-            <p>You have to Login in order to join the tournament</p>
-            <LinkPrimary path="/login">Login</LinkPrimary>
-          </>
-        )}
       </div>
     </main>
   );

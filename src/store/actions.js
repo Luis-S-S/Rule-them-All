@@ -32,3 +32,5 @@ export const setUser = (user) => ({
 export const clearUser = () => ({
   type: 'CLEAR_USER',
 });
+
+export const setLoadingFalse = () => ({ type: 'SET_LOADING_FALSE' });
