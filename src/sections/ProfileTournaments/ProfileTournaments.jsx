@@ -42,10 +42,10 @@ export default function ProfileInfo() {
 
   return (
     <div className="profile-page__tournaments">
-      <h1>Tournaments</h1>
+      <h1 className="profile-page__title title--generic">Tournaments</h1>
       <div className="profile-tournaments__container">
         <div className="profile-tournaments__list">
-          <h2>Created</h2>
+          <h2 className="title--generic">Created</h2>
           {created?.length > 0
             ? (created.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="admin" />
@@ -53,7 +53,7 @@ export default function ProfileInfo() {
             : (<h3 className="profile-tournament__error">Create your first tournament!</h3>)}
         </div>
         <div className="profile-tournaments__list">
-          <h2>Participating</h2>
+          <h2 className="title--generic">Participating</h2>
           {participating?.length > 0
             ? (participating.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="participant" />
@@ -61,7 +61,7 @@ export default function ProfileInfo() {
             : (<h3 className="profile-tournament__error">Join your first tournament!</h3>)}
         </div>
         <div className="profile-tournaments__list">
-          <h2>Finished</h2>
+          <h2 className="title--generic">Finished</h2>
           {finished?.length > 0
             ? (finished.map((tournament) => (
               <ProfileTournamentItem key={tournament?.id} tournament={tournament} type="participant" />

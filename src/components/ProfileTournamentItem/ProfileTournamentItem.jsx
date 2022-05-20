@@ -24,15 +24,25 @@ export default function ProfileTournamentItem({ tournament, type }) {
 
   return (
     <div className="profile-tournament__item">
-      <h3 className="tournament-item__title">{tournament?.title}</h3>
+      <h3 className="tournament-item__title title--generic">{tournament?.title}</h3>
       <h3 className="tournament-item__title">{tournament?.game}</h3>
-      {tournament?.isPublic ? (
-        <p>Public tournament</p>
-      ) : (
-        <p>Private tournament</p>
-      )}
-      <p>{`Type of tournament: ${tournament?.type}`}</p>
-      <p>{`Tournament status: ${tournament?.status}`}</p>
+      <div className="tournament-item__content">
+        {tournament?.isPublic ? (
+          <p className="bold--generic">Public tournament</p>
+        ) : (
+          <p className="bold--generic">Private tournament</p>
+        )}
+        <p>
+          <span className="bold--generic">Type of tournament:</span>
+          {' '}
+          {tournament?.type}
+        </p>
+        <p>
+          <span className="bold--generic">Tournament status:</span>
+          {' '}
+          {tournament?.status}
+        </p>
+      </div>
       <div className="tournament-item__buttons">
         {handleButtons()}
       </div>
