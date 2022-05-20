@@ -1,5 +1,14 @@
 @import '../../App.scss';
 
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .tournaments-page {
     display: flex;
     flex-direction: column;
@@ -7,6 +16,7 @@
     justify-content: flex-start;
     gap: 1em;
     height: $fullScreen;
+    padding: 1em;
 }
 
 .tournaments-page__container {
@@ -19,7 +29,42 @@
     // border-radius: 10px;
 }
 
+.tournament-create__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+}
+
+.tournament__create-link {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: $dominant;
+    padding: 0.25em;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $accent;
+    }
+
+    & + h4 {
+        margin: 0.25em 0;
+    }
+}
+
+.tournament__create-icon {
+    width: 35px;
+}
+
+.tournament__create-link:hover > .tournament__create-icon {
+    animation: rotate 1s linear;
+}
+
 @media (min-width: 768px) {
+    .tournaments-page {
+        padding: 2.5em 1em;
+    }
     .tournaments-page__container {
         width: 90%;
     }
