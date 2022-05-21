@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { getDocById } from '../../services/firestore';
 
+import './Table.scss';
+
 export default function TablePoint({ tournament }) {
   const [rows, setRows] = useState([]);
 
@@ -74,37 +76,34 @@ export default function TablePoint({ tournament }) {
   }, [tournament]);
 
   return (
-    <>
-      <h1>Point</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Pos</th>
-            <th>Player</th>
-            <th>P</th>
-            <th>W</th>
-            <th>D</th>
-            <th>L</th>
-            <th>Pts</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.length > 0 && (
-            rows.map((row, index) => (
-              <tr key={row.player}>
-                <td>{index + 1}</td>
-                <td>{row.player}</td>
-                <td>{row.p}</td>
-                <td>{row.w}</td>
-                <td>{row.t}</td>
-                <td>{row.l}</td>
-                <td>{row.points}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </>
+    <table className="table__container">
+      <thead className="table__header">
+        <tr>
+          <th>Pos</th>
+          <th>Player</th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody className="table__body">
+        {rows.length > 0 && (
+          rows.map((row, index) => (
+            <tr key={row.player}>
+              <td>{index + 1}</td>
+              <td>{row.player}</td>
+              <td>{row.p}</td>
+              <td>{row.w}</td>
+              <td>{row.t}</td>
+              <td>{row.l}</td>
+              <td>{row.points}</td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
   );
 }
 

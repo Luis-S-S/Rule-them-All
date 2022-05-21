@@ -1,11 +1,4 @@
-@import '../../App.scss'; 
-
-.standing-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: $fullScreen;
-}
+@import '../../App.scss';
 
 @keyframes blink {
     0% {
@@ -17,6 +10,34 @@
     100% {
         opacity: 0;
     }
+}
+
+.standing-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-height: $fullScreen;
+
+    h1 {
+        margin: 0;
+    }
+
+    .standing__active {
+        color: green;
+    }
+
+    .standing__finished {
+        color: $accent;
+    }
+}
+
+.standing-page__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: $fullScreen;
 }
 
 .standing__error {
