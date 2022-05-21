@@ -39,6 +39,7 @@ export default function Tournaments() {
       )}
       <section className="tournaments-page__container">
         <div className="tournament-list__container">
+          <h2 className="title--generic">Join a tournament!</h2>
           {availableTournaments.length ? (
             availableTournaments.map((tournament) => <TournamentListItem tournament={tournament} />)
           ) : (
@@ -46,6 +47,7 @@ export default function Tournaments() {
           )}
         </div>
         <div className="tournament-list__container">
+          <h2 className="title--generic">Watch tournament results</h2>
           {privateTournaments.length ? (
             privateTournaments.map((tournament) => <TournamentListItem tournament={tournament} />)
           ) : (
