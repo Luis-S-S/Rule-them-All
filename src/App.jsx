@@ -39,14 +39,12 @@ function App() {
   } = state;
   const [notification, setNotification] = useState(null);
 
-  // console.log(state);
-
   useEffect(() => {
     onAuthStateChanged(auth, async (loginUser) => {
       if (loginUser) {
         const userDoc = await getDocById('users', loginUser.uid);
+        if (userDoc?.username) { dispatch(setUser(userDoc)); }
         dispatch(setLoadingFalse());
-        dispatch(setUser(userDoc));
       } else {
         dispatch(setLoadingFalse());
       }

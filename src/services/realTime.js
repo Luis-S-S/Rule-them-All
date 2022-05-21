@@ -9,7 +9,7 @@ export async function listeningRealTime(channel, setProp, lastInviteChecked) {
     const refListening = ref(realTimeDB, channel);
     onValue(refListening, (snapshot) => {
       data = snapshot.val();
-      if (lastInviteChecked < data.invitationTime) {
+      if (lastInviteChecked < data?.invitationTime) {
         setProp(data);
         setTimeout(() => { setProp(null); }, 10_000);
       }

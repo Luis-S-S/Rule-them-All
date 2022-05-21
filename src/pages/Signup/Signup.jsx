@@ -77,7 +77,7 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && user.username) {
       navigate('/');
     }
   }, [user]);
