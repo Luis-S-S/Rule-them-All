@@ -9,9 +9,10 @@ import TournamentListItem from '../../components/TournamentListItem/TournamentLi
 import './Tournaments.scss';
 
 export default function Tournaments() {
-  const [openTournaments, setOpenTournaments] = useState([]);
   const [availableTournaments, setAvailableTournaments] = useState([]);
+  const [openTournaments, setOpenTournaments] = useState([]);
   const [privateTournaments, setPrivateTournaments] = useState([]);
+  const [tournamentList, setTournamentList] = useState([]);
   const { state } = useContext(Context);
   const { user } = state;
 
@@ -25,6 +26,13 @@ export default function Tournaments() {
       setAvailableTournaments(openTournaments.filter((tournament) => tournament.schedule === 'Scheduled'));
     }
   }, [openTournaments]);
+
+  useEffect(() => {
+    if (privateTournaments.length && openTournaments.length) {
+      const allTournaments = [...openTournaments, ...privateTournaments];
+      setTournamentList(allTournaments.filter((tournament) => tournament.schedule !== 'Scheduled'));
+    }
+  }, [openTournaments, privateTournaments]);
 
   return (
     <main className="tournaments-page">
@@ -48,8 +56,8 @@ export default function Tournaments() {
         </div>
         <div className="tournament-list__container">
           <h2 className="title--generic">Watch tournament results</h2>
-          {privateTournaments.length ? (
-            privateTournaments.map((tournament) => <TournamentListItem tournament={tournament} />)
+          {tournamentList.length ? (
+            tournamentList.map((tournament) => <TournamentListItem tournament={tournament} />)
           ) : (
             <h2 className="title--generic">No tournaments to track</h2>
           )}
