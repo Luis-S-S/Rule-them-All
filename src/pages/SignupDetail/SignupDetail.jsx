@@ -71,7 +71,7 @@ export default function SignupDetail() {
     const updateUser = teammates.length > 0 && form.type === 'Team' ? { ...form, players: teammates } : form;
     try {
       if (!form?.username || !form?.type) { throw new Error('Username and/or user type are required'); }
-      await editDocById('users', user.id, { ...updateUser, lastInviteChecked: Date.now() });
+      await editDocById('users', user?.id, { ...updateUser, lastInviteChecked: Date.now() });
       const userDoc = await getDocById('users', user.id);
       dispatch(setUser(userDoc));
       dispatch(setIntercept({
@@ -91,7 +91,7 @@ export default function SignupDetail() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && user.username) {
       navigate('/');
     }
   }, [user]);
