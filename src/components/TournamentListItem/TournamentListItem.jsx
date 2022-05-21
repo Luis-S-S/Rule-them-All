@@ -13,6 +13,11 @@ export default function TournamentListItem({ tournament }) {
           {' '}
           {tournament?.title}
         </p>
+        <p className="tournament-list-card__title">
+          <span className="bold--generic">Status:</span>
+          {' '}
+          {tournament?.status}
+        </p>
       </div>
       <div className="invite__buttons">
         {tournament?.isPublic && (
@@ -31,6 +36,7 @@ TournamentListItem.propTypes = {
   tournament: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     isPublic: PropTypes.bool.isRequired,
     schedule: PropTypes.string.isRequired,
   }).isRequired,

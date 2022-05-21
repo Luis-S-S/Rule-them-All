@@ -55,6 +55,7 @@
     align-items: stretch;
     display: flex;
     flex-wrap: wrap;
+    gap: 1em;
     justify-content: space-around;
     padding: 1em;
     width: 80%;
@@ -62,6 +63,7 @@
 
 .tournament-list__container {
     align-items: center;
+    box-shadow: $boxShadow--generic;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -70,6 +72,7 @@
     max-width: 600px;
     min-width: 300px;
     overflow-x: hidden;
+    padding: 1em;
     width: 40%;
 }
 
