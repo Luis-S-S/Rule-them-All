@@ -51,7 +51,6 @@ export default function Header() {
         </button>
         <ul className="collapse__menu">
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
           <li><Link to="/tournaments">Tournaments</Link></li>
           {(user && !user?.username) && (<li><Link to="/signup_detail">Complete sign up</Link></li>)}
           {user?.username && (<li><Link to="/profile">Profile</Link></li>)}
