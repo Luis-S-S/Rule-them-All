@@ -38,6 +38,5 @@ TournamentListItem.propTypes = {
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     isPublic: PropTypes.bool.isRequired,
-    schedule: PropTypes.string.isRequired,
   }).isRequired,
 };
