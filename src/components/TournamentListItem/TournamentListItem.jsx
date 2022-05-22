@@ -20,13 +20,12 @@ export default function TournamentListItem({ tournament }) {
         </p>
       </div>
       <div className="invite__buttons">
-        {tournament?.isPublic && (
+        {(tournament?.isPublic && tournament?.status === 'Scheduled') ? (
           <>
             <LinkPrimary path={`/tournament/join/${tournament?.id}`}>Join tournament</LinkPrimary>
             <LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>
           </>
-        )}
-        {!tournament?.isPublic && (<LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>)}
+        ) : (<LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>)}
       </div>
     </div>
   );
@@ -38,6 +37,5 @@ TournamentListItem.propTypes = {
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     isPublic: PropTypes.bool.isRequired,
-    schedule: PropTypes.string.isRequired,
   }).isRequired,
 };

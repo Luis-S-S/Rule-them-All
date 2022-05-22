@@ -27,7 +27,7 @@ export default function JoinTournament() {
       if (tournamentInfo.status !== 'Scheduled') {
         dispatch(setIntercept({
           title: 'Unable to join',
-          message: 'Tournament is already started',
+          message: 'Tournament has already started',
           navigation: '/profile',
           buttonMsg: 'Go to profile',
         }));
