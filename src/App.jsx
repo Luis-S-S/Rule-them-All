@@ -9,7 +9,6 @@ import { auth } from './config/firebase';
 import { getDocById } from './services/firestore';
 import { listeningRealTime } from './services/realTime';
 
-import About from './pages/About/About';
 import Dashboard from './pages/Dashboard/Dashboard';
 import JoinTournament from './pages/JoinTournament/JoinTournament';
 import Home from './pages/Home/Home';
@@ -78,7 +77,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup_detail" element={<SignupDetail />} />

@@ -9,9 +9,10 @@ import TournamentListItem from '../../components/TournamentListItem/TournamentLi
 import './Tournaments.scss';
 
 export default function Tournaments() {
-  const [openTournaments, setOpenTournaments] = useState([]);
   const [availableTournaments, setAvailableTournaments] = useState([]);
+  const [openTournaments, setOpenTournaments] = useState([]);
   const [privateTournaments, setPrivateTournaments] = useState([]);
+  const [tournamentList, setTournamentList] = useState([]);
   const { state } = useContext(Context);
   const { user } = state;
 
@@ -22,9 +23,16 @@ export default function Tournaments() {
 
   useEffect(() => {
     if (openTournaments.length) {
-      setAvailableTournaments(openTournaments.filter((tournament) => tournament.schedule === 'Scheduled'));
+      setAvailableTournaments(openTournaments.filter((tournament) => tournament.status === 'Scheduled'));
     }
   }, [openTournaments]);
+
+  useEffect(() => {
+    if (privateTournaments.length && openTournaments.length) {
+      const allTournaments = [...openTournaments, ...privateTournaments];
+      setTournamentList(allTournaments.filter((tournament) => tournament.status !== 'Scheduled'));
+    }
+  }, [openTournaments, privateTournaments]);
 
   return (
     <main className="tournaments-page">
@@ -41,15 +49,19 @@ export default function Tournaments() {
         <div className="tournament-list__container">
           <h2 className="title--generic">Join a tournament!</h2>
           {availableTournaments.length ? (
-            availableTournaments.map((tournament) => <TournamentListItem tournament={tournament} />)
+            availableTournaments.map((tournament) => (
+              <TournamentListItem key={tournament?.id} tournament={tournament} />
+            ))
           ) : (
             <h2 className="title--generic">No open tournaments</h2>
           )}
         </div>
         <div className="tournament-list__container">
           <h2 className="title--generic">Watch tournament results</h2>
-          {privateTournaments.length ? (
-            privateTournaments.map((tournament) => <TournamentListItem tournament={tournament} />)
+          {tournamentList.length ? (
+            tournamentList.map((tournament) => (
+              <TournamentListItem key={tournament?.id} tournament={tournament} />
+            ))
           ) : (
             <h2 className="title--generic">No tournaments to track</h2>
           )}
