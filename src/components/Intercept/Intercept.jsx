@@ -30,6 +30,7 @@ export default function Intercept(props) {
         <ButtonPrimary
           isSubmit={false}
           onClick={handleRemoveIntercept}
+          dataCy="intercept-button"
         >
           {buttonMsg}
         </ButtonPrimary>

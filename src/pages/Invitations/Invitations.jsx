@@ -85,7 +85,7 @@ export default function Invitations() {
                     )
                     : (
                       <>
-                        <ButtonPrimary isSubmit={false} onClick={handleAcceptInvite}>
+                        <ButtonPrimary isSubmit={false} onClick={handleAcceptInvite} dataCy={`${tournamentInvite?.tournament}-accept`}>
                           Accept
                         </ButtonPrimary>
                         <ButtonPrimary isSubmit={false} onClick={handleRejectInvite}>
