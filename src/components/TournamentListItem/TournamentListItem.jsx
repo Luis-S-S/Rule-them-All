@@ -22,10 +22,10 @@ export default function TournamentListItem({ tournament }) {
       <div className="invite__buttons">
         {(tournament?.isPublic && tournament?.status === 'Scheduled') ? (
           <>
-            <LinkPrimary path={`/tournament/join/${tournament?.id}`}>Join tournament</LinkPrimary>
-            <LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>
+            <LinkPrimary path={`/tournament/join/${tournament?.id}`} dataCy={`${tournament.title}-join`}>Join tournament</LinkPrimary>
+            <LinkPrimary path={`/standing/${tournament?.id}`} dataCy={`${tournament.title}-standings`}>Standings</LinkPrimary>
           </>
-        ) : (<LinkPrimary path={`/standing/${tournament?.id}`}>Standings</LinkPrimary>)}
+        ) : (<LinkPrimary path={`/standing/${tournament?.id}`} dataCy={`${tournament.title}-standings`}>Standings</LinkPrimary>)}
       </div>
     </div>
   );

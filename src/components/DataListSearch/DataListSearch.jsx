@@ -3,13 +3,13 @@ import './DataListSearch.scss';
 
 export default function DataListSearch(props) {
   const {
-    name, labelText, onChange, options, error,
+    name, labelText, onChange, options, error, dataCy,
   } = props;
 
   return (
     <div className="datalist__container">
       <label htmlFor={name}>{labelText}</label>
-      <input className="form__input--generic" list={`list-${name}`} name={name} id={name} onChange={onChange} />
+      <input className="form__input--generic" list={`list-${name}`} name={name} id={name} onChange={onChange} data-cy={dataCy} />
       <datalist id={`list-${name}`}>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>
@@ -27,10 +27,12 @@ DataListSearch.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.string),
   error: PropTypes.string,
+  dataCy: PropTypes.string,
 };
 
 DataListSearch.defaultProps = {
   onChange: () => {},
   options: [],
   error: '',
+  dataCy: '',
 };

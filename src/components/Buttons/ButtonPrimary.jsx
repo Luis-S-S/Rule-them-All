@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import './ButtonPrimary.scss';
 
 export default function ButtonPrimary({
-  children, onClick, className, isSubmit, name,
+  children, onClick, className, isSubmit, name, dataCy,
 }) {
   return (
     <button
@@ -10,6 +10,7 @@ export default function ButtonPrimary({
       type={isSubmit ? 'submit' : 'button'}
       onClick={onClick}
       name={name}
+      data-cy={dataCy}
     >
       { children }
     </button>
@@ -22,10 +23,12 @@ ButtonPrimary.propTypes = {
   className: PropTypes.string,
   isSubmit: PropTypes.bool.isRequired,
   name: PropTypes.string,
+  dataCy: PropTypes.string,
 };
 
 ButtonPrimary.defaultProps = {
   onClick: () => {},
   className: '',
   name: '',
+  dataCy: '',
 };

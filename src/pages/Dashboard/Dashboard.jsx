@@ -36,19 +36,23 @@ export default function Dashboard() {
 
   const getPlayersNames = async () => {
     const promises = tournament?.players.map((player) => getDocById('users', player));
-    const promisesResponses = await Promise.all(promises);
-    const names = promisesResponses.map((response) => response.username);
-    const namesAndId = promisesResponses
-      .map((response) => ({ username: response.username, id: response.id }));
-    setPlayersNames(names);
-    setPlayerAndIdObj(namesAndId);
+    if (promises && promises.length) {
+      const promisesResponses = await Promise.all(promises);
+      const names = promisesResponses.map((response) => response.username);
+      const namesAndId = promisesResponses
+        .map((response) => ({ username: response.username, id: response.id }));
+      setPlayersNames(names);
+      setPlayerAndIdObj(namesAndId);
+    }
   };
 
   const getProspectivePlayersNames = async () => {
     const promises = tournament?.prospectivePlayers?.map((prospectivePlayer) => getDocById('users', prospectivePlayer));
-    const promisesResponses = await Promise.all(promises);
-    const names = promisesResponses.map((response) => response.username);
-    setProspectivePlayersNames(names);
+    if (promises && promises.length) {
+      const promisesResponses = await Promise.all(promises);
+      const names = promisesResponses.map((response) => response.username);
+      setProspectivePlayersNames(names);
+    }
   };
 
   const onChangeStatus = async (changeObject) => {
@@ -192,7 +196,7 @@ export default function Dashboard() {
               )}
             </div>
             {validation.notFinished && (
-              <ButtonWarning isSubmit={false} onClick={validateOnDeleteTournament}>
+              <ButtonWarning isSubmit={false} onClick={validateOnDeleteTournament} dataCy="delete-button">
                 Delete Tournament
               </ButtonWarning>
             )}

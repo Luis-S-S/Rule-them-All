@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  */
 export default function InputSmall(props) {
   const {
-    type, name, labelText, onChange, error, placeholder, disabled, format,
+    type, name, labelText, onChange, error, placeholder, disabled, format, dataCy,
   } = props;
 
   const style = disabled ? 'form__input--small disabled--generic' : 'form__input--small';
@@ -27,6 +27,7 @@ export default function InputSmall(props) {
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
+        data-cy={dataCy}
       />
       {error && <p className="form__error--generic">{error}</p>}
     </div>
@@ -42,6 +43,7 @@ InputSmall.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   format: PropTypes.string,
+  dataCy: PropTypes.string,
 };
 
 InputSmall.defaultProps = {
@@ -51,4 +53,5 @@ InputSmall.defaultProps = {
   placeholder: '',
   disabled: false,
   format: '',
+  dataCy: '',
 };

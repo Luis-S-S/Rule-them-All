@@ -92,9 +92,9 @@ export default function Login() {
       <div className="login__container">
         <h1 className="login__title">Login</h1>
         <form className="login-form" onSubmit={handlerEmailLogin}>
-          <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} error={emailError} />
-          <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} />
-          <ButtonPrimary isSubmit>Login</ButtonPrimary>
+          <Input type="email" name="email" labelText="Email" onChange={handlerOnChange} error={emailError} dataCy="email" />
+          <Input type="password" name="password" labelText="Password" onChange={handlerOnChange} dataCy="password" />
+          <ButtonPrimary isSubmit dataCy="login-button">Login</ButtonPrimary>
           <button className="forgot-password__button" type="button" onClick={handleForgotPassword}>
             Forgot password?
           </button>

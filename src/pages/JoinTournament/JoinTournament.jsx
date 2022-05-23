@@ -105,6 +105,7 @@ export default function JoinTournament() {
                 <ButtonPrimary
                   isSubmit={false}
                   onClick={() => { validateJoinTournament(tournament); }}
+                  dataCy="join-tournament-button"
                 >
                   Join
                 </ButtonPrimary>
