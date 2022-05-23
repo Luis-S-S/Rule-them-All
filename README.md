@@ -11,9 +11,23 @@ Rule Them All!
 - Ensure that .env file is present in the root directory with appropriate variables
 - Run `npm start`
 
+### Testing
+- Run `npx cypress open` to retrieve the test environment
+- Ensure Cypress Env variables are set correctly
+- Select [app.spec.js](./cypress/integration/app.spec.js) in the test environment to run all available tests
+
 ### Technologies
 - Frontend: [React](https://reactjs.org/)
+  - Sass for styling
+  - Cloudinary for image upload and hosting
 - Backend: [Firebase](https://firebase.google.com/)
+  - Authentication
+  - Database
+  - Realtime Database
+- Deployment
+  - [Vercel](https://vercel.com/)
+- Testing E2E
+  - [Cypress](https://www.cypress.io/)
 
 ### Owner
 - [Luis Alberto Salcedo](https://github.com/Luis-S-S)
