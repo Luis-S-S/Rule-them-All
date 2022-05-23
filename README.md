@@ -26,6 +26,7 @@ Rule Them All!
   - Realtime Database
 - Deployment
   - [Vercel](https://vercel.com/)
+  - Link to website [Rule Them All](https://rulethemall.vercel.app/)
 - Testing E2E
   - [Cypress](https://www.cypress.io/)
 
