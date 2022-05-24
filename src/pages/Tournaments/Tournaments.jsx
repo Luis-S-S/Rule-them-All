@@ -36,13 +36,13 @@ export default function Tournaments() {
 
   return (
     <main className="tournaments-page">
-      <h1 className="page-title--generic">Welcome to the Arena!</h1>
+      <h1 className="page-title--generic tournaments__title">Welcome to the Arena!</h1>
       {user?.username && (
         <div className="tournament-create__container">
           <Link className="tournament__create-link" to="/create_tournament" data-cy="create-button">
             <img className="tournament__create-icon" src="/icons/hammer-icon-white.svg" alt="Create tournament" />
           </Link>
-          <h4>Create a Tournament!</h4>
+          <h4 className="tournaments__title">Create a Tournament!</h4>
         </div>
       )}
       <section className="tournaments-page__container">

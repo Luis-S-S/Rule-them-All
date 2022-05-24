@@ -26,7 +26,8 @@
 .about__section {
     align-items: flex-start;
     background-color: white;
-    box-shadow: 0 0 20px black inset;
+    border-radius: 10px;
+    box-shadow: $boxShadow--inset;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

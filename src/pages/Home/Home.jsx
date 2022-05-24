@@ -85,6 +85,8 @@ export default function Home() {
                 </li>
               </ol>
             </li>
+          </ul>
+          <ul>
             <li>
               Private tournaments
               <ol className="about__list">
