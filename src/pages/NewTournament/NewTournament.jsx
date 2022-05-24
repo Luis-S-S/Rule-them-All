@@ -262,7 +262,7 @@ export default function NewTournament() {
                 </div>
               )
               : (
-                <h4>No players added</h4>
+                <h4 className="new-tournament-title">No players added</h4>
               )}
           </>
         )}
