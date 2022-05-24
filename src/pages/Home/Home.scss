@@ -6,6 +6,7 @@
     flex-direction: column;
     justify-content: flex-start;
     min-height: $fullScreen;
+    background-image: url('../../../public/bg/BG.jpg');
 }
 
 .about__container {
@@ -18,9 +19,14 @@
     padding: 2em;
 }
 
+.about__title {
+    color: white;
+}
+
 .about__section {
     align-items: flex-start;
-    box-shadow: $boxShadow--generic;
+    background-color: white;
+    box-shadow: 0 0 20px black inset;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -31,9 +37,9 @@
 }
 
 .about-section__title {
+    margin: 0;
     text-align: center;
     width: 100%;
-    margin: 0;
 }
 
 .burguer-icon__container {
