@@ -13,6 +13,7 @@
 }
 
 .standing-page {
+    background-image: url('../../../public/bg/BG.jpg');
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -33,13 +34,16 @@
 }
 
 .standing-page__error {
-    display: flex;
     align-items: center;
-    justify-content: center;
+    background-image: url('../../../public/bg/BG4.jpg');
+    background-size: cover;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     min-height: $fullScreen;
 }
 
 .standing__error {
+    color: white;
     animation: blink 0.5s infinite linear;
 }
