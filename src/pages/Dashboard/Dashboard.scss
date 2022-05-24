@@ -53,6 +53,10 @@
     align-items: center;
     justify-content: center;
     min-height: $fullScreen;
+
+    .title-white {
+        color: white;
+    }
 }
 
 @keyframes blink {

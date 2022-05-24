@@ -204,7 +204,7 @@ export default function Dashboard() {
         )
         : (
           <div className="dashboard-page__error">
-            <h1 className="dashboard__error">Not authorized</h1>
+            <h1 className="title-white dashboard__error">Not authorized</h1>
           </div>
         )}
     </main>
