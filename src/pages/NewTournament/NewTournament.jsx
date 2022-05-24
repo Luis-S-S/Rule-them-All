@@ -86,6 +86,7 @@ export default function NewTournament() {
   };
 
   const handleOnSubmit = async () => {
+    if (titleError) { return setTitleError('Title already exists'); }
     if (form?.title) { setTitleError(null); } else { return setTitleError('Title is required'); }
     if (form?.type) { setTypeError(null); } else { return setTypeError('Type is required'); }
     if (form?.scaleSystem) { setScaleError(null); } else { return setScaleError('Select a point system'); }
@@ -162,6 +163,8 @@ export default function NewTournament() {
           onChange={handleOnChange}
           placeholder="Tournament title"
           error={titleError}
+          dataCy="new-tournament-title"
+          className="label-white--generic"
         />
         <Input
           type="text"
@@ -169,6 +172,8 @@ export default function NewTournament() {
           labelText="Game Title"
           onChange={handleOnChange}
           placeholder="Game Title"
+          dataCy="new-tournament-game"
+          className="label-white--generic"
         />
         <Select
           name="type"
@@ -176,24 +181,66 @@ export default function NewTournament() {
           options={availableTournaments}
           onChange={handleOnChange}
           error={typeError}
+          dataCy="new-tournament-type"
+          className="label-white--generic"
         />
-        <Checkbox name="isPublic" labelText="Is an open tournament?" onChecked={handleOnChange} />
+        <Checkbox
+          name="isPublic"
+          labelText="Is an open tournament?"
+          onChecked={handleOnChange}
+          dataCy="new-tournament-public"
+          className="label-white--generic"
+        />
         <Select
           name="scaleSystem"
           labelText="How are you going to keep score?"
           options={['Win/Loss', 'Points']}
           onChange={handleOnChange}
           error={scaleError}
+          dataCy="new-tournament-scale"
+          className="label-white--generic"
         />
         {form?.scaleSystem === 'Points' && (
         <div>
-          <InputSmall type="number" name="win" labelText="Winner Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
-          <InputSmall type="number" name="tie" labelText="Tie Game Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
-          <InputSmall type="number" name="loss" labelText="Loser Points" onChange={handleOnChangePoints} format="inline" error={pointsError} />
+          <InputSmall
+            type="number"
+            name="win"
+            labelText="Winner Points"
+            onChange={handleOnChangePoints}
+            format="inline"
+            error={pointsError}
+            className="label-white--generic"
+          />
+          <InputSmall
+            type="number"
+            name="tie"
+            labelText="Tie Game Points"
+            onChange={handleOnChangePoints}
+            format="inline"
+            error={pointsError}
+            className="label-white--generic"
+          />
+          <InputSmall
+            type="number"
+            name="loss"
+            labelText="Loser Points"
+            onChange={handleOnChangePoints}
+            format="inline"
+            error={pointsError}
+            className="label-white--generic"
+          />
         </div>
         )}
         {form?.isPublic ? (
-          <InputSmall type="number" name="maxPlayers" labelText="Max Players" onChange={handleOnChange} error={maxPlayersError} />
+          <InputSmall
+            type="number"
+            name="maxPlayers"
+            labelText="Max Players"
+            onChange={handleOnChange}
+            error={maxPlayersError}
+            dataCy="new-tournament-max"
+            className="label-white--generic"
+          />
         ) : (
           <>
             <DataListSearch
@@ -202,8 +249,10 @@ export default function NewTournament() {
               onChange={searchOnChangeUsernames}
               options={usernameList}
               error={prospectivePlayersError}
+              dataCy="new-tournament-players"
+              className="label-white--generic"
             />
-            <ButtonPrimary isSubmit onClick={addPlayer}>Add player</ButtonPrimary>
+            <ButtonPrimary isSubmit onClick={addPlayer} dataCy="new-tournament-add-player">Add player</ButtonPrimary>
             {prospectivePlayers.length > 0
               ? (
                 <div className="new-tournament__players">
@@ -213,11 +262,11 @@ export default function NewTournament() {
                 </div>
               )
               : (
-                <h4>No players added</h4>
+                <h4 className="new-tournament-title">No players added</h4>
               )}
           </>
         )}
-        <ButtonPrimary isSubmit={false} onClick={handleOnSubmit}>Create Tournament</ButtonPrimary>
+        <ButtonPrimary isSubmit={false} onClick={handleOnSubmit} dataCy="new-tournament-create">Create Tournament</ButtonPrimary>
       </form>
     </div>
   );

@@ -2,6 +2,7 @@
 
 .new-tournament-page {
     align-items: flex-start;
+    background-image: url('../../../public/bg/BG3.jpg');
     display: flex;
     justify-content: center;
     min-height: $fullScreen;
@@ -16,12 +17,17 @@
 }
 
 .new-tournament__players {
+    background-color: white;
+    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 1);
     box-sizing: border-box;
-    box-shadow: $boxShadow--generic;
     margin: 10px;
-    padding: .75em;
-    width: 100%;
-    overflow-x: hidden;
     max-height: 300px;
+    overflow-x: hidden;
+    padding: .75em;
     scroll-behavior: smooth;
+    width: 100%;
+}
+
+.new-tournament-title {
+    color: white;
 }

@@ -59,12 +59,13 @@ export default function ProfileInfo() {
         placeholder={state.user?.username}
         onChange={handleOnChangeUsername}
         error={usernameErr}
+        dataCy="username"
       />
-      <ButtonPrimary onClick={handleOnSubmitUsername} isSubmit={false}>
+      <ButtonPrimary onClick={handleOnSubmitUsername} isSubmit={false} dataCy="update-button">
         Update username
       </ButtonPrimary>
-      <p>{`Email: ${state.user?.email}`}</p>
-      <p>{`Account type: ${state.user?.type}`}</p>
+      <h3>{`Email: ${state.user?.email}`}</h3>
+      <h3>{`Account type: ${state.user?.type}`}</h3>
     </div>
   );
 }

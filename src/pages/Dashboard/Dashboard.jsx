@@ -36,19 +36,23 @@ export default function Dashboard() {
 
   const getPlayersNames = async () => {
     const promises = tournament?.players.map((player) => getDocById('users', player));
-    const promisesResponses = await Promise.all(promises);
-    const names = promisesResponses.map((response) => response.username);
-    const namesAndId = promisesResponses
-      .map((response) => ({ username: response.username, id: response.id }));
-    setPlayersNames(names);
-    setPlayerAndIdObj(namesAndId);
+    if (promises && promises.length) {
+      const promisesResponses = await Promise.all(promises);
+      const names = promisesResponses.map((response) => response.username);
+      const namesAndId = promisesResponses
+        .map((response) => ({ username: response.username, id: response.id }));
+      setPlayersNames(names);
+      setPlayerAndIdObj(namesAndId);
+    }
   };
 
   const getProspectivePlayersNames = async () => {
     const promises = tournament?.prospectivePlayers?.map((prospectivePlayer) => getDocById('users', prospectivePlayer));
-    const promisesResponses = await Promise.all(promises);
-    const names = promisesResponses.map((response) => response.username);
-    setProspectivePlayersNames(names);
+    if (promises && promises.length) {
+      const promisesResponses = await Promise.all(promises);
+      const names = promisesResponses.map((response) => response.username);
+      setProspectivePlayersNames(names);
+    }
   };
 
   const onChangeStatus = async (changeObject) => {
@@ -140,8 +144,8 @@ export default function Dashboard() {
       {(tournament && (tournament?.admin === user?.id))
         ? (
           <div className="dashboard__content">
-            <h1 className="page-title--generic">{tournament?.title}</h1>
-            <h1 className="title--generic">{tournament?.game}</h1>
+            <h1 className="text-white page-title--generic">{tournament?.title}</h1>
+            <h1 className="text-white title--generic">{tournament?.game}</h1>
             <DashboardStatus
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
@@ -192,7 +196,7 @@ export default function Dashboard() {
               )}
             </div>
             {validation.notFinished && (
-              <ButtonWarning isSubmit={false} onClick={validateOnDeleteTournament}>
+              <ButtonWarning isSubmit={false} onClick={validateOnDeleteTournament} dataCy="delete-button">
                 Delete Tournament
               </ButtonWarning>
             )}
@@ -200,7 +204,7 @@ export default function Dashboard() {
         )
         : (
           <div className="dashboard-page__error">
-            <h1 className="dashboard__error">Not authorized</h1>
+            <h1 className="title-white dashboard__error">Not authorized</h1>
           </div>
         )}
     </main>

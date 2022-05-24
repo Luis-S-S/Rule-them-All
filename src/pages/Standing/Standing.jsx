@@ -32,7 +32,7 @@ export default function Standing() {
     tournament?.status !== 'Scheduled'
       ? (
         <main className="standing-page">
-          <h1 className="page-title--generic">{tournament?.title}</h1>
+          <h1 className="title-white page-title--generic">{tournament?.title}</h1>
           <h1
             className={`title--generic ${tournament?.status === 'Finished' ? 'standing__finished' : 'standing__active'}`}
           >

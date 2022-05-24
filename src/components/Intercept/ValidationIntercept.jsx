@@ -41,7 +41,7 @@ export default function ValidationIntercept(props) {
           <ButtonWarning isSubmit={false} onClick={handleRemoveValidationIntercept}>
             Cancel
           </ButtonWarning>
-          <ButtonSuccess isSubmit={false} onClick={handleExecuteFunction}>
+          <ButtonSuccess isSubmit={false} onClick={handleExecuteFunction} dataCy="validationIntercept-button">
             Continue
           </ButtonSuccess>
         </div>

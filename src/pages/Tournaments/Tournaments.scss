@@ -10,6 +10,7 @@
 }
 
 .tournaments-page {
+    background-image: url('../../../public/bg/BG3.jpg');
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,6 +18,10 @@
     gap: 1em;
     min-height: $fullScreen;
     padding: 1em;
+}
+
+.tournaments__title {
+    color: white;
 }
 
 .tournament-create__container {
@@ -63,7 +68,9 @@
 
 .tournament-list__container {
     align-items: center;
-    box-shadow: $boxShadow--generic;
+    background: white;
+    border-radius: 10px;
+    box-shadow: $boxShadow--inset;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
