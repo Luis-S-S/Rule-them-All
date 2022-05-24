@@ -1,11 +1,12 @@
 @import '../../App.scss';
 
 .dashboard__schedule {
+    background-color: white;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: $boxShadow--generic;
+    box-shadow: $boxShadow--inset;
     padding: 1em;
     width: 30%;
     min-width: 300px;

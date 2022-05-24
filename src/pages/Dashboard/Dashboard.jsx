@@ -144,8 +144,8 @@ export default function Dashboard() {
       {(tournament && (tournament?.admin === user?.id))
         ? (
           <div className="dashboard__content">
-            <h1 className="page-title--generic">{tournament?.title}</h1>
-            <h1 className="title--generic">{tournament?.game}</h1>
+            <h1 className="text-white page-title--generic">{tournament?.title}</h1>
+            <h1 className="text-white title--generic">{tournament?.game}</h1>
             <DashboardStatus
               tournamentData={tournament}
               onChangeStatus={onChangeStatus}
@@ -204,7 +204,7 @@ export default function Dashboard() {
         )
         : (
           <div className="dashboard-page__error">
-            <h1 className="dashboard__error">Not authorized</h1>
+            <h1 className="title-white dashboard__error">Not authorized</h1>
           </div>
         )}
     </main>

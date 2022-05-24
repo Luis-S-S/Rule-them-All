@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  */
 export default function Input(props) {
   const {
-    type, name, labelText, onChange, error, placeholder, disabled, format, dataCy,
+    type, name, labelText, onChange, error, placeholder, disabled, format, dataCy, className,
   } = props;
 
   const style = disabled ? 'form__input--generic disabled--generic' : 'form__input--generic';
@@ -16,7 +16,7 @@ export default function Input(props) {
 
   return (
     <div className={formatting}>
-      <label htmlFor={name}>
+      <label htmlFor={name} className={className}>
         {labelText}
       </label>
       <input
@@ -44,6 +44,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
   dataCy: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -54,4 +55,5 @@ Input.defaultProps = {
   disabled: false,
   format: '',
   dataCy: '',
+  className: '',
 };

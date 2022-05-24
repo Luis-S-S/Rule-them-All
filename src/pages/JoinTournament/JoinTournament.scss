@@ -1,17 +1,20 @@
 @import '../../App.scss'; 
 
 .join-tournament-page {
-    display: flex;
     align-items: center;
+    background-image: url('../../../public/bg/BG2.jpg');
+    background-size: cover;
+    display: flex;
     justify-content: center;
     min-height: $fullScreen;
 }
 
 .join-tournament__container {
     align-items: center;
+    background-color: white;
     border-radius: 10px;
     border: 1px solid $grey;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: $boxShadow--inset;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,8 +24,8 @@
 }
 
 .join-tournament__buttons {
+    align-items: center;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     width: 100%;
 }

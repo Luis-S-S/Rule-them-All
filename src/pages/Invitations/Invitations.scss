@@ -2,11 +2,17 @@
 
 .invitations-page {
     align-items: center;
+    background-image: url('../../../public/bg/BG3.jpg');
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 1em;
+    margin: 0;
     min-height: $fullScreen;
+    padding: 1em;
+}
+
+.invitations-title {
+    color: white;
 }
 
 .tournament-invites__container {
@@ -22,6 +28,7 @@
     align-items: center;
     background: $dominant;
     border-radius: 20px;
+    box-shadow: 0 0 10px white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,12 +50,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 100%;
     margin: 1em 0;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
     .invitations-page {
-        margin: 2.5em 1em;
+        margin: 0;
+        padding: 2.5em 1em;
     }
 }

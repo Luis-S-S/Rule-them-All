@@ -1,14 +1,15 @@
 @import '../../App.scss';
 
 .profile-page__tournaments {
-    box-sizing: border-box;
+    align-items: center;
+    background-image: url('../../../public/bg/BG.jpg');
     border-top: 1px solid $grey;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: .5em;
-    padding: 1em 0;
     min-width: 320px;
+    padding: 1em 0;
 }
 
 .profile-tournaments__container {
@@ -19,9 +20,14 @@
     width: 100%;
 }
 
+.profile-title {
+    color: white;
+}
+
 .profile-tournaments__list {
+    background-color: white;
+    box-shadow: $boxShadow--inset;
     box-sizing: border-box;
-    box-shadow: $boxShadow--generic;
     margin: 1em 0;
     max-width: 400px;
     min-width: 270px;

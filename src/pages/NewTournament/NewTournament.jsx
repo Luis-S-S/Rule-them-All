@@ -164,6 +164,7 @@ export default function NewTournament() {
           placeholder="Tournament title"
           error={titleError}
           dataCy="new-tournament-title"
+          className="label-white--generic"
         />
         <Input
           type="text"
@@ -172,6 +173,7 @@ export default function NewTournament() {
           onChange={handleOnChange}
           placeholder="Game Title"
           dataCy="new-tournament-game"
+          className="label-white--generic"
         />
         <Select
           name="type"
@@ -180,8 +182,15 @@ export default function NewTournament() {
           onChange={handleOnChange}
           error={typeError}
           dataCy="new-tournament-type"
+          className="label-white--generic"
         />
-        <Checkbox name="isPublic" labelText="Is an open tournament?" onChecked={handleOnChange} dataCy="new-tournament-public" />
+        <Checkbox
+          name="isPublic"
+          labelText="Is an open tournament?"
+          onChecked={handleOnChange}
+          dataCy="new-tournament-public"
+          className="label-white--generic"
+        />
         <Select
           name="scaleSystem"
           labelText="How are you going to keep score?"
@@ -189,6 +198,7 @@ export default function NewTournament() {
           onChange={handleOnChange}
           error={scaleError}
           dataCy="new-tournament-scale"
+          className="label-white--generic"
         />
         {form?.scaleSystem === 'Points' && (
         <div>
@@ -199,6 +209,7 @@ export default function NewTournament() {
             onChange={handleOnChangePoints}
             format="inline"
             error={pointsError}
+            className="label-white--generic"
           />
           <InputSmall
             type="number"
@@ -207,6 +218,7 @@ export default function NewTournament() {
             onChange={handleOnChangePoints}
             format="inline"
             error={pointsError}
+            className="label-white--generic"
           />
           <InputSmall
             type="number"
@@ -215,6 +227,7 @@ export default function NewTournament() {
             onChange={handleOnChangePoints}
             format="inline"
             error={pointsError}
+            className="label-white--generic"
           />
         </div>
         )}
@@ -226,6 +239,7 @@ export default function NewTournament() {
             onChange={handleOnChange}
             error={maxPlayersError}
             dataCy="new-tournament-max"
+            className="label-white--generic"
           />
         ) : (
           <>
@@ -236,6 +250,7 @@ export default function NewTournament() {
               options={usernameList}
               error={prospectivePlayersError}
               dataCy="new-tournament-players"
+              className="label-white--generic"
             />
             <ButtonPrimary isSubmit onClick={addPlayer} dataCy="new-tournament-add-player">Add player</ButtonPrimary>
             {prospectivePlayers.length > 0
@@ -247,7 +262,7 @@ export default function NewTournament() {
                 </div>
               )
               : (
-                <h4>No players added</h4>
+                <h4 className="new-tournament-title">No players added</h4>
               )}
           </>
         )}

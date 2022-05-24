@@ -4,7 +4,7 @@ import './Home.scss';
 export default function Home() {
   return (
     <main className="about-page">
-      <h1 className="page-title--generic">Quickstart</h1>
+      <h1 className="page-title--generic about__title">Quickstart</h1>
       <div className="about__container">
         <section className="about__section">
           <h1 className="about-section__title title--generic">How to create tournaments?</h1>
@@ -85,6 +85,8 @@ export default function Home() {
                 </li>
               </ol>
             </li>
+          </ul>
+          <ul>
             <li>
               Private tournaments
               <ol className="about__list">

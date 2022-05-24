@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  */
 export default function InputSmall(props) {
   const {
-    type, name, labelText, onChange, error, placeholder, disabled, format, dataCy,
+    type, name, labelText, onChange, error, placeholder, disabled, format, dataCy, className,
   } = props;
 
   const style = disabled ? 'form__input--small disabled--generic' : 'form__input--small';
@@ -16,7 +16,7 @@ export default function InputSmall(props) {
 
   return (
     <div className={formatting}>
-      <label htmlFor={name}>
+      <label htmlFor={name} className={className}>
         {labelText}
       </label>
       <input
@@ -44,6 +44,7 @@ InputSmall.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
   dataCy: PropTypes.string,
+  className: PropTypes.string,
 };
 
 InputSmall.defaultProps = {
@@ -54,4 +55,5 @@ InputSmall.defaultProps = {
   disabled: false,
   format: '',
   dataCy: '',
+  className: '',
 };

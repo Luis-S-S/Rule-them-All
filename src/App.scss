@@ -28,6 +28,7 @@ $text-font: 'Open Sans', sans-serif;
 // Extra variables
 $fullScreen: calc(100vh - 120px);
 $boxShadow--generic: 0px 0px 10px rgba(0, 0, 0, 0.5);
+$boxShadow--inset: inset 0px 0px 25px rgba(0, 0, 0, 1);
 
 // Root Styles
 * {
@@ -144,6 +145,10 @@ a {
 
 .form__success--generic {
     color: green;
+}
+
+.label-white--generic {
+    color: white;
 }
 
 // icons
