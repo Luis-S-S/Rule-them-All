@@ -64,7 +64,7 @@ export default function Invitations() {
 
   return (
     <main className="invitations-page">
-      <h1 className="page-title--generic">Tournament Invitations</h1>
+      <h1 className="invitations-title page-title--generic">Tournament Invitations</h1>
       <section className="tournament-invites__container">
         {tournamentInvites?.length > 0
           ? (
@@ -97,7 +97,7 @@ export default function Invitations() {
               </div>
             ))
           )
-          : (<h1>Currently you don&apos;t have any invitations</h1>)}
+          : (<h1 className="invitations-title">Currently you don&apos;t have any invitations</h1>)}
       </section>
     </main>
   );

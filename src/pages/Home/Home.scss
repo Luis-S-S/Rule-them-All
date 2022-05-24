@@ -2,21 +2,21 @@
 
 .about-page {
     align-items: center;
+    background-image: url('../../../public/bg/BG.jpg');
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     min-height: $fullScreen;
-    background-image: url('../../../public/bg/BG.jpg');
 }
 
 .about__container {
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
     gap: 1.5em;
-    width: 100%;
+    justify-content: space-around;
     padding: 2em;
+    width: 100%;
 }
 
 .about__title {
@@ -44,14 +44,15 @@
 }
 
 .burguer-icon__container {
-    display: inline-flex;
     background-color: $dominant;
-    padding: 0.25em;
     border-radius: 5px;
+    display: inline-flex;
+    padding: 0.25em;
 
     &:hover {
-        opacity: .9;
         cursor: pointer;
+        opacity: .9;
+        transform: scale(1.1);
     }
 }
 

@@ -24,12 +24,16 @@
         margin: 0;
     }
 
+    .title-white {
+        color: white;
+    }
+
     .standing__active {
-        color: green;
+        color: #03fc30;
     }
 
     .standing__finished {
-        color: $accent;
+        color: #b447fc;
     }
 }
 
